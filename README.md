@@ -166,19 +166,15 @@ npm run lint      # oxlint
 
 ## Deployment
 
-`.github/workflows/deploy.yml` baut bei jedem Push auf den Standard-Branch und
-veröffentlicht auf GitHub Pages. Lint und Typecheck laufen vorher — ein Typfehler bricht
-das Deployment ab, statt eine kaputte Seite auszuliefern.
+`.github/workflows/deploy.yml` baut bei jedem Push auf `main` und veröffentlicht auf
+GitHub Pages. Lint und Typecheck laufen vorher — ein Typfehler bricht das Deployment ab,
+statt eine kaputte Seite auszuliefern. Nur `main` deployt; Feature-Branches lösen
+bewusst kein Deployment aus.
 
-**Einmalige Einrichtung durch den Repo-Besitzer:** Repo → *Settings* → *Pages* →
-*Build and deployment* → *Source* auf **GitHub Actions** stellen. Danach *Actions* →
-*Deploy to GitHub Pages* → *Run workflow*.
-
-Das lässt sich nicht automatisieren: Der Workflow-Token darf die Pages-Site nicht selbst
-anlegen (`Resource not accessible by integration`), auch nicht über
-`actions/configure-pages` mit `enablement: true`. Bis der Schalter gesetzt ist, laufen
-Lint, Typecheck, Build und der Artefakt-Upload sauber durch – nur der `deploy`-Job
-schlägt fehl. Sobald Pages steht, genügt ein Re-Run, ohne Änderung am Code.
+Pages ist im Repo bereits auf *Source: GitHub Actions* gestellt. Für ein neues Repo ist
+das der einzige manuelle Schritt (*Settings* → *Pages*) — er lässt sich nicht
+automatisieren, weil der Workflow-Token die Pages-Site nicht selbst anlegen darf
+(`Resource not accessible by integration`).
 
 **Anderes Hosting:** Die Basis-URL steckt in `vite.config.ts` und lässt sich per
 Umgebungsvariable überschreiben — für Vercel, Netlify oder eine eigene Domain, wo die App

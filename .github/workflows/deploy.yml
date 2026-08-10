@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - claude/language-learning-app-llm-o1jaax
   workflow_dispatch:
 
 # Nur ein Deployment gleichzeitig; laufende Builds werden nicht abgebrochen,
