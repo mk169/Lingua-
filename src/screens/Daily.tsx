@@ -4,6 +4,8 @@ import type { Language } from '../types-view';
 import type { Cadence, ContentItem, ContentType } from '../types';
 import { Bar, Button, Card, Empty, Field, Modal, SectionTitle } from '../ui';
 import { todayISO } from '../lib/date';
+// Eine Quelle für Vorlagen und die Vorschläge aus der Standortbestimmung.
+import { HABIT_TEMPLATES } from '../lib/assessment';
 
 const TYPE_LABEL: Record<ContentType, string> = {
   buch: '📕 Buch',
@@ -13,15 +15,6 @@ const TYPE_LABEL: Record<ContentType, string> = {
   video: '▶ Video',
   serie: '📺 Serie',
 };
-
-const HABIT_TEMPLATES: { title: string; cadence: Cadence; minutes: number }[] = [
-  { title: 'Morgens 10 Min SRS', cadence: 'täglich', minutes: 10 },
-  { title: 'Mittags Podcast hören', cadence: 'täglich', minutes: 15 },
-  { title: 'Abends Shadowing', cadence: 'täglich', minutes: 5 },
-  { title: 'Voice-Note aufnehmen', cadence: '3x/Woche', minutes: 10 },
-  { title: 'Tandem-Gespräch', cadence: 'wöchentlich', minutes: 30 },
-  { title: 'Serie ohne Untertitel', cadence: 'wöchentlich', minutes: 40 },
-];
 
 /** Alltags-Modus (Phase 3): Habits, Inhalte-Bibliothek, Wochenrhythmus. */
 export function Daily({ lang }: { lang: Language }) {

@@ -428,6 +428,12 @@ select {
   background: var(--warn-soft);
 }
 
+/* Hervorgehobene Karte für den Sprint-Meilenstein an Tag 30. */
+.card-accent {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
 .divider {
   height: 1px;
   background: var(--line);

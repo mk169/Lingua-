@@ -10,6 +10,7 @@ import {
 import type {
   AppState,
   Analysis,
+  AssessmentResult,
   Card,
   ChatMessage,
   ChatSession,
@@ -63,6 +64,9 @@ interface Store {
   markExercise: (exerciseId: string, languageId: string, correct: boolean) => void;
   /** Ausgesetzten Leech wieder in die Wiederholung nehmen. */
   restoreCard: (id: string) => void;
+
+  // Standortbestimmung
+  addAssessment: (result: Omit<AssessmentResult, 'id' | 'createdAt'>) => void;
 
   // Reader
   addText: (text: Omit<ReaderText, 'id' | 'createdAt'>) => ReaderText;
@@ -437,6 +441,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           };
           return correct ? bumpLog(next, languageId, { drills: 1 }) : next;
         });
+      },
+
+      addAssessment(result) {
+        update((s) => ({
+          ...s,
+          assessments: [{ ...result, id: uid('as'), createdAt: Date.now() }, ...s.assessments],
+        }));
       },
 
       /** Leech wieder aufnehmen: Ease zurück auf Start, Fälligkeit heute. */

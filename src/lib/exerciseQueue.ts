@@ -30,11 +30,24 @@ function shakiness(p: ExerciseProgress | undefined): number {
   return p.wrong / p.attempts;
 }
 
-/** Streut die Reihenfolge deterministisch – gleicher Tag, gleiche Runde. */
-function seededOrder(id: string, seed: number): number {
-  let h = seed;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
-  return h;
+/**
+ * Streut die Reihenfolge deterministisch – gleicher Tag, gleiche Runde.
+ *
+ * FNV-1a plus Abschlussmischung. Die naheliegende Variante `h = h * 31 + c`
+ * mit `h = seed` als Start taugt hier nicht: Der Seed wirkt darin nur als
+ * konstanter Faktor, benachbarte Tage ergeben also fast dieselbe Reihenfolge.
+ * Hier fließt er in jeden Schritt ein, und der Finalizer sorgt dafür, dass
+ * Seed+1 eine völlig andere Streuung liefert.
+ */
+export function seededOrder(id: string, seed: number): number {
+  let h = (seed ^ 0x9e37_79b9) >>> 0;
+  for (let i = 0; i < id.length; i++) {
+    h = Math.imul(h ^ id.charCodeAt(i), 0x0100_0193) >>> 0;
+  }
+  h ^= h >>> 16;
+  h = Math.imul(h, 0x7feb_352d) >>> 0;
+  h ^= h >>> 15;
+  return h >>> 0;
 }
 
 export interface RoundOptions {

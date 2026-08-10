@@ -133,6 +133,28 @@ export interface ExerciseProgress {
   srs?: Srs;
 }
 
+export type AssessmentArea = 'wortschatz' | 'grammatik' | 'hoerverstehen' | 'produktion';
+
+/**
+ * Ergebnis einer Standortbestimmung.
+ *
+ * Der Test schätzt, er prüft nicht: 20 Fragen aus dem eigenen Deck und dem
+ * Übungskatalog sind keine GER-Einstufung. `level` ist entsprechend eine
+ * Einordnung, kein Zertifikat.
+ */
+export interface AssessmentResult {
+  id: string;
+  languageId: string;
+  date: string;
+  /** Sprint-Tag zum Zeitpunkt des Tests. */
+  day: number;
+  areas: Record<AssessmentArea, { correct: number; total: number }>;
+  totalPct: number;
+  level: string;
+  verdict: string;
+  createdAt: number;
+}
+
 export interface ReaderText {
   id: string;
   languageId: string;
@@ -252,6 +274,8 @@ export interface AppState {
   drills: Drill[];
   /** Fortschritt am Repo-Übungskatalog, keyed by Exercise-ID. */
   exerciseProgress: Record<string, ExerciseProgress>;
+  /** Standortbestimmungen, neueste zuerst. */
+  assessments: AssessmentResult[];
   texts: ReaderText[];
   chats: ChatSession[];
   journal: JournalEntry[];

@@ -7,6 +7,7 @@ export type View =
   | 'writing'
   | 'vocab'
   | 'daily'
+  | 'assessment'
   | 'settings';
 
 export type { Language } from './types';

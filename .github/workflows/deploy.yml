@@ -38,6 +38,12 @@ jobs:
       - name: Übungen prüfen
         run: npm run validate:exercises
 
+      # Lernlogik: Auswertung, Niveau-Einordnung, Habit-Ableitung. Ein Fehler
+      # darin bleibt still – ein falsch gerechneter Score sieht aus wie ein
+      # Ergebnis, deshalb bricht er hier ab statt live zu gehen.
+      - name: Tests
+        run: npm test
+
       # Führt tsc -b und vite build aus – ein Typfehler bricht das Deployment ab.
       - name: Build
         run: npm run build

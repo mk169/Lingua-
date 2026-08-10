@@ -66,6 +66,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   // dazu. Das wird hier erklärt, damit es nicht wie ein Fehler wirkt.
   const backlogged = due.length > backlogLimit(dailyTarget);
   const suspended = suspendedCards(state.cards, lang.id);
+  const lastAssessment = state.assessments.find((a) => a.languageId === lang.id);
   const minutes = log?.minutes ?? 0;
 
   return (
@@ -82,6 +83,26 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
                 {backlogLimit(dailyTarget)} liegt. Aufholen schlägt Anhäufen.
               </p>
             </div>
+          </div>
+        </Card>
+      )}
+
+      {/* Standortbestimmung: ab Tag 28 der Sprint-Abschluss, davor ein
+          unaufdringliches Angebot. Kein Nav-Tab – die Leiste soll schmal bleiben. */}
+      {phase.day >= 28 && lastAssessment?.day !== phase.day && (
+        <Card className="card-accent">
+          <div className="row" style={{ alignItems: 'flex-start' }}>
+            <span style={{ fontSize: 20 }}>◎</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 600 }}>Tag 30 — Standortbestimmung</div>
+              <p className="small muted" style={{ margin: '4px 0 0' }}>
+                Zwanzig Fragen aus deinem Deck und den Übungen, rund zehn Minuten. Danach
+                weißt du, wo du stehst – und welche Gewohnheiten als Nächstes tragen.
+              </p>
+            </div>
+            <Button variant="primary" size="sm" onClick={() => go('assessment')}>
+              Starten
+            </Button>
           </div>
         </Card>
       )}
@@ -162,6 +183,23 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
         <Stat value={learned.length} label="gefestigt" />
         <Stat value={streak} label="Tage Streak" />
       </div>
+
+      {/* Dauerhafter, unaufdringlicher Einstieg – der Test ist jederzeit möglich. */}
+      <Card>
+        <div className="row">
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontWeight: 600 }}>Standortbestimmung</div>
+            <p className="tiny muted" style={{ margin: 0 }}>
+              {lastAssessment
+                ? `Zuletzt an Tag ${lastAssessment.day}: ${lastAssessment.level} · ${lastAssessment.totalPct} % richtig`
+                : 'Jederzeit möglich – zwanzig Fragen aus deinem eigenen Material.'}
+            </p>
+          </div>
+          <Button size="sm" variant="ghost" onClick={() => go('assessment')}>
+            {lastAssessment ? 'Erneut testen' : 'Testen'}
+          </Button>
+        </div>
+      </Card>
 
       <div className="grid-2">
         <div className="stack">

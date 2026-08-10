@@ -600,3 +600,50 @@ Gib die Eigenbezeichnung der Sprache, einen passenden BCP-47-Code für Sprachaus
     maxTokens: 1500,
   });
 }
+
+// ── Standortbestimmung ─────────────────────────────────────────────────────
+
+/**
+ * Formuliert die Auswertung aus. Kür, kein Blocker: Ohne Schlüssel greift
+ * `ruleVerdict()` aus `lib/assessment.ts`, der Test funktioniert vollständig
+ * ohne diesen Aufruf.
+ */
+export async function assessSummary(
+  settings: Settings,
+  lang: Language,
+  input: {
+    day: number;
+    level: string;
+    totalPct: number;
+    areas: { area: string; pct: number; correct: number; total: number }[];
+    /** Aufgaben, die danebengingen – als Beleg für die Einschätzung. */
+    mistakes: { prompt: string; answer: string; given: string }[];
+  },
+): Promise<{ verdict: string }> {
+  const areaLines = input.areas
+    .map((a) => `- ${a.area}: ${a.correct}/${a.total} (${a.pct} %)`)
+    .join('\n');
+  const mistakeLines = input.mistakes
+    .slice(0, 8)
+    .map((m) => `- Aufgabe: ${m.prompt} · richtig: ${m.answer} · geantwortet: ${m.given || '(leer)'}`)
+    .join('\n');
+
+  return callJSON<{ verdict: string }>(settings, {
+    system: `${TUTOR_SYSTEM}
+
+Du wertest eine Standortbestimmung aus. Sei ehrlich und konkret: Der Test hat nur 20 Fragen und ist keine GER-Einstufung – behaupte nichts, was diese Datenlage nicht hergibt. Keine Motivationsfloskeln, keine Ausrufezeichen. Wenn etwas gut läuft, sag es knapp; wenn etwas fehlt, benenne es klar.`,
+    user: `${langContext(lang, settings.nativeLanguage)}
+
+Tag ${input.day} des Lernsprints. Einordnung ${input.level}, insgesamt ${input.totalPct} % richtig.
+
+Ergebnisse je Bereich:
+${areaLines}
+
+${mistakeLines ? `Fehler im Detail:\n${mistakeLines}` : 'Keine Fehler.'}
+
+Schreibe 3–4 Sätze auf Deutsch: Wo steht der Lernende wirklich, welches Muster steckt in den Fehlern (falls eines erkennbar ist), und was ist der nächste sinnvolle Schwerpunkt.`,
+    schema: obj({ verdict: str('3–4 Sätze Auswertung auf Deutsch.') }, ['verdict']),
+    effort: 'medium',
+    maxTokens: 2000,
+  });
+}

@@ -92,9 +92,29 @@ Eingabe per Tastatur oder Mikrofon.
 **Schreiben** (Phase 3) – Tägliches Mini-Tagebuch mit wechselnden Impulsen. Die Korrektur
 zeigt wiederkehrende Fehlermuster statt nur Einzelfehler.
 
+**Standortbestimmung** – Der Test, den der Wochenplan für Tag 30 vorsieht: 20 Fragen, rund
+zehn Minuten, aus dem eigenen Deck und dem Übungskatalog zusammengestellt. Vier Bereiche –
+Wortschatz (Auswahl), Grammatik (getippt), Hörverstehen (nur gehört, Text verdeckt) und
+Produktion (Satz selbst bilden). Läuft **ohne API-Schlüssel**; mit Schlüssel wird die
+Auswertung zusätzlich ausformuliert.
+
+Das Ergebnis ist eine Einordnung (A1 bis A2+), **kein Sprachzertifikat** – 20 Fragen aus dem
+eigenen Material schätzen den Stand, sie prüfen ihn nicht. Die Produktion zählt dabei doppelt:
+Wer Sätze selbst bilden kann, ist weiter als jemand, der nur wiedererkennt.
+
+Der Test **verändert die Wiederholungen nicht**. Er misst, und ein Messinstrument, das die
+gemessene Größe verstellt, taugt nichts. Aufrufbar ist er jederzeit und beliebig oft; ab Tag 28
+rückt er als Sprint-Abschluss ins Dashboard. Jeder Durchlauf wird gespeichert, der Verlauf ist
+sichtbar.
+
 **Alltag** (Phase 3) – Lern-Habits mit Rhythmus und Wochenbilanz, Inhalte-Bibliothek für
 Bücher, Hörbücher, Artikel, Podcasts, Videos und Serien mit Fortschritt, plus die
 Slot-Übersicht über alle Sprachen (eine im Fokus, weitere in Wartung).
+
+Die Habits müssen nicht erraten werden: Aus dem Assessment-Ergebnis leitet die App vor, was
+als Nächstes trägt – schwaches Hörverstehen schlägt täglich Podcast und wöchentlich Serie ohne
+Untertitel vor, schwache Produktion Voice-Notes und Tandem. Per Klick landen sie im
+Alltags-Modus. Sitzt alles über 70 %, kommt eine Erhaltungsroutine statt einer Baustellenliste.
 
 **Zeitbudget** – Die tatsächlich gelernte Zeit wird pro Modul gemessen (nur bei sichtbarem
 Tab) und im Dashboard gegen das Tagesziel gestellt.
@@ -162,6 +182,8 @@ src/
     phase.ts          Phasenlogik, Wochenplan, Modulfreigabe
     llm.ts            Alle Claude-Aufrufe (Prompts + JSON-Schemata)
     speech.ts         Sprachausgabe, Spracherkennung, Ähnlichkeitsmaß
+    assessment.ts     Standortbestimmung: Fragenbau, Auswertung, Habit-Ableitung
+    exerciseQueue.ts  Rundenauswahl für Übungen (fällig, wackelig, gemischt)
     storage.ts        localStorage, Export/Import
     date.ts           Datums-Helfer
   data/seed.ts        Startpakete für Spanisch, Italienisch, Französisch, Polnisch
@@ -188,6 +210,8 @@ npm run dev       # Entwicklungsserver (Basis /)
 npm run build     # Typecheck + Produktionsbuild nach dist/ (Basis /Lingua-/)
 npm run preview   # dist/ lokal ausliefern, wie GitHub Pages unter /Lingua-/
 npm run lint      # oxlint
+
+npm test          # Unit-Tests der Lernlogik (vitest)
 
 npm run validate:exercises   # Qualitätstor für den Übungskatalog
 npm run generate:exercises   # neue Übungen per Claude erzeugen (braucht Schlüssel)
@@ -249,7 +273,7 @@ oder mit einem Lauf des Generators.
 ## Deployment
 
 `.github/workflows/deploy.yml` baut bei jedem Push auf `main` und veröffentlicht auf
-GitHub Pages. Lint und Typecheck laufen vorher — ein Typfehler bricht das Deployment ab,
+GitHub Pages. Lint, Typecheck, Unit-Tests und der Übungsvalidator laufen vorher — ein Typfehler bricht das Deployment ab,
 statt eine kaputte Seite auszuliefern. Nur `main` deployt; Feature-Branches lösen
 bewusst kein Deployment aus.
 

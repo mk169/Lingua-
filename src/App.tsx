@@ -11,6 +11,7 @@ import { Conversation } from './screens/Conversation';
 import { Writing } from './screens/Writing';
 import { Vocab } from './screens/Vocab';
 import { Daily } from './screens/Daily';
+import { Assessment } from './screens/Assessment';
 import { Settings } from './screens/Settings';
 import { getPhase } from './lib/phase';
 import { dueCards } from './lib/sm2';
@@ -120,6 +121,7 @@ function Workspace() {
         {view === 'chat' && <Conversation lang={lang} />}
         {view === 'writing' && <Writing lang={lang} />}
         {view === 'daily' && <Daily lang={lang} />}
+        {view === 'assessment' && <Assessment lang={lang} go={setView} />}
         {view === 'settings' && <Settings lang={lang} />}
       </main>
     </div>
