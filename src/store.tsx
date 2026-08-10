@@ -59,6 +59,8 @@ interface Store {
   updatePattern: (id: string, patch: Partial<GrammarPattern>) => void;
   addDrills: (languageId: string, patternId: string, drills: GeneratedDrill[]) => Drill[];
   solveDrill: (id: string) => void;
+  /** Ergebnis einer Katalog-Übung festhalten (die Übung selbst bleibt im Repo). */
+  markExercise: (exerciseId: string, languageId: string, solved: boolean) => void;
 
   // Reader
   addText: (text: Omit<ReaderText, 'id' | 'createdAt'>) => ReaderText;
@@ -241,6 +243,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             ? pack.patterns.map((p) => ({
                 id: uid('pat'),
                 languageId: lang.id,
+                slug: p.slug,
                 title: p.title,
                 formula: p.formula,
                 explanation: p.explanation,
@@ -401,6 +404,26 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         }));
         update((s) => ({ ...s, drills: [...s.drills, ...created] }));
         return created;
+      },
+
+      markExercise(exerciseId, languageId, solved) {
+        update((s) => {
+          const prev = s.exerciseProgress[exerciseId];
+          const next = {
+            ...s,
+            exerciseProgress: {
+              ...s.exerciseProgress,
+              [exerciseId]: {
+                // Einmal gelöst bleibt gelöst – ein späterer Fehlversuch
+                // setzt den Fortschritt nicht zurück.
+                solved: prev?.solved || solved,
+                attempts: (prev?.attempts ?? 0) + 1,
+                lastAt: Date.now(),
+              },
+            },
+          };
+          return solved && !prev?.solved ? bumpLog(next, languageId, { drills: 1 }) : next;
+        });
       },
 
       solveDrill(id) {

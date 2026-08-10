@@ -56,6 +56,13 @@ export interface Card {
 export interface GrammarPattern {
   id: string;
   languageId: string;
+  /**
+   * Stabiler Bezeichner aus dem Startpaket, z.B. "it-negazione-non".
+   * Übungen im Repo referenzieren Muster darüber – die `id` entsteht erst zur
+   * Laufzeit und ist bei jedem Nutzer eine andere. Per LLM erzeugte Muster
+   * haben keinen Slug, weil es zu ihnen keinen Repo-Inhalt gibt.
+   */
+  slug?: string;
   title: string;
   formula: string; // z.B. "Subjekt + Verb + Objekt"
   explanation: string;
@@ -76,6 +83,38 @@ export interface Drill {
   answer: string;
   hint?: string;
   solvedAt: number | null;
+}
+
+/** Kategorien, in die der Übungskatalog je Muster geteilt ist. */
+export type ExerciseKind = 'satz' | 'konstruktion' | 'verstaendnis';
+
+export type ExerciseType = DrillType | 'choice' | 'translate';
+
+/**
+ * Eine Übung aus dem Repo-Katalog (`src/data/exercises/*`).
+ * Anders als `Drill` liegt sie nicht im localStorage, sondern wird mit der App
+ * ausgeliefert und erreicht damit jeden Nutzer – auch ohne API-Schlüssel.
+ */
+export interface Exercise {
+  /** Stabil und im Diff lesbar, z.B. "it.negazione-non.konstruktion.001". */
+  id: string;
+  patternSlug: string;
+  kind: ExerciseKind;
+  type: ExerciseType;
+  prompt: string;
+  answer: string;
+  /** Nur bei `choice`: die Auswahlmöglichkeiten, inklusive der richtigen. */
+  options?: string[];
+  hint?: string;
+  /** Deutsche Entsprechung, wird im Feedback gezeigt. */
+  translation?: string;
+}
+
+/** Nur das Ergebnis wird gespeichert, nicht die Übung selbst. */
+export interface ExerciseProgress {
+  solved: boolean;
+  attempts: number;
+  lastAt: number;
 }
 
 export interface ReaderText {
@@ -185,6 +224,8 @@ export interface AppState {
   cards: Card[];
   patterns: GrammarPattern[];
   drills: Drill[];
+  /** Fortschritt am Repo-Übungskatalog, keyed by Exercise-ID. */
+  exerciseProgress: Record<string, ExerciseProgress>;
   texts: ReaderText[];
   chats: ChatSession[];
   journal: JournalEntry[];

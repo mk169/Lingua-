@@ -16,6 +16,8 @@ const ITALIAN_WORDS: SeedWord[] = ITALIAN_1000.map(
 );
 
 export interface SeedPattern {
+  /** Stabiler Bezeichner, auf den der Übungskatalog im Repo verweist. */
+  slug?: string;
   title: string;
   formula: string;
   explanation: string;
@@ -152,6 +154,7 @@ const italian: SeedLanguage = {
   words: ITALIAN_WORDS,
   patterns: [
     {
+      slug: 'it-svo',
       title: 'Aussagesatz: Subjekt + Verb + Objekt',
       formula: '(Subjekt) + Verb + Objekt',
       explanation: 'Das Subjektpronomen entfällt meist, die Verbendung trägt die Information.',
@@ -162,6 +165,7 @@ const italian: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'it-negazione-non',
       title: 'Verneinung mit "non"',
       formula: '(Subjekt) + non + Verb',
       explanation: '"non" steht direkt vor dem Verb. Doppelte Verneinung ist korrekt: "Non ho niente."',
@@ -172,6 +176,7 @@ const italian: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'it-domanda-intonazione',
       title: 'Frage durch Intonation',
       formula: 'Verb + ... ?',
       explanation: 'Die Wortstellung bleibt gleich, nur die Stimme geht am Satzende nach oben.',
@@ -182,6 +187,7 @@ const italian: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'it-vorrei-potrebbe',
       title: 'Höfliche Bitte: "vorrei" / "potrebbe…?"',
       formula: 'vorrei + Infinitiv · potrebbe + Infinitiv?',
       explanation: 'Der Standardbaustein für höfliche Wünsche – Restaurant, Hotel, Geschäft.',

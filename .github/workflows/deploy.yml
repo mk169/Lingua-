@@ -33,6 +33,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      # Der Übungskatalog geht an alle Besucher – eine Übung mit falscher oder
+      # fehlender Lösung würde mitgelernt. Kaputtes bricht hier ab, nicht live.
+      - name: Übungen prüfen
+        run: npm run validate:exercises
+
       # Führt tsc -b und vite build aus – ein Typfehler bricht das Deployment ab.
       - name: Build
         run: npm run build

@@ -1,26 +1,54 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useStore } from '../store';
 import type { Language } from '../types-view';
-import type { GrammarPattern } from '../types';
+import type { Drill, Exercise, ExerciseKind, GrammarPattern } from '../types';
 import { Button, Card, Empty, SectionTitle, useAsyncAction } from '../ui';
 import { getPhase } from '../lib/phase';
 import { generateDrills, generatePatterns } from '../lib/llm';
 import { speak } from '../lib/speech';
-import { similarity } from '../lib/speech';
+import { loadExercises } from '../data/exercises';
+import { ExerciseSession } from '../components/ExerciseSession';
 
-const TYPE_LABEL: Record<string, string> = {
-  cloze: 'Lücke füllen',
-  transform: 'Umformen',
-  order: 'Satz ordnen',
-  build: 'Satz bilden',
-};
+const KINDS: { kind: ExerciseKind; label: string; hint: string }[] = [
+  { kind: 'satz', label: 'Beispielsätze', hint: 'Deutscher Satz → Zielsprache' },
+  { kind: 'konstruktion', label: 'Konstruktion', hint: 'Lücken, Umformen, Ordnen' },
+  { kind: 'verstaendnis', label: 'Verständnis', hint: 'Lesen und erkennen' },
+];
+
+/** Persönlich erzeugte Drills laufen in derselben Session mit. */
+const DRILL_PREFIX = 'drill:';
+
+function drillToExercise(d: Drill, slug: string): Exercise {
+  return {
+    id: `${DRILL_PREFIX}${d.id}`,
+    patternSlug: slug,
+    kind: 'konstruktion',
+    type: d.type,
+    prompt: d.prompt,
+    answer: d.answer,
+    hint: d.hint,
+  };
+}
 
 /** Skeleton-Drills: Kerngrammatik in Minimalmustern, interaktiv geübt. */
 export function Drills({ lang }: { lang: Language }) {
-  const { state, addPatterns, addDrills, updatePattern, solveDrill } = useStore();
+  const { state, addPatterns, addDrills, updatePattern, solveDrill, markExercise } = useStore();
   const { busy, run } = useAsyncAction();
   const phase = getPhase(lang);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [catalog, setCatalog] = useState<Exercise[]>([]);
+  const [session, setSession] = useState<{ patternId: string; kind: ExerciseKind } | null>(null);
+
+  // Der Katalog kommt erst hier dazu, nicht im Hauptbundle.
+  useEffect(() => {
+    let alive = true;
+    loadExercises(lang.name).then((list) => {
+      if (alive) setCatalog(list);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [lang.name]);
 
   const patterns = useMemo(
     () =>
@@ -30,15 +58,24 @@ export function Drills({ lang }: { lang: Language }) {
     [state.patterns, lang.id],
   );
 
-  const byWeek = useMemo(() => {
-    const map = new Map<number, GrammarPattern[]>();
-    for (const p of patterns) {
-      const list = map.get(p.week) ?? [];
-      list.push(p);
-      map.set(p.week, list);
-    }
-    return map;
-  }, [patterns]);
+  const solvedIds = useMemo(() => {
+    const set = new Set<string>();
+    for (const [id, p] of Object.entries(state.exerciseProgress)) if (p.solved) set.add(id);
+    for (const d of state.drills) if (d.solvedAt) set.add(`${DRILL_PREFIX}${d.id}`);
+    return set;
+  }, [state.exerciseProgress, state.drills]);
+
+  /** Alle Übungen eines Musters, Repo-Katalog plus eigene Drills. */
+  function exercisesFor(pattern: GrammarPattern, kind: ExerciseKind): Exercise[] {
+    const fromRepo = pattern.slug
+      ? catalog.filter((e) => e.patternSlug === pattern.slug && e.kind === kind)
+      : [];
+    if (kind !== 'konstruktion') return fromRepo;
+    const own = state.drills
+      .filter((d) => d.patternId === pattern.id)
+      .map((d) => drillToExercise(d, pattern.slug ?? pattern.id));
+    return [...fromRepo, ...own];
+  }
 
   async function makePatterns(week: 1 | 2 | 3 | 4) {
     const existing = patterns.map((p) => p.title);
@@ -47,6 +84,30 @@ export function Drills({ lang }: { lang: Language }) {
       { success: 'Neue Muster ergänzt.' },
     );
     if (generated) addPatterns(lang.id, generated, week);
+  }
+
+  const active = session ? patterns.find((p) => p.id === session.patternId) : undefined;
+
+  if (active && session) {
+    const list = exercisesFor(active, session.kind);
+    const label = KINDS.find((k) => k.kind === session.kind)?.label ?? session.kind;
+    return (
+      <ExerciseSession
+        key={`${active.id}-${session.kind}`}
+        exercises={list}
+        lang={lang}
+        title={`${active.title} · ${label}`}
+        solvedIds={solvedIds}
+        onSolved={(id, solved) => {
+          if (id.startsWith(DRILL_PREFIX)) {
+            if (solved) solveDrill(id.slice(DRILL_PREFIX.length));
+          } else {
+            markExercise(id, lang.id, solved);
+          }
+        }}
+        onClose={() => setSession(null)}
+      />
+    );
   }
 
   if (patterns.length === 0) {
@@ -64,6 +125,13 @@ export function Drills({ lang }: { lang: Language }) {
         />
       </Card>
     );
+  }
+
+  const byWeek = new Map<number, GrammarPattern[]>();
+  for (const p of patterns) {
+    const list = byWeek.get(p.week) ?? [];
+    list.push(p);
+    byWeek.set(p.week, list);
   }
 
   return (
@@ -95,12 +163,17 @@ export function Drills({ lang }: { lang: Language }) {
                 open={openId === p.id}
                 onToggle={() => setOpenId(openId === p.id ? null : p.id)}
                 onMastered={() => updatePattern(p.id, { mastered: !p.mastered })}
-                drills={state.drills.filter((d) => d.patternId === p.id)}
+                counts={KINDS.map(({ kind }) => {
+                  const all = exercisesFor(p, kind);
+                  return { kind, total: all.length, solved: all.filter((e) => solvedIds.has(e.id)).length };
+                })}
+                onStart={(kind) => setSession({ patternId: p.id, kind })}
                 onGenerateDrills={async () => {
-                  const generated = await run(() => generateDrills(state.settings, lang, p, 6));
+                  const generated = await run(() => generateDrills(state.settings, lang, p, 6), {
+                    success: 'Eigene Übungen ergänzt.',
+                  });
                   if (generated) addDrills(lang.id, p.id, generated);
                 }}
-                onSolve={solveDrill}
                 busy={busy}
               />
             ))}
@@ -117,9 +190,9 @@ function PatternCard({
   open,
   onToggle,
   onMastered,
-  drills,
+  counts,
+  onStart,
   onGenerateDrills,
-  onSolve,
   busy,
 }: {
   pattern: GrammarPattern;
@@ -127,11 +200,14 @@ function PatternCard({
   open: boolean;
   onToggle: () => void;
   onMastered: () => void;
-  drills: { id: string; type: string; prompt: string; answer: string; hint?: string; solvedAt: number | null }[];
+  counts: { kind: ExerciseKind; total: number; solved: number }[];
+  onStart: (kind: ExerciseKind) => void;
   onGenerateDrills: () => Promise<void>;
-  onSolve: (id: string) => void;
   busy: boolean;
 }) {
+  const total = counts.reduce((n, c) => n + c.total, 0);
+  const solved = counts.reduce((n, c) => n + c.solved, 0);
+
   return (
     <Card className="card-pad-0">
       <button
@@ -154,6 +230,11 @@ function PatternCard({
           </div>
           <div className="tiny muted mono">{pattern.formula}</div>
         </div>
+        {total > 0 && (
+          <span className="tiny muted mono">
+            {solved}/{total}
+          </span>
+        )}
         <span className="muted">{open ? '−' : '+'}</span>
       </button>
 
@@ -182,20 +263,44 @@ function PatternCard({
 
           <hr className="divider" />
 
-          {drills.length === 0 ? (
-            <Button size="sm" loading={busy} onClick={onGenerateDrills}>
-              ✦ Übungen erzeugen
-            </Button>
-          ) : (
+          {total === 0 ? (
             <div className="stack">
-              <div className="eyebrow">
-                Übungen · {drills.filter((d) => d.solvedAt).length}/{drills.length} gelöst
-              </div>
-              {drills.map((d) => (
-                <DrillItem key={d.id} drill={d} lang={lang} onSolve={() => onSolve(d.id)} />
-              ))}
+              <p className="tiny muted">
+                Für dieses Muster gibt es noch keine fertigen Übungen. Lass dir eigene erzeugen –
+                die bleiben in diesem Browser.
+              </p>
+              <Button size="sm" loading={busy} onClick={onGenerateDrills}>
+                ✦ Eigene Übungen erzeugen
+              </Button>
+            </div>
+          ) : (
+            <div className="stack" style={{ gap: 8 }}>
+              {KINDS.map(({ kind, label, hint }) => {
+                const c = counts.find((x) => x.kind === kind);
+                if (!c || c.total === 0) return null;
+                const done = c.solved >= c.total;
+                return (
+                  <button
+                    key={kind}
+                    className="btn"
+                    style={{ justifyContent: 'space-between', textAlign: 'left', width: '100%' }}
+                    onClick={() => onStart(kind)}
+                  >
+                    <span>
+                      <span style={{ fontWeight: 600 }}>
+                        {done && <span style={{ color: 'var(--ok)' }}>✓ </span>}
+                        {label}
+                      </span>
+                      <span className="tiny muted"> · {hint}</span>
+                    </span>
+                    <span className="tiny muted mono">
+                      {c.solved}/{c.total}
+                    </span>
+                  </button>
+                );
+              })}
               <Button size="sm" variant="ghost" loading={busy} onClick={onGenerateDrills}>
-                Mehr Übungen
+                ✦ Eigene Übungen ergänzen
               </Button>
             </div>
           )}
@@ -206,94 +311,5 @@ function PatternCard({
         </div>
       )}
     </Card>
-  );
-}
-
-function DrillItem({
-  drill,
-  lang,
-  onSolve,
-}: {
-  drill: { id: string; type: string; prompt: string; answer: string; hint?: string; solvedAt: number | null };
-  lang: Language;
-  onSolve: () => void;
-}) {
-  const [value, setValue] = useState('');
-  const [result, setResult] = useState<'correct' | 'close' | 'wrong' | null>(null);
-  const [showHint, setShowHint] = useState(false);
-
-  function check() {
-    const score = similarity(value, drill.answer);
-    if (score > 0.95) {
-      setResult('correct');
-      if (!drill.solvedAt) onSolve();
-      speak(drill.answer, lang.code);
-    } else if (score > 0.75) {
-      setResult('close');
-    } else {
-      setResult('wrong');
-    }
-  }
-
-  return (
-    <div
-      style={{
-        padding: 12,
-        border: '1px solid var(--line)',
-        borderRadius: 'var(--radius-sm)',
-        background: 'var(--surface-2)',
-      }}
-      className="stack"
-    >
-      <div className="row">
-        <span className="pill tiny">{TYPE_LABEL[drill.type] ?? drill.type}</span>
-        {drill.solvedAt && <span className="tiny" style={{ color: 'var(--ok)' }}>✓ gelöst</span>}
-      </div>
-      <div className="target-text" style={{ fontSize: 15 }}>
-        {drill.prompt}
-      </div>
-      <div className="row">
-        <input
-          className="input"
-          value={value}
-          placeholder="Deine Antwort"
-          onChange={(e) => {
-            setValue(e.target.value);
-            setResult(null);
-          }}
-          onKeyDown={(e) => e.key === 'Enter' && check()}
-        />
-        <Button size="sm" onClick={check} disabled={!value.trim()}>
-          Prüfen
-        </Button>
-      </div>
-
-      {result && (
-        <div className="small fade-in">
-          {result === 'correct' && <span style={{ color: 'var(--ok)' }}>✓ Richtig.</span>}
-          {result === 'close' && (
-            <span style={{ color: 'var(--warn)' }}>
-              Fast – achte auf Details: <span className="fix">{drill.answer}</span>
-            </span>
-          )}
-          {result === 'wrong' && (
-            <span>
-              <span style={{ color: 'var(--danger)' }}>Noch nicht.</span> Lösung:{' '}
-              <span className="fix target-text">{drill.answer}</span>
-            </span>
-          )}
-        </div>
-      )}
-
-      {drill.hint && (
-        <button
-          className="tiny muted"
-          style={{ background: 'none', border: 0, padding: 0, textAlign: 'left', cursor: 'pointer' }}
-          onClick={() => setShowHint(!showHint)}
-        >
-          {showHint ? `Tipp: ${drill.hint}` : 'Tipp anzeigen'}
-        </button>
-      )}
-    </div>
   );
 }

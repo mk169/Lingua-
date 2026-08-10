@@ -165,7 +165,54 @@ npm run dev       # Entwicklungsserver (Basis /)
 npm run build     # Typecheck + Produktionsbuild nach dist/ (Basis /Lingua-/)
 npm run preview   # dist/ lokal ausliefern, wie GitHub Pages unter /Lingua-/
 npm run lint      # oxlint
+
+npm run validate:exercises   # Qualitätstor für den Übungskatalog
+npm run generate:exercises   # neue Übungen per Claude erzeugen (braucht Schlüssel)
 ```
+
+---
+
+## Inhalte erzeugen und veröffentlichen
+
+Es gibt zwei Sorten Inhalt, und der Unterschied entscheidet, wer sie je zu sehen bekommt:
+
+| | erzeugt in | liegt in | erreicht |
+| --- | --- | --- | --- |
+| **Persönliche Inhalte** | der App (Vokabelgenerator, „Eigene Übungen", Reader, Chat) | `localStorage` | nur diesen einen Browser |
+| **Katalog-Inhalte** | dem Generator-Skript | `src/data/exercises/*.ts` | jeden Besucher, auch ohne API-Schlüssel |
+
+Was langfristig zur App gehören soll, muss deshalb den zweiten Weg gehen:
+
+```
+scripts/generate-exercises.ts  →  src/data/exercises/it.generated.ts  →  git diff  →  main  →  Pages
+      (einmalig, mit Schlüssel)           (im Repo, dauerhaft)          (Review)          (alle)
+```
+
+```bash
+ANTHROPIC_API_KEY=sk-... npm run generate:exercises -- \
+  --lang it --pattern it-domanda-intonazione --kind all --count 50
+npm run validate:exercises
+git diff        # jede Lösung lesen, bevor sie live geht
+```
+
+Der Schlüssel bleibt dabei auf der eigenen Maschine — das Skript benutzt den normalen
+Node-Client, nicht den Browser-Client der App.
+
+**Der Diff-Review ist Teil des Verfahrens, keine Formalität.** Eine generierte Übung mit
+falscher Lösung würde jeder Nutzer mitlernen. Deshalb läuft `validate:exercises` auch in
+der CI vor dem Build: fehlende Lösungen, doppelte Aufgaben, Multiple-Choice ohne richtige
+Antwort oder ein Muster-Slug, den es im Startpaket gar nicht gibt, brechen das Deployment ab.
+
+Handgeschriebenes Material gehört in `src/data/exercises/<lang>.ts`, generiertes in die
+danebenliegende `<lang>.generated.ts`, die das Skript überschreibt. Beide werden
+zusammengeführt und über einen dynamischen `import()` erst auf dem Drills-Screen geladen —
+der Katalog landet so in einem eigenen Chunk und nicht im Hauptbundle.
+
+Aktuell im Repo: **600 italienische Übungen**, für jedes der vier Woche-1/2-Muster
+50 Beispielsätze, 50 Konstruktions- und 50 Verständnisübungen.
+
+Muster ohne `slug` in `src/data/seed.ts` — also alle spanischen und französischen — können
+noch keine Katalog-Übungen tragen; sie bekommen erst einen Slug, dann Inhalt.
 
 ---
 

@@ -11,6 +11,7 @@ export function emptyState(): AppState {
     cards: [],
     patterns: [],
     drills: [],
+    exerciseProgress: {},
     texts: [],
     chats: [],
     journal: [],
