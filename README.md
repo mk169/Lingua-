@@ -82,6 +82,15 @@ Wort einsprechen; die Erkennung wird mit dem Zielwort verglichen und als
 
 ---
 
+## Live
+
+**https://mk169.github.io/Lingua-/**
+
+Jeder Besucher trägt seinen eigenen API-Schlüssel ein; es wird keiner mitgeliefert und
+keiner übertragen (siehe Sicherheitshinweis unten).
+
+---
+
 ## Setup
 
 ```bash
@@ -147,8 +156,32 @@ Fortschritt mitnimmt.
 ## Skripte
 
 ```bash
-npm run dev       # Entwicklungsserver
-npm run build     # Typecheck + Produktionsbuild nach dist/
-npm run preview   # dist/ lokal ausliefern
+npm run dev       # Entwicklungsserver (Basis /)
+npm run build     # Typecheck + Produktionsbuild nach dist/ (Basis /Lingua-/)
+npm run preview   # dist/ lokal ausliefern, wie GitHub Pages unter /Lingua-/
 npm run lint      # oxlint
 ```
+
+---
+
+## Deployment
+
+`.github/workflows/deploy.yml` baut bei jedem Push auf den Standard-Branch und
+veröffentlicht auf GitHub Pages. Lint und Typecheck laufen vorher — ein Typfehler bricht
+das Deployment ab, statt eine kaputte Seite auszuliefern.
+
+**Einmalige Einrichtung:** Repo → *Settings* → *Pages* → *Build and deployment* →
+*Source* auf **GitHub Actions** stellen. Ohne das schlägt der `deploy`-Job fehl, weil
+Pages für das Repo noch nicht aktiviert ist. Danach genügt ein erneuter Lauf über
+*Actions* → *Deploy to GitHub Pages* → *Run workflow*.
+
+**Anderes Hosting:** Die Basis-URL steckt in `vite.config.ts` und lässt sich per
+Umgebungsvariable überschreiben — für Vercel, Netlify oder eine eigene Domain, wo die App
+im Wurzelverzeichnis liegt:
+
+```bash
+BASE_PATH=/ npm run build
+```
+
+Es gibt kein clientseitiges Routing, deshalb ist keine SPA-Fallback-Regel nötig: Die App
+läuft vollständig unter einer einzigen URL.
