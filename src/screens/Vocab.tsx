@@ -31,23 +31,28 @@ export function Vocab({ lang }: { lang: Language }) {
   const active = cards.filter((c) => c.unlockedAt !== null);
   const pool = cards.filter((c) => c.unlockedAt === null);
 
+  const searching = query.trim().length > 0;
+
   const visible = useMemo(() => {
-    let list =
-      filter === 'aktiv'
+    // Bei aktiver Suche das gesamte Deck durchsuchen: Wörter im Pool wären
+    // sonst unauffindbar, obwohl sie längst im Deck liegen.
+    let list = searching
+      ? cards
+      : filter === 'aktiv'
         ? active
         : filter === 'pool'
           ? pool
           : filter === 'schwer'
             ? active.filter((c) => c.srs.lapses >= 2 || c.srs.ease < 2.1)
             : cards;
-    if (query.trim()) {
-      const q = query.toLowerCase();
+    if (searching) {
+      const q = query.trim().toLowerCase();
       list = list.filter(
         (c) => c.term.toLowerCase().includes(q) || c.translation.toLowerCase().includes(q),
       );
     }
     return [...list].sort((a, b) => a.order - b.order).slice(0, 300);
-  }, [filter, active, pool, cards, query]);
+  }, [filter, active, pool, cards, query, searching]);
 
   async function generateMore(count: number) {
     const existing = cards.map((c) => c.term);
@@ -170,9 +175,13 @@ export function Vocab({ lang }: { lang: Language }) {
         {(['aktiv', 'pool', 'schwer', 'alle'] as Filter[]).map((f) => (
           <button
             key={f}
-            className={`pill ${filter === f ? 'pill-accent' : ''}`}
-            onClick={() => setFilter(f)}
-            style={{ cursor: 'pointer' }}
+            className={`pill ${!searching && filter === f ? 'pill-accent' : ''}`}
+            onClick={() => {
+              setFilter(f);
+              setQuery('');
+            }}
+            style={{ cursor: 'pointer', opacity: searching ? 0.5 : 1 }}
+            title={searching ? 'Die Suche durchsucht das gesamte Deck' : undefined}
           >
             {f === 'aktiv' && `Aktiv ${active.length}`}
             {f === 'pool' && `Pool ${pool.length}`}
@@ -189,6 +198,12 @@ export function Vocab({ lang }: { lang: Language }) {
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
+
+      {searching && (
+        <div className="tiny muted">
+          {visible.length} Treffer im gesamten Deck ({cards.length} Karten)
+        </div>
+      )}
 
       {visible.length === 0 ? (
         <Card>

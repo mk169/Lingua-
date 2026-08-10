@@ -5,7 +5,15 @@
  * Kompaktformat je Wort: [Wort, Übersetzung, Wortart, Beispielsatz, Übersetzung]
  */
 
+import { ITALIAN_1000, expandPos } from './italian1000';
+
 export type SeedWord = [string, string, string, string, string];
+
+/** Die 1000 Kernvokabeln mit ausgeschriebenen Wortarten. */
+const ITALIAN_WORDS: SeedWord[] = ITALIAN_1000.map(
+  ([term, translation, pos, example, exampleTranslation]) =>
+    [term, translation, expandPos(pos), example, exampleTranslation] as SeedWord,
+);
 
 export interface SeedPattern {
   title: string;
@@ -141,52 +149,7 @@ const italian: SeedLanguage = {
   nativeName: 'Italiano',
   code: 'it-IT',
   emoji: '🇮🇹',
-  words: [
-    ['essere', 'sein', 'Verb', 'Sono di Berlino.', 'Ich bin aus Berlin.'],
-    ['avere', 'haben', 'Verb', 'Ho una domanda.', 'Ich habe eine Frage.'],
-    ['fare', 'machen, tun', 'Verb', 'Cosa fai oggi?', 'Was machst du heute?'],
-    ['andare', 'gehen, fahren', 'Verb', 'Vado al lavoro.', 'Ich gehe zur Arbeit.'],
-    ['potere', 'können', 'Verb', 'Posso pagare con la carta?', 'Kann ich mit Karte zahlen?'],
-    ['volere', 'wollen', 'Verb', 'Vorrei un caffè.', 'Ich hätte gern einen Kaffee.'],
-    ['sapere', 'wissen, können', 'Verb', 'Non so dov’è.', 'Ich weiß nicht, wo es ist.'],
-    ['dire', 'sagen', 'Verb', 'Come si dice?', 'Wie sagt man das?'],
-    ['venire', 'kommen', 'Verb', 'Vieni con me?', 'Kommst du mit mir?'],
-    ['c’è / ci sono', 'es gibt', 'Phrase', 'C’è un bagno qui?', 'Gibt es hier eine Toilette?'],
-    ['io', 'ich', 'Pronomen', 'Io lavoro qui.', 'Ich arbeite hier.'],
-    ['tu', 'du', 'Pronomen', 'Tu parli tedesco?', 'Sprichst du Deutsch?'],
-    ['noi', 'wir', 'Pronomen', 'Noi andiamo insieme.', 'Wir gehen zusammen.'],
-    ['che cosa', 'was', 'Fragewort', 'Che cosa è questo?', 'Was ist das?'],
-    ['chi', 'wer', 'Fragewort', 'Chi è lui?', 'Wer ist er?'],
-    ['dove', 'wo', 'Fragewort', 'Dov’è la stazione?', 'Wo ist der Bahnhof?'],
-    ['quando', 'wann', 'Fragewort', 'Quando comincia?', 'Wann fängt es an?'],
-    ['come', 'wie', 'Fragewort', 'Come stai?', 'Wie geht es dir?'],
-    ['perché', 'warum, weil', 'Fragewort', 'Perché non vieni?', 'Warum kommst du nicht?'],
-    ['quanto', 'wie viel', 'Fragewort', 'Quanto costa?', 'Wie viel kostet das?'],
-    ['non', 'nicht', 'Negation', 'Non capisco.', 'Ich verstehe nicht.'],
-    ['mai', 'nie', 'Adverb', 'Non ci sono mai stato.', 'Ich war noch nie dort.'],
-    ['niente', 'nichts', 'Pronomen', 'Non voglio niente.', 'Ich möchte nichts.'],
-    ['e', 'und', 'Konjunktion', 'Pane e acqua.', 'Brot und Wasser.'],
-    ['ma', 'aber', 'Konjunktion', 'Voglio andare, ma non posso.', 'Ich will gehen, aber ich kann nicht.'],
-    ['anche', 'auch', 'Adverb', 'Anch’io lo voglio.', 'Ich möchte es auch.'],
-    ['in', 'in', 'Präposition', 'Sono in casa.', 'Ich bin zu Hause.'],
-    ['di', 'von, aus', 'Präposition', 'Sono di Monaco.', 'Ich bin aus München.'],
-    ['con', 'mit', 'Präposition', 'Vado con un amico.', 'Ich gehe mit einem Freund.'],
-    ['per', 'für', 'Präposition', 'È per me.', 'Das ist für mich.'],
-    ['adesso', 'jetzt', 'Adverb', 'Adesso non posso.', 'Jetzt kann ich nicht.'],
-    ['oggi', 'heute', 'Adverb', 'Oggi lavoro molto.', 'Heute arbeite ich viel.'],
-    ['domani', 'morgen', 'Adverb', 'Domani ho tempo.', 'Morgen habe ich Zeit.'],
-    ['sempre', 'immer', 'Adverb', 'Arrivo sempre tardi.', 'Ich komme immer zu spät.'],
-    ['molto', 'sehr, viel', 'Adverb', 'È molto buono.', 'Das ist sehr gut.'],
-    ['bene', 'gut', 'Adverb', 'Va tutto bene.', 'Alles ist gut.'],
-    ['il tempo', 'die Zeit, das Wetter', 'Nomen', 'Non ho tempo.', 'Ich habe keine Zeit.'],
-    ['la casa', 'das Haus', 'Nomen', 'La casa è grande.', 'Das Haus ist groß.'],
-    ['l’acqua', 'das Wasser', 'Nomen', 'Un bicchiere d’acqua, per favore.', 'Ein Glas Wasser, bitte.'],
-    ['la gente', 'die Leute', 'Nomen', 'C’è molta gente qui.', 'Hier sind viele Leute.'],
-    ['per favore', 'bitte', 'Phrase', 'Il conto, per favore.', 'Die Rechnung, bitte.'],
-    ['grazie', 'danke', 'Phrase', 'Grazie mille.', 'Vielen Dank.'],
-    ['scusi', 'Entschuldigung (förmlich)', 'Phrase', 'Scusi, può ripetere?', 'Entschuldigung, können Sie wiederholen?'],
-    ['vorrei', 'ich hätte gern', 'Phrase', 'Vorrei prenotare un tavolo.', 'Ich hätte gern einen Tisch reserviert.'],
-  ],
+  words: ITALIAN_WORDS,
   patterns: [
     {
       title: 'Aussagesatz: Subjekt + Verb + Objekt',
