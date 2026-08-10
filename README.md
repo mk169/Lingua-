@@ -67,9 +67,12 @@ Stufe, nicht das ganze Skelett bis B2.
 **Italienisch ist bis A2 vollständig**: 28 Muster vom Aussagesatz über Artikel, Plural,
 Modalverben und Präposition+Artikel bis zu passato prossimo (mit avere und essere),
 imperfetto, Objektpronomen, ne/ci, Imperativ, Komparativ und Relativsatz. Woche 1–2 deckt A1
-ab, Woche 3–4 A2. Spanisch, Französisch und Polnisch haben bisher die vier Woche-1/2-Muster. Dazu Übungen in drei Kategorien pro Muster: Beispielsätze, Konstruktion
-(Lücke füllen, Umformen, Satz ordnen, Satz bilden) und Verständnis – eine Aufgabe pro
-Bildschirm, mit toleranter Antwortprüfung.
+ab, Woche 3–4 A2. Spanisch, Französisch und Polnisch haben bisher die vier
+Woche-1/2-Muster.
+
+Zu jedem Muster gibt es Übungen in drei Kategorien: Beispielsätze, Konstruktion (Lücke
+füllen, Umformen, Satz ordnen, Satz bilden) und Verständnis – eine Aufgabe pro Bildschirm,
+mit toleranter Antwortprüfung.
 
 Übungen laufen durch **dasselbe SM-2 wie Vokabeln**: Grammatik verblasst schneller als
 Wortschatz, weil sie an keinem einzelnen Wort hängt. Gespeichert wird auch, welche
