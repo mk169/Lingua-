@@ -170,10 +170,10 @@ npm run lint      # oxlint
 veröffentlicht auf GitHub Pages. Lint und Typecheck laufen vorher — ein Typfehler bricht
 das Deployment ab, statt eine kaputte Seite auszuliefern.
 
-**Einmalige Einrichtung:** Repo → *Settings* → *Pages* → *Build and deployment* →
-*Source* auf **GitHub Actions** stellen. Ohne das schlägt der `deploy`-Job fehl, weil
-Pages für das Repo noch nicht aktiviert ist. Danach genügt ein erneuter Lauf über
-*Actions* → *Deploy to GitHub Pages* → *Run workflow*.
+Der Schritt `configure-pages` läuft mit `enablement: true` und aktiviert Pages beim ersten
+Lauf selbst. Sollte das an den Repo-Berechtigungen scheitern, einmalig von Hand setzen:
+Repo → *Settings* → *Pages* → *Build and deployment* → *Source* auf **GitHub Actions**;
+danach *Actions* → *Deploy to GitHub Pages* → *Run workflow*.
 
 **Anderes Hosting:** Die Basis-URL steckt in `vite.config.ts` und lässt sich per
 Umgebungsvariable überschreiben — für Vercel, Netlify oder eine eigene Domain, wo die App
