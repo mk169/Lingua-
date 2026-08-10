@@ -13,62 +13,12 @@
  *   verstaendnis  – italienischer Satz oder Mini-Text, Bedeutung erkennen
  */
 
-import type { Exercise, ExerciseType } from '../../types';
+import type { Exercise } from '../../types';
+import { buildFor, type SatzRow, type KonRow, type VerRow } from './build';
 import { GENERATED } from './it.generated';
 
-/** [deutscher Satz, italienische Lösung] */
-type SatzRow = [string, string];
-/** [Typ, Aufgabe, Lösung, Tipp] */
-type KonRow = [Extract<ExerciseType, 'cloze' | 'transform' | 'order' | 'build'>, string, string, string];
-/** [italienischer Text, Frage, richtige Antwort, falsch, falsch] */
-type VerRow = [string, string, string, string, string];
-
-function pad(n: number): string {
-  return String(n).padStart(3, '0');
-}
-
-/**
- * Verteilt die richtige Antwort deterministisch über die Positionen, damit sie
- * nicht immer an erster Stelle steht – gleicher Index ergibt immer dieselbe
- * Reihenfolge, der Katalog bleibt also stabil.
- */
-function rotate<T>(items: T[], by: number): T[] {
-  const n = items.length;
-  const offset = ((by % n) + n) % n;
-  return [...items.slice(offset), ...items.slice(0, offset)];
-}
-
-function build(slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]): Exercise[] {
-  const short = slug.replace(/^it-/, '');
-  return [
-    ...satz.map<Exercise>(([de, it], i) => ({
-      id: `it.${short}.satz.${pad(i + 1)}`,
-      patternSlug: slug,
-      kind: 'satz',
-      type: 'translate',
-      prompt: de,
-      answer: it,
-    })),
-    ...kon.map<Exercise>(([type, prompt, answer, hint], i) => ({
-      id: `it.${short}.konstruktion.${pad(i + 1)}`,
-      patternSlug: slug,
-      kind: 'konstruktion',
-      type,
-      prompt,
-      answer,
-      hint,
-    })),
-    ...ver.map<Exercise>(([text, question, correct, w1, w2], i) => ({
-      id: `it.${short}.verstaendnis.${pad(i + 1)}`,
-      patternSlug: slug,
-      kind: 'verstaendnis',
-      type: 'choice',
-      prompt: `${text}\n\n${question}`,
-      answer: correct,
-      options: rotate([correct, w1, w2], i),
-    })),
-  ];
-}
+const build = (slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]) =>
+  buildFor('it', slug, satz, kon, ver);
 
 // ── it-svo: Subjekt + Verb + Objekt ────────────────────────────────────────
 

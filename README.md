@@ -101,13 +101,13 @@ npm run dev
 Öffne die App, lege eine Sprache an und trage unter **⚙ Einstellungen** einen Anthropic
 API-Schlüssel ein.
 
-Für **Spanisch, Italienisch und Französisch** ist ein Startpaket hinterlegt – Review und
+Für **Spanisch, Italienisch, Französisch und Polnisch** ist ein Startpaket hinterlegt – Review und
 Drills funktionieren damit sofort **ohne** Schlüssel. **Italienisch** enthält den
 vollständigen Kernwortschatz: **1000 Vokabeln nach Frequenz sortiert**
 (`src/data/italian1000.ts`), jede mit Übersetzung, Wortart und Alltagsbeispiel. Das deckt
 das Phase-1-Ziel von 600–1000 Wörtern komplett ab, ohne dass etwas generiert werden muss.
-Spanisch und Französisch starten mit einem kleineren Paket und werden über den
-Wortschatz-Generator aufgefüllt.
+Spanisch, Französisch und Polnisch starten mit einem kleineren Paket (rund 50 Wörter) und
+werden über den Wortschatz-Generator aufgefüllt.
 Ebenso eigene Karten, manueller Import und der Alltags-Modus. Der Schlüssel wird gebraucht
 für: Wortschatz-Generierung, Satzgenerierung, Grammatikmuster und Übungen, Reader-Texte,
 Wort-Nachschlag, Konversation und Korrektur.
@@ -141,7 +141,7 @@ src/
     speech.ts         Sprachausgabe, Spracherkennung, Ähnlichkeitsmaß
     storage.ts        localStorage, Export/Import
     date.ts           Datums-Helfer
-  data/seed.ts        Startpakete für Spanisch, Italienisch, Französisch
+  data/seed.ts        Startpakete für Spanisch, Italienisch, Französisch, Polnisch
   screens/            Ein Modul pro Datei
 ```
 
@@ -208,11 +208,18 @@ danebenliegende `<lang>.generated.ts`, die das Skript überschreibt. Beide werde
 zusammengeführt und über einen dynamischen `import()` erst auf dem Drills-Screen geladen —
 der Katalog landet so in einem eigenen Chunk und nicht im Hauptbundle.
 
-Aktuell im Repo: **600 italienische Übungen**, für jedes der vier Woche-1/2-Muster
-50 Beispielsätze, 50 Konstruktions- und 50 Verständnisübungen.
+Aktuell im Repo: **1500 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
+50 Verständnisübungen pro Muster.
 
-Muster ohne `slug` in `src/data/seed.ts` — also alle spanischen und französischen — können
-noch keine Katalog-Übungen tragen; sie bekommen erst einen Slug, dann Inhalt.
+| Sprache | Muster mit Übungen | Übungen | offen |
+| --- | --- | --- | --- |
+| Italienisch | alle vier | 600 | — |
+| Spanisch | Aussagesatz, Verneinung | 300 | Entscheidungsfrage, ser/estar, höfliche Bitte |
+| Französisch | Aussagesatz, Verneinung | 300 | est-ce que, höfliche Bitte |
+| Polnisch | Aussagesatz, Verneinung | 300 | czy-Frage, höfliche Bitte |
+
+Die offenen Muster haben bereits Slugs — sie brauchen nur noch Inhalt, entweder von Hand
+oder mit einem Lauf des Generators.
 
 ---
 

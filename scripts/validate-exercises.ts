@@ -8,11 +8,17 @@
  */
 
 import { EXERCISES as IT } from '../src/data/exercises/it';
+import { EXERCISES as ES } from '../src/data/exercises/es';
+import { EXERCISES as FR } from '../src/data/exercises/fr';
+import { EXERCISES as PL } from '../src/data/exercises/pl';
 import { SEED_LANGUAGES } from '../src/data/seed';
 import type { Exercise } from '../src/types';
 
 const CATALOGS: { file: string; exercises: Exercise[] }[] = [
   { file: 'src/data/exercises/it.ts', exercises: IT },
+  { file: 'src/data/exercises/es.ts', exercises: ES },
+  { file: 'src/data/exercises/fr.ts', exercises: FR },
+  { file: 'src/data/exercises/pl.ts', exercises: PL },
 ];
 
 const KNOWN_SLUGS = new Set(

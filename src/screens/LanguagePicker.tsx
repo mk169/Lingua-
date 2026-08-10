@@ -100,7 +100,7 @@ export function LanguagePicker() {
 
       {state.languages.length === 0 && (
         <p className="small muted" style={{ marginTop: 18 }}>
-          Für Spanisch, Italienisch und Französisch ist ein Startpaket hinterlegt – du kannst
+          Für Spanisch, Italienisch, Französisch und Polnisch ist ein Startpaket hinterlegt – du kannst
           sofort loslegen. Jede andere Sprache wird beim Anlegen per KI eingerichtet.
         </p>
       )}

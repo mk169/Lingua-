@@ -65,9 +65,14 @@ if (!process.env.ANTHROPIC_API_KEY) {
 
 // ── Sprache und Muster aus dem Startpaket ──────────────────────────────────
 
-const LANG_BY_CODE: Record<string, string> = { it: 'Italienisch', es: 'Spanisch', fr: 'Französisch' };
+const LANG_BY_CODE: Record<string, string> = {
+  it: 'Italienisch',
+  es: 'Spanisch',
+  fr: 'Französisch',
+  pl: 'Polnisch',
+};
 const langName = LANG_BY_CODE[langArg];
-if (!langName) fail(`--lang "${langArg}" kennt das Skript nicht (it, es, fr).`);
+if (!langName) fail(`--lang "${langArg}" kennt das Skript nicht (it, es, fr, pl).`);
 
 const seed = SEED_LANGUAGES.find((l) => l.name === langName);
 if (!seed) fail(`Für ${langName} gibt es kein Startpaket in src/data/seed.ts.`);

@@ -11,6 +11,12 @@ export async function loadExercises(languageName: string): Promise<Exercise[]> {
   switch (languageName) {
     case 'Italienisch':
       return (await import('./it')).EXERCISES;
+    case 'Spanisch':
+      return (await import('./es')).EXERCISES;
+    case 'Französisch':
+      return (await import('./fr')).EXERCISES;
+    case 'Polnisch':
+      return (await import('./pl')).EXERCISES;
     default:
       return [];
   }

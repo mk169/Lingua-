@@ -91,6 +91,7 @@ const spanish: SeedLanguage = {
   ],
   patterns: [
     {
+      slug: 'es-svo',
       title: 'Aussagesatz: Subjekt + Verb + Objekt',
       formula: '(Subjekt) + Verb + Objekt',
       explanation:
@@ -102,6 +103,7 @@ const spanish: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'es-negacion-no',
       title: 'Verneinung mit "no"',
       formula: '(Subjekt) + no + Verb',
       explanation: '"no" steht direkt vor dem konjugierten Verb. Eine doppelte Verneinung ist korrekt: "No tengo nada."',
@@ -112,6 +114,7 @@ const spanish: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'es-pregunta',
       title: 'Entscheidungsfrage',
       formula: '¿ + Verb + Subjekt + ... ?',
       explanation:
@@ -123,6 +126,7 @@ const spanish: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'es-ser-estar',
       title: 'ser vs. estar',
       formula: 'ser = Identität/Eigenschaft · estar = Zustand/Ort',
       explanation:
@@ -134,6 +138,7 @@ const spanish: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'es-podria',
       title: 'Höfliche Bitte: "me gustaría" / "¿podría…?"',
       formula: 'me gustaría + Infinitiv · ¿podría + Infinitiv?',
       explanation: 'Der Standardbaustein für höfliche Wünsche im Alltag – Restaurant, Hotel, Behörde.',
@@ -255,6 +260,7 @@ const french: SeedLanguage = {
   ],
   patterns: [
     {
+      slug: 'fr-svo',
       title: 'Aussagesatz: Subjekt + Verb + Objekt',
       formula: 'Subjekt + Verb + Objekt',
       explanation: 'Anders als im Spanischen oder Italienischen steht das Subjektpronomen im Französischen fast immer.',
@@ -265,6 +271,7 @@ const french: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'fr-negation-ne-pas',
       title: 'Verneinung mit "ne … pas"',
       formula: 'Subjekt + ne + Verb + pas',
       explanation: 'Die Verneinung klammert das konjugierte Verb ein. Gesprochen fällt "ne" oft weg: "Je comprends pas."',
@@ -275,6 +282,7 @@ const french: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'fr-est-ce-que',
       title: 'Frage mit "est-ce que"',
       formula: 'Est-ce que + Subjekt + Verb ?',
       explanation: 'Der sicherste Weg, eine Frage zu bilden: "est-ce que" davor, Satzbau bleibt unverändert.',
@@ -285,6 +293,7 @@ const french: SeedLanguage = {
       week: 1,
     },
     {
+      slug: 'fr-je-voudrais',
       title: 'Höfliche Bitte: "je voudrais" / "pourriez-vous…?"',
       formula: 'je voudrais + Infinitiv · pourriez-vous + Infinitiv ?',
       explanation: 'Der Conditionnel macht die Bitte höflich. Im Alltag der wichtigste Baustein überhaupt.',
@@ -297,7 +306,126 @@ const french: SeedLanguage = {
   ],
 };
 
-export const SEED_LANGUAGES: SeedLanguage[] = [spanish, italian, french];
+const polish: SeedLanguage = {
+  name: 'Polnisch',
+  nativeName: 'Polski',
+  code: 'pl-PL',
+  emoji: '🇵🇱',
+  words: [
+    ['być', 'sein', 'Verb', 'Jestem z Niemiec.', 'Ich bin aus Deutschland.'],
+    ['mieć', 'haben', 'Verb', 'Mam pytanie.', 'Ich habe eine Frage.'],
+    ['robić', 'machen, tun', 'Verb', 'Co robisz dzisiaj?', 'Was machst du heute?'],
+    ['iść', 'gehen', 'Verb', 'Idę do pracy.', 'Ich gehe zur Arbeit.'],
+    ['móc', 'können', 'Verb', 'Czy mogę zapłacić kartą?', 'Kann ich mit Karte zahlen?'],
+    ['chcieć', 'wollen, möchten', 'Verb', 'Chcę kawę.', 'Ich möchte einen Kaffee.'],
+    ['wiedzieć', 'wissen', 'Verb', 'Nie wiem, gdzie to jest.', 'Ich weiß nicht, wo das ist.'],
+    ['mówić', 'sprechen, sagen', 'Verb', 'Mówisz po niemiecku?', 'Sprichst du Deutsch?'],
+    ['rozumieć', 'verstehen', 'Verb', 'Nie rozumiem.', 'Ich verstehe nicht.'],
+    ['jeść', 'essen', 'Verb', 'Jem śniadanie.', 'Ich esse Frühstück.'],
+    ['pić', 'trinken', 'Verb', 'Piję kawę.', 'Ich trinke Kaffee.'],
+    ['mieszkać', 'wohnen', 'Verb', 'Mieszkam w Warszawie.', 'Ich wohne in Warschau.'],
+    ['pracować', 'arbeiten', 'Verb', 'Pracuję w biurze.', 'Ich arbeite im Büro.'],
+    ['kupować', 'kaufen', 'Verb', 'Kupuję chleb.', 'Ich kaufe Brot.'],
+    ['płacić', 'zahlen', 'Verb', 'Chcę zapłacić.', 'Ich möchte zahlen.'],
+    ['czekać', 'warten', 'Verb', 'Czekam na autobus.', 'Ich warte auf den Bus.'],
+    ['szukać', 'suchen', 'Verb', 'Szukam dworca.', 'Ich suche den Bahnhof.'],
+    ['potrzebować', 'brauchen', 'Verb', 'Potrzebuję pomocy.', 'Ich brauche Hilfe.'],
+    ['widzieć', 'sehen', 'Verb', 'Nie widzę nic.', 'Ich sehe nichts.'],
+    ['znać', 'kennen', 'Verb', 'Znam to miejsce.', 'Ich kenne diesen Ort.'],
+    ['tak', 'ja', 'Partikel', 'Tak, oczywiście.', 'Ja, natürlich.'],
+    ['nie', 'nein, nicht', 'Partikel', 'Nie, dziękuję.', 'Nein, danke.'],
+    ['proszę', 'bitte', 'Höflichkeit', 'Poproszę kawę.', 'Einen Kaffee, bitte.'],
+    ['dziękuję', 'danke', 'Höflichkeit', 'Dziękuję bardzo.', 'Vielen Dank.'],
+    ['przepraszam', 'Entschuldigung', 'Höflichkeit', 'Przepraszam, gdzie jest apteka?', 'Entschuldigung, wo ist die Apotheke?'],
+    ['dzień dobry', 'guten Tag', 'Höflichkeit', 'Dzień dobry, jak się masz?', 'Guten Tag, wie geht es dir?'],
+    ['do widzenia', 'auf Wiedersehen', 'Höflichkeit', 'Do widzenia i miłego dnia.', 'Auf Wiedersehen und einen schönen Tag.'],
+    ['gdzie', 'wo', 'Fragewort', 'Gdzie jest dworzec?', 'Wo ist der Bahnhof?'],
+    ['kiedy', 'wann', 'Fragewort', 'Kiedy odjeżdża pociąg?', 'Wann fährt der Zug ab?'],
+    ['ile', 'wie viel', 'Fragewort', 'Ile to kosztuje?', 'Was kostet das?'],
+    ['jak', 'wie', 'Fragewort', 'Jak się masz?', 'Wie geht es dir?'],
+    ['co', 'was', 'Fragewort', 'Co to jest?', 'Was ist das?'],
+    ['kto', 'wer', 'Fragewort', 'Kto to jest?', 'Wer ist das?'],
+    ['dlaczego', 'warum', 'Fragewort', 'Dlaczego nie?', 'Warum nicht?'],
+    ['czy', 'ob (Fragepartikel)', 'Partikel', 'Czy masz czas?', 'Hast du Zeit?'],
+    ['woda', 'Wasser', 'Nomen', 'Poproszę wodę.', 'Wasser, bitte.'],
+    ['kawa', 'Kaffee', 'Nomen', 'Piję kawę bez cukru.', 'Ich trinke Kaffee ohne Zucker.'],
+    ['chleb', 'Brot', 'Nomen', 'Kupuję chleb w sklepie.', 'Ich kaufe Brot im Laden.'],
+    ['dom', 'Haus', 'Nomen', 'Jestem w domu.', 'Ich bin zu Hause.'],
+    ['praca', 'Arbeit', 'Nomen', 'Idę do pracy.', 'Ich gehe zur Arbeit.'],
+    ['czas', 'Zeit', 'Nomen', 'Nie mam czasu.', 'Ich habe keine Zeit.'],
+    ['dzień', 'Tag', 'Nomen', 'Miłego dnia!', 'Schönen Tag!'],
+    ['pociąg', 'Zug', 'Nomen', 'Pociąg odjeżdża o ósmej.', 'Der Zug fährt um acht.'],
+    ['sklep', 'Laden, Geschäft', 'Nomen', 'Sklep jest zamknięty.', 'Der Laden ist geschlossen.'],
+    ['dworzec', 'Bahnhof', 'Nomen', 'Gdzie jest dworzec?', 'Wo ist der Bahnhof?'],
+    ['hotel', 'Hotel', 'Nomen', 'Szukam hotelu.', 'Ich suche ein Hotel.'],
+    ['bilet', 'Fahrkarte', 'Nomen', 'Poproszę bilet do Krakowa.', 'Eine Fahrkarte nach Krakau, bitte.'],
+    ['rachunek', 'Rechnung', 'Nomen', 'Poproszę rachunek.', 'Die Rechnung, bitte.'],
+    ['pokój', 'Zimmer', 'Nomen', 'Szukam pokoju na dwie noce.', 'Ich suche ein Zimmer für zwei Nächte.'],
+    ['jedzenie', 'Essen', 'Nomen', 'Jedzenie jest bardzo dobre.', 'Das Essen ist sehr gut.'],
+    ['dobry', 'gut', 'Adjektiv', 'To jest bardzo dobre.', 'Das ist sehr gut.'],
+    ['duży', 'groß', 'Adjektiv', 'To jest za duże.', 'Das ist zu groß.'],
+    ['mały', 'klein', 'Adjektiv', 'Mam małe pytanie.', 'Ich habe eine kleine Frage.'],
+    ['drogi', 'teuer', 'Adjektiv', 'To jest za drogie.', 'Das ist zu teuer.'],
+    ['teraz', 'jetzt', 'Adverb', 'Nie mogę teraz.', 'Ich kann jetzt nicht.'],
+    ['dzisiaj', 'heute', 'Adverb', 'Dzisiaj pracuję.', 'Heute arbeite ich.'],
+    ['jutro', 'morgen', 'Adverb', 'Do jutra!', 'Bis morgen!'],
+    ['bardzo', 'sehr', 'Adverb', 'Bardzo dziękuję.', 'Vielen Dank.'],
+    ['trochę', 'ein bisschen', 'Adverb', 'Mówię trochę po polsku.', 'Ich spreche ein bisschen Polnisch.'],
+    ['też', 'auch', 'Adverb', 'Ja też.', 'Ich auch.'],
+  ],
+  patterns: [
+    {
+      slug: 'pl-svo',
+      title: 'Aussagesatz: Subjekt + Verb + Objekt',
+      formula: '(Subjekt) + Verb + Objekt im Akkusativ',
+      explanation:
+        'Das Subjektpronomen entfällt meist, die Verbendung zeigt die Person. Das Objekt steht im Akkusativ: "kawa" wird zu "kawę", "woda" zu "wodę".',
+      examples: [
+        ['Mam pytanie.', 'Ich habe eine Frage.'],
+        ['Anna je chleb.', 'Anna isst Brot.'],
+      ],
+      week: 1,
+    },
+    {
+      slug: 'pl-negacja-nie',
+      title: 'Verneinung mit "nie"',
+      formula: '(Subjekt) + nie + Verb + Objekt im Genitiv',
+      explanation:
+        '"nie" steht direkt vor dem Verb. Wichtig: Nach der Verneinung wechselt das Objekt vom Akkusativ in den Genitiv – "Mam czas" wird zu "Nie mam czasu".',
+      examples: [
+        ['Nie rozumiem.', 'Ich verstehe nicht.'],
+        ['Nie mam czasu.', 'Ich habe keine Zeit.'],
+      ],
+      week: 1,
+    },
+    {
+      slug: 'pl-pytanie-czy',
+      title: 'Entscheidungsfrage mit "czy"',
+      formula: 'Czy + Subjekt + Verb ?',
+      explanation:
+        '"czy" vor den Satz stellen, der Rest bleibt unverändert. Umgangssprachlich reicht auch die Intonation allein.',
+      examples: [
+        ['Czy mówisz po niemiecku?', 'Sprichst du Deutsch?'],
+        ['Czy jest wolny stolik?', 'Ist ein Tisch frei?'],
+      ],
+      week: 1,
+    },
+    {
+      slug: 'pl-poprosze',
+      title: 'Höfliche Bitte: "poproszę" / "czy mógłby Pan…?"',
+      formula: 'poproszę + Akkusativ · czy mógłby Pan + Infinitiv?',
+      explanation:
+        '"poproszę" für Bestellungen im Lokal und Laden, "czy mógłby Pan / mogłaby Pani" für Bitten an andere. Die Form richtet sich nach dem Geschlecht des Gegenübers.',
+      examples: [
+        ['Poproszę kawę.', 'Einen Kaffee, bitte.'],
+        ['Czy mógłby Pan mi pomóc?', 'Könnten Sie mir helfen?'],
+      ],
+      week: 2,
+    },
+  ],
+};
+
+export const SEED_LANGUAGES: SeedLanguage[] = [spanish, italian, french, polish];
 
 export function findSeed(name: string): SeedLanguage | undefined {
   return SEED_LANGUAGES.find((s) => s.name.toLowerCase() === name.trim().toLowerCase());
@@ -308,7 +436,6 @@ export const SUGGESTIONS = [
   'Portugiesisch',
   'Niederländisch',
   'Schwedisch',
-  'Polnisch',
   'Türkisch',
   'Japanisch',
   'Koreanisch',
