@@ -1,0 +1,77 @@
+import type { AppState } from '../types';
+import { DEFAULT_MODEL } from './llm';
+
+const KEY = 'lingua.state.v1';
+export const STATE_VERSION = 1;
+
+export function emptyState(): AppState {
+  return {
+    version: STATE_VERSION,
+    languages: [],
+    cards: [],
+    patterns: [],
+    drills: [],
+    texts: [],
+    chats: [],
+    journal: [],
+    content: [],
+    habits: [],
+    logs: [],
+    settings: {
+      apiKey: '',
+      model: DEFAULT_MODEL,
+      effort: 'medium',
+      nativeLanguage: 'Deutsch',
+      ttsEnabled: true,
+    },
+    activeLanguageId: null,
+  };
+}
+
+export function loadState(): AppState {
+  if (typeof localStorage === 'undefined') return emptyState();
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return emptyState();
+    const parsed = JSON.parse(raw) as Partial<AppState>;
+    // Defensiv mergen, damit neue Felder alte Stände nicht brechen.
+    const base = emptyState();
+    return {
+      ...base,
+      ...parsed,
+      settings: { ...base.settings, ...(parsed.settings ?? {}) },
+      version: STATE_VERSION,
+    };
+  } catch {
+    return emptyState();
+  }
+}
+
+let saveTimer: ReturnType<typeof setTimeout> | null = null;
+
+export function saveState(state: AppState): void {
+  if (typeof localStorage === 'undefined') return;
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(state));
+    } catch (err) {
+      console.warn('Speichern fehlgeschlagen', err);
+    }
+  }, 250);
+}
+
+export function exportState(state: AppState): string {
+  return JSON.stringify(state, null, 2);
+}
+
+export function importState(json: string): AppState {
+  const parsed = JSON.parse(json) as Partial<AppState>;
+  const base = emptyState();
+  return {
+    ...base,
+    ...parsed,
+    settings: { ...base.settings, ...(parsed.settings ?? {}) },
+    version: STATE_VERSION,
+  };
+}
