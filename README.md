@@ -175,9 +175,10 @@ das Deployment ab, statt eine kaputte Seite auszuliefern.
 *Deploy to GitHub Pages* → *Run workflow*.
 
 Das lässt sich nicht automatisieren: Der Workflow-Token darf die Pages-Site nicht selbst
-anlegen (`Resource not accessible by integration`), auch nicht mit
-`configure-pages: enablement: true`. Bis der Schalter gesetzt ist, laufen Lint, Typecheck
-und Build sauber durch und das Artefakt wird hochgeladen – nur der `deploy`-Job schlägt fehl.
+anlegen (`Resource not accessible by integration`), auch nicht über
+`actions/configure-pages` mit `enablement: true`. Bis der Schalter gesetzt ist, laufen
+Lint, Typecheck, Build und der Artefakt-Upload sauber durch – nur der `deploy`-Job
+schlägt fehl. Sobald Pages steht, genügt ein Re-Run, ohne Änderung am Code.
 
 **Anderes Hosting:** Die Basis-URL steckt in `vite.config.ts` und lässt sich per
 Umgebungsvariable überschreiben — für Vercel, Netlify oder eine eigene Domain, wo die App
