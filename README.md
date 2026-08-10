@@ -34,16 +34,36 @@ Einstellungen.
 
 **Review (SRS)** – Karteikarten nach SM-2 mit der Intervallleiter 1/3/7/14 Tage, danach
 Easiness-gesteuert. Vier Bewertungsstufen mit Intervallvorschau, Tastatursteuerung
-(Leertaste, 1–4), Abfragerichtung umschaltbar, Sprachausgabe pro Karte. Pro Tag werden
-automatisch 40–50 neue Wörter aus dem Pool freigeschaltet.
+(Leertaste, 1–4), Sprachausgabe pro Karte. Pro Tag werden automatisch 40–50 neue Wörter
+aus dem Pool freigeschaltet.
+
+Drei Mechanismen halten das effizient:
+- **Mitwachsende Abfragerichtung.** Neue Karten werden erkennend abgefragt
+  (Zielsprache → Deutsch), ab der dritten Wiederholung produzierend. Erkennen ist die
+  leichte Richtung, Produzieren überträgt sich aufs Sprechen – am Anfang aber zu schwer.
+  In den Einstellungen auf eine feste Richtung umstellbar.
+- **Rückstandsbremse.** Übersteigt der Stapel fälliger Karten das Dreifache des
+  Tagespensums, kommen keine neuen Wörter dazu, bis aufgeholt ist. Ein unbezwingbar
+  wirkender Berg ist der häufigste Grund, SRS hinzuwerfen.
+- **Leech-Erkennung.** Eine achtmal vergessene Karte wird ausgesetzt statt täglich
+  wiederholt – sie ist nicht schwer, sondern schlecht formuliert. Unter Vokabeln lässt
+  sie sich überarbeiten und wieder aufnehmen.
 
 **Karteikarten + LLM** – Auf jeder Karte erzeugt „Neue Sätze“ frische Alltagsbeispiele mit
 genau diesem Wort, mit wechselnder Zeitform und Satzart, optional auf einen Zielort bezogen.
 
 **Skeleton-Drills** – Kerngrammatik als Minimalmuster (Satzstellung, Fragewörter,
 Verneinung, Tempora, Relativsätze), nach Wochen 1–4 gegliedert, mit Formel, Erklärung und
-Beispielen. Dazu interaktive Übungen in vier Typen: Lücke füllen, Umformen, Satz ordnen,
-Satz bilden – mit toleranter Antwortprüfung.
+Beispielen. Dazu Übungen in drei Kategorien pro Muster: Beispielsätze, Konstruktion
+(Lücke füllen, Umformen, Satz ordnen, Satz bilden) und Verständnis – eine Aufgabe pro
+Bildschirm, mit toleranter Antwortprüfung.
+
+Übungen laufen durch **dasselbe SM-2 wie Vokabeln**: Grammatik verblasst schneller als
+Wortschatz, weil sie an keinem einzelnen Wort hängt. Gespeichert wird auch, welche
+Aufgaben danebengingen – Wackelkandidaten kommen zuerst wieder. Die **gemischte Runde**
+zieht quer über alle Muster statt blockweise; das fühlt sich schwerer an und sitzt danach
+besser. Verständnisübungen lassen sich auf **Hörmodus** stellen: Der Satz wird vorgelesen,
+den Text gibt es erst nach der Antwort.
 
 **Vokabeln** – Deckverwaltung mit Filtern (aktiv, Pool, schwierige Karten). Zwei Wege für
 Nachschub:
@@ -75,6 +95,9 @@ zeigt wiederkehrende Fehlermuster statt nur Einzelfehler.
 **Alltag** (Phase 3) – Lern-Habits mit Rhythmus und Wochenbilanz, Inhalte-Bibliothek für
 Bücher, Hörbücher, Artikel, Podcasts, Videos und Serien mit Fortschritt, plus die
 Slot-Übersicht über alle Sprachen (eine im Fokus, weitere in Wartung).
+
+**Zeitbudget** – Die tatsächlich gelernte Zeit wird pro Modul gemessen (nur bei sichtbarem
+Tab) und im Dashboard gegen das Tagesziel gestellt.
 
 **Sprechen** – Sprachausgabe überall über die Web Speech API. Ab Phase 3 lässt sich ein
 Wort einsprechen; die Erkennung wird mit dem Zielwort verglichen und als

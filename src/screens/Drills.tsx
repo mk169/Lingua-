@@ -8,6 +8,8 @@ import { generateDrills, generatePatterns } from '../lib/llm';
 import { speak } from '../lib/speech';
 import { loadExercises } from '../data/exercises';
 import { ExerciseSession } from '../components/ExerciseSession';
+import { buildRound, countStatus } from '../lib/exerciseQueue';
+import { useTimeOnTask } from '../lib/useTimeOnTask';
 
 const KINDS: { kind: ExerciseKind; label: string; hint: string }[] = [
   { kind: 'satz', label: 'Beispielsätze', hint: 'Deutscher Satz → Zielsprache' },
@@ -37,7 +39,10 @@ export function Drills({ lang }: { lang: Language }) {
   const phase = getPhase(lang);
   const [openId, setOpenId] = useState<string | null>(null);
   const [catalog, setCatalog] = useState<Exercise[]>([]);
-  const [session, setSession] = useState<{ patternId: string; kind: ExerciseKind } | null>(null);
+  const [session, setSession] = useState<{ patternId: string; kind: ExerciseKind } | 'mixed' | null>(
+    null,
+  );
+  useTimeOnTask(lang.id);
 
   // Der Katalog kommt erst hier dazu, nicht im Hauptbundle.
   useEffect(() => {
@@ -86,6 +91,31 @@ export function Drills({ lang }: { lang: Language }) {
     if (generated) addPatterns(lang.id, generated, week);
   }
 
+  const onSolved = (id: string, correct: boolean) => {
+    if (id.startsWith(DRILL_PREFIX)) {
+      if (correct) solveDrill(id.slice(DRILL_PREFIX.length));
+    } else {
+      markExercise(id, lang.id, correct);
+    }
+  };
+
+  if (session === 'mixed') {
+    // Interleaving: Blockweises Üben fühlt sich besser an und überträgt sich
+    // schlechter. Die gemischte Runde zieht quer über alle Muster.
+    const all = patterns.flatMap((p) => KINDS.flatMap(({ kind }) => exercisesFor(p, kind)));
+    return (
+      <ExerciseSession
+        key="mixed"
+        exercises={buildRound(all, state.exerciseProgress, { interleave: true })}
+        lang={lang}
+        title="Gemischte Runde · alle Muster"
+        solvedIds={solvedIds}
+        onSolved={onSolved}
+        onClose={() => setSession(null)}
+      />
+    );
+  }
+
   const active = session ? patterns.find((p) => p.id === session.patternId) : undefined;
 
   if (active && session) {
@@ -94,17 +124,11 @@ export function Drills({ lang }: { lang: Language }) {
     return (
       <ExerciseSession
         key={`${active.id}-${session.kind}`}
-        exercises={list}
+        exercises={buildRound(list, state.exerciseProgress)}
         lang={lang}
         title={`${active.title} · ${label}`}
         solvedIds={solvedIds}
-        onSolved={(id, solved) => {
-          if (id.startsWith(DRILL_PREFIX)) {
-            if (solved) solveDrill(id.slice(DRILL_PREFIX.length));
-          } else {
-            markExercise(id, lang.id, solved);
-          }
-        }}
+        onSolved={onSolved}
         onClose={() => setSession(null)}
       />
     );
@@ -127,6 +151,9 @@ export function Drills({ lang }: { lang: Language }) {
     );
   }
 
+  const allExercises = patterns.flatMap((p) => KINDS.flatMap(({ kind }) => exercisesFor(p, kind)));
+  const overall = countStatus(allExercises, state.exerciseProgress);
+
   const byWeek = new Map<number, GrammarPattern[]>();
   for (const p of patterns) {
     const list = byWeek.get(p.week) ?? [];
@@ -138,13 +165,34 @@ export function Drills({ lang }: { lang: Language }) {
     <div className="stack">
       <SectionTitle
         title="Skeleton-Drills"
-        hint={`${patterns.filter((p) => p.mastered).length} von ${patterns.length} sicher`}
+        hint={
+          overall.due > 0
+            ? `${overall.due} Übungen fällig · ${overall.solved}/${overall.total} gelöst`
+            : `${overall.solved}/${overall.total} gelöst · nichts fällig`
+        }
         action={
           <Button size="sm" loading={busy} onClick={() => makePatterns(phase.week)}>
             + Woche {phase.week}
           </Button>
         }
       />
+
+      {allExercises.length > 0 && (
+        <Card>
+          <div className="row">
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 600 }}>Gemischte Runde</div>
+              <p className="tiny muted" style={{ margin: 0 }}>
+                Quer durch alle Muster – fällige zuerst, dann was noch wackelt. Durcheinander
+                zu üben fühlt sich schwerer an und sitzt danach besser.
+              </p>
+            </div>
+            <Button variant="primary" size="sm" onClick={() => setSession('mixed')}>
+              {overall.due > 0 ? `${overall.due} fällig` : 'Starten'}
+            </Button>
+          </div>
+        </Card>
+      )}
 
       {[1, 2, 3, 4].map((week) => {
         const list = byWeek.get(week);
@@ -163,10 +211,10 @@ export function Drills({ lang }: { lang: Language }) {
                 open={openId === p.id}
                 onToggle={() => setOpenId(openId === p.id ? null : p.id)}
                 onMastered={() => updatePattern(p.id, { mastered: !p.mastered })}
-                counts={KINDS.map(({ kind }) => {
-                  const all = exercisesFor(p, kind);
-                  return { kind, total: all.length, solved: all.filter((e) => solvedIds.has(e.id)).length };
-                })}
+                counts={KINDS.map(({ kind }) => ({
+                  kind,
+                  ...countStatus(exercisesFor(p, kind), state.exerciseProgress),
+                }))}
                 onStart={(kind) => setSession({ patternId: p.id, kind })}
                 onGenerateDrills={async () => {
                   const generated = await run(() => generateDrills(state.settings, lang, p, 6), {
@@ -200,13 +248,14 @@ function PatternCard({
   open: boolean;
   onToggle: () => void;
   onMastered: () => void;
-  counts: { kind: ExerciseKind; total: number; solved: number }[];
+  counts: { kind: ExerciseKind; total: number; solved: number; due: number; fresh: number }[];
   onStart: (kind: ExerciseKind) => void;
   onGenerateDrills: () => Promise<void>;
   busy: boolean;
 }) {
   const total = counts.reduce((n, c) => n + c.total, 0);
   const solved = counts.reduce((n, c) => n + c.solved, 0);
+  const due = counts.reduce((n, c) => n + c.due, 0);
 
   return (
     <Card className="card-pad-0">
@@ -230,6 +279,7 @@ function PatternCard({
           </div>
           <div className="tiny muted mono">{pattern.formula}</div>
         </div>
+        {due > 0 && <span className="pill pill-accent tiny">{due} fällig</span>}
         {total > 0 && (
           <span className="tiny muted mono">
             {solved}/{total}
@@ -294,6 +344,7 @@ function PatternCard({
                       <span className="tiny muted"> · {hint}</span>
                     </span>
                     <span className="tiny muted mono">
+                      {c.due > 0 && <span style={{ color: 'var(--accent)' }}>{c.due} fällig · </span>}
                       {c.solved}/{c.total}
                     </span>
                   </button>

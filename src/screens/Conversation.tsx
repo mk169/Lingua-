@@ -6,6 +6,7 @@ import { Button, Card, Empty, Field, Modal, SectionTitle, useToast } from '../ui
 import { analyzeMessage, streamReply } from '../lib/llm';
 import { listen, speak, sttSupported } from '../lib/speech';
 import { uid } from '../lib/id';
+import { useTimeOnTask } from '../lib/useTimeOnTask';
 
 const SCENARIOS = [
   { title: 'Small Talk', prompt: 'Ein lockeres Gespräch über den Alltag, Hobbys und Pläne.' },
@@ -24,6 +25,7 @@ const SCENARIOS = [
  *   2. Analyse und Korrektur der Nutzernachricht
  */
 export function Conversation({ lang }: { lang: Language }) {
+  useTimeOnTask(lang.id);
   const { state, newChat, addMessage, patchMessage, deleteChat, addCards } = useStore();
   const notify = useToast();
 

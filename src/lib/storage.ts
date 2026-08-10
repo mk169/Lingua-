@@ -24,6 +24,8 @@ export function emptyState(): AppState {
       effort: 'medium',
       nativeLanguage: 'Deutsch',
       ttsEnabled: true,
+      reviewMode: 'adapt',
+      listenMode: false,
     },
     activeLanguageId: null,
   };

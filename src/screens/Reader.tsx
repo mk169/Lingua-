@@ -5,6 +5,7 @@ import type { ReaderText } from '../types';
 import { Button, Card, Empty, Field, Modal, SectionTitle, useAsyncAction, useToast } from '../ui';
 import { generateReaderText, lookupWord, type GeneratedWord } from '../lib/llm';
 import { speak } from '../lib/speech';
+import { useTimeOnTask } from '../lib/useTimeOnTask';
 
 const TOPICS = [
   'Ein Tag in der Stadt',
@@ -19,6 +20,7 @@ const TOPICS = [
 
 /** Reader-Modus: verständlicher Input (i+1), Wörter per Klick ins Deck übernehmen. */
 export function Reader({ lang }: { lang: Language }) {
+  useTimeOnTask(lang.id);
   const { state, addText, deleteText, addCards } = useStore();
   const notify = useToast();
   const { busy, run } = useAsyncAction();

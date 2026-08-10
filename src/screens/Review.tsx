@@ -1,29 +1,44 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStore } from '../store';
 import type { Language, View } from '../types-view';
-import type { Card as CardType } from '../types';
+import type { Card as CardType, ReviewMode } from '../types';
 import { Button, Card, Empty, useAsyncAction, useToast } from '../ui';
 import { dueCards, previewIntervals } from '../lib/sm2';
 import { todayISO } from '../lib/date';
 import { generateSentences } from '../lib/llm';
 import { getPhase } from '../lib/phase';
 import { listen, similarity, speak, sttSupported } from '../lib/speech';
+import { useTimeOnTask } from '../lib/useTimeOnTask';
 
 type Mode = 'recognize' | 'recall';
+
+/**
+ * Welche Richtung diese Karte gerade abgefragt wird.
+ *
+ * Im Modus `adapt` starten neue Karten erkennend (Ziel → Deutsch) und kippen
+ * ab der dritten Wiederholung auf Produktion (Deutsch → Ziel). Erkennen ist
+ * die leichte Richtung mit dem schwächeren Lerneffekt; Produktion ist das,
+ * was sich aufs Sprechen überträgt – aber am Anfang zu schwer.
+ */
+function directionFor(card: CardType, setting: ReviewMode): Mode {
+  if (setting === 'recognize') return 'recognize';
+  if (setting === 'produce') return 'recall';
+  return card.srs.reps >= 2 ? 'recall' : 'recognize';
+}
 
 /**
  * Karteikarten-Review nach SM-2.
  * Ab Phase 3 kann das Wort zusätzlich eingesprochen statt nur gedacht werden.
  */
 export function Review({ lang, go }: { lang: Language; go: (view: View) => void }) {
-  const { state, reviewCard, updateCard } = useStore();
+  const { state, reviewCard, updateCard, updateSettings } = useStore();
+  useTimeOnTask(lang.id);
   const notify = useToast();
   const { busy, run } = useAsyncAction();
   const today = todayISO();
   const phase = getPhase(lang, today);
 
   const [revealed, setRevealed] = useState(false);
-  const [mode, setMode] = useState<Mode>('recognize');
   const [done, setDone] = useState(0);
   const [spoken, setSpoken] = useState('');
   const [recording, setRecording] = useState(false);
@@ -137,6 +152,7 @@ export function Review({ lang, go }: { lang: Language; go: (view: View) => void 
   }
 
   const previews = previewIntervals(card.srs, today);
+  const mode = directionFor(card, state.settings.reviewMode);
   const front = mode === 'recognize' ? card.term : card.translation;
   const back = mode === 'recognize' ? card.translation : card.term;
   const score = spoken ? similarity(spoken, card.term) : 0;
@@ -158,10 +174,23 @@ export function Review({ lang, go }: { lang: Language; go: (view: View) => void 
         <Button
           size="sm"
           variant="ghost"
-          onClick={() => setMode(mode === 'recognize' ? 'recall' : 'recognize')}
-          title="Abfragerichtung wechseln"
+          onClick={() =>
+            updateSettings({
+              reviewMode:
+                state.settings.reviewMode === 'adapt'
+                  ? 'recognize'
+                  : state.settings.reviewMode === 'recognize'
+                    ? 'produce'
+                    : 'adapt',
+            })
+          }
+          title="Abfragerichtung: mitwachsend, nur erkennen oder nur produzieren"
         >
-          {mode === 'recognize' ? `${lang.name} → DE` : `DE → ${lang.name}`}
+          {state.settings.reviewMode === 'adapt'
+            ? `↕ ${mode === 'recognize' ? `${lang.name} → DE` : `DE → ${lang.name}`}`
+            : state.settings.reviewMode === 'recognize'
+              ? `${lang.name} → DE`
+              : `DE → ${lang.name}`}
         </Button>
       </div>
 

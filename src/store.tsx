@@ -24,7 +24,7 @@ import type {
   Settings,
 } from './types';
 import { loadState, saveState } from './lib/storage';
-import { freshSrs, schedule } from './lib/sm2';
+import { LEECH_LIMIT, backlogLimit, dueCards, freshSrs, schedule } from './lib/sm2';
 import { todayISO } from './lib/date';
 import { uid } from './lib/id';
 import type { GeneratedWord, GeneratedPattern, GeneratedDrill } from './lib/llm';
@@ -60,7 +60,9 @@ interface Store {
   addDrills: (languageId: string, patternId: string, drills: GeneratedDrill[]) => Drill[];
   solveDrill: (id: string) => void;
   /** Ergebnis einer Katalog-Übung festhalten (die Übung selbst bleibt im Repo). */
-  markExercise: (exerciseId: string, languageId: string, solved: boolean) => void;
+  markExercise: (exerciseId: string, languageId: string, correct: boolean) => void;
+  /** Ausgesetzten Leech wieder in die Wiederholung nehmen. */
+  restoreCard: (id: string) => void;
 
   // Reader
   addText: (text: Omit<ReaderText, 'id' | 'createdAt'>) => ReaderText;
@@ -333,9 +335,14 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         update((s) => {
           const card = s.cards.find((c) => c.id === id);
           if (!card) return s;
+          const srs = schedule(card.srs, quality, today);
           const next: Card = {
             ...card,
-            srs: schedule(card.srs, quality, today),
+            srs,
+            // Ab LEECH_LIMIT Lapses aussetzen: Diese Karte kostet jeden Tag
+            // Zeit, ohne hängen zu bleiben – sie braucht eine neue Formulierung,
+            // keine weitere Wiederholung.
+            suspended: card.suspended || srs.lapses >= LEECH_LIMIT,
             history: [...card.history, { date: today, quality }].slice(-60),
           };
           const withCard = {
@@ -356,6 +363,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           const lang = s.languages.find((l) => l.id === id);
           if (!lang) return 0;
           const today = todayISO();
+          // Rückstandsbremse: Solange der Stapel zu hoch ist, kommt nichts
+          // Neues dazu. Erst aufholen, dann erweitern.
+          if (dueCards(s.cards, id, today).length > backlogLimit(lang.dailyNewWords)) return 0;
           const unlockedToday = s.cards.filter(
             (c) =>
               c.languageId === id &&
@@ -406,24 +416,43 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         return created;
       },
 
-      markExercise(exerciseId, languageId, solved) {
+      markExercise(exerciseId, languageId, correct) {
         update((s) => {
           const prev = s.exerciseProgress[exerciseId];
+          const today = todayISO();
           const next = {
             ...s,
             exerciseProgress: {
               ...s.exerciseProgress,
               [exerciseId]: {
-                // Einmal gelöst bleibt gelöst – ein späterer Fehlversuch
-                // setzt den Fortschritt nicht zurück.
-                solved: prev?.solved || solved,
+                // Einmal gelöst bleibt gelöst – das ist die Fortschrittsanzeige.
+                // Wann die Aufgabe wiederkommt, entscheidet dagegen das SRS.
+                solved: prev?.solved || correct,
                 attempts: (prev?.attempts ?? 0) + 1,
+                wrong: (prev?.wrong ?? 0) + (correct ? 0 : 1),
                 lastAt: Date.now(),
+                srs: schedule(prev?.srs ?? freshSrs(today), correct ? 4 : 0, today),
               },
             },
           };
-          return solved && !prev?.solved ? bumpLog(next, languageId, { drills: 1 }) : next;
+          return correct ? bumpLog(next, languageId, { drills: 1 }) : next;
         });
+      },
+
+      /** Leech wieder aufnehmen: Ease zurück auf Start, Fälligkeit heute. */
+      restoreCard(id) {
+        update((s) => ({
+          ...s,
+          cards: s.cards.map((c) =>
+            c.id === id
+              ? {
+                  ...c,
+                  suspended: false,
+                  srs: { ...c.srs, ease: 2.5, interval: 0, reps: 0, due: todayISO(), state: 'learning' },
+                }
+              : c,
+          ),
+        }));
       },
 
       solveDrill(id) {

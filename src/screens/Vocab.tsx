@@ -6,12 +6,14 @@ import { Bar, Button, Card, Empty, Field, Modal, SectionTitle, useAsyncAction, u
 import { generateVocab, parseUpload, type GeneratedWord } from '../lib/llm';
 import { speak } from '../lib/speech';
 import { todayISO } from '../lib/date';
+import { useTimeOnTask } from '../lib/useTimeOnTask';
 
-type Filter = 'aktiv' | 'pool' | 'schwer' | 'alle';
+type Filter = 'aktiv' | 'pool' | 'schwer' | 'ausgesetzt' | 'alle';
 
 /** Vokabelverwaltung: Deck ansehen, eigenes Material hochladen, Nachschub erzeugen. */
 export function Vocab({ lang }: { lang: Language }) {
-  const { state, addCards, deleteCard, updateCard, unlockNow } = useStore();
+  const { state, addCards, deleteCard, updateCard, unlockNow, restoreCard } = useStore();
+  useTimeOnTask(lang.id);
   const notify = useToast();
   const { busy, run } = useAsyncAction();
 
@@ -30,6 +32,7 @@ export function Vocab({ lang }: { lang: Language }) {
   );
   const active = cards.filter((c) => c.unlockedAt !== null);
   const pool = cards.filter((c) => c.unlockedAt === null);
+  const leeches = cards.filter((c) => c.suspended);
 
   const searching = query.trim().length > 0;
 
@@ -43,8 +46,10 @@ export function Vocab({ lang }: { lang: Language }) {
         : filter === 'pool'
           ? pool
           : filter === 'schwer'
-            ? active.filter((c) => c.srs.lapses >= 2 || c.srs.ease < 2.1)
-            : cards;
+            ? active.filter((c) => !c.suspended && (c.srs.lapses >= 2 || c.srs.ease < 2.1))
+            : filter === 'ausgesetzt'
+              ? leeches
+              : cards;
     if (searching) {
       const q = query.trim().toLowerCase();
       list = list.filter(
@@ -52,7 +57,7 @@ export function Vocab({ lang }: { lang: Language }) {
       );
     }
     return [...list].sort((a, b) => a.order - b.order).slice(0, 300);
-  }, [filter, active, pool, cards, query, searching]);
+  }, [filter, active, pool, leeches, cards, query, searching]);
 
   async function generateMore(count: number) {
     const existing = cards.map((c) => c.term);
@@ -172,7 +177,7 @@ export function Vocab({ lang }: { lang: Language }) {
 
       {/* Filter */}
       <div className="row row-wrap">
-        {(['aktiv', 'pool', 'schwer', 'alle'] as Filter[]).map((f) => (
+        {(['aktiv', 'pool', 'schwer', 'ausgesetzt', 'alle'] as Filter[]).map((f) => (
           <button
             key={f}
             className={`pill ${!searching && filter === f ? 'pill-accent' : ''}`}
@@ -186,6 +191,7 @@ export function Vocab({ lang }: { lang: Language }) {
             {f === 'aktiv' && `Aktiv ${active.length}`}
             {f === 'pool' && `Pool ${pool.length}`}
             {f === 'schwer' && 'Schwierige'}
+            {f === 'ausgesetzt' && `Ausgesetzt ${leeches.length}`}
             {f === 'alle' && `Alle ${cards.length}`}
           </button>
         ))}
@@ -223,6 +229,7 @@ export function Vocab({ lang }: { lang: Language }) {
                 lang={lang}
                 onDelete={() => deleteCard(c.id)}
                 onUnlock={() => updateCard(c.id, { unlockedAt: Date.now() })}
+                onRestore={() => restoreCard(c.id)}
               />
             ))}
           </div>
@@ -363,11 +370,13 @@ function VocabRow({
   lang,
   onDelete,
   onUnlock,
+  onRestore,
 }: {
   card: CardType;
   lang: Language;
   onDelete: () => void;
   onUnlock: () => void;
+  onRestore: () => void;
 }) {
   const locked = card.unlockedAt === null;
   return (
@@ -380,6 +389,7 @@ function VocabRow({
           {card.pos && <span className="tiny muted">{card.pos}</span>}
           {locked && <span className="pill tiny">Pool</span>}
           {card.srs.lapses >= 2 && <span className="pill pill-warn tiny">{card.srs.lapses}× vergessen</span>}
+          {card.suspended && <span className="pill pill-warn tiny">ausgesetzt</span>}
         </div>
         <div className="small muted">{card.translation}</div>
         {card.example && (
@@ -402,6 +412,15 @@ function VocabRow({
       {locked && (
         <button className="btn btn-ghost btn-sm" onClick={onUnlock} title="Jetzt freischalten">
           ↑
+        </button>
+      )}
+      {card.suspended && (
+        <button
+          className="btn btn-ghost btn-sm"
+          onClick={onRestore}
+          title="Wieder in die Wiederholung nehmen – am besten erst den Beispielsatz ändern"
+        >
+          ↺
         </button>
       )}
       <button className="btn btn-ghost btn-sm" onClick={onDelete} aria-label="Löschen">

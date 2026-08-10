@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useStore } from '../store';
 import type { Language } from '../types-view';
-import type { Phase } from '../types';
+import type { Phase, ReviewMode } from '../types';
 import { Button, Card, Field, SectionTitle, useToast } from '../ui';
 import { exportState, importState } from '../lib/storage';
 import { DEFAULT_MODEL } from '../lib/llm';
@@ -96,6 +96,41 @@ export function Settings({ lang }: { lang: Language | null }) {
             Alltags-Modus. Generierung, Reader-Texte, Konversation und Korrektur brauchen ihn.
           </p>
         </div>
+      </Card>
+
+      {/* Lernverhalten */}
+      <Card>
+        <div className="eyebrow" style={{ marginBottom: 12 }}>
+          Lernverhalten
+        </div>
+        <Field label="Abfragerichtung im Review">
+          <select
+            className="input"
+            value={state.settings.reviewMode}
+            onChange={(e) => updateSettings({ reviewMode: e.target.value as ReviewMode })}
+          >
+            <option value="adapt">Mitwachsend – erst erkennen, ab der 3. Wiederholung produzieren</option>
+            <option value="recognize">Nur erkennen – Zielsprache → Deutsch</option>
+            <option value="produce">Nur produzieren – Deutsch → Zielsprache</option>
+          </select>
+        </Field>
+        <p className="tiny muted" style={{ marginTop: 6 }}>
+          Erkennen ist die leichte Richtung. Produzieren ist das, was sich aufs Sprechen
+          überträgt – am Anfang aber zu schwer, deshalb der Wechsel unterwegs.
+        </p>
+        <label className="row" style={{ cursor: 'pointer', marginTop: 14 }}>
+          <input
+            type="checkbox"
+            checked={state.settings.listenMode}
+            onChange={(e) => updateSettings({ listenMode: e.target.checked })}
+          />
+          <span style={{ flex: 1 }}>
+            Verständnisübungen zuerst nur hören
+            <span className="tiny muted" style={{ display: 'block' }}>
+              Der Satz wird vorgelesen, den Text gibt es erst nach der Antwort.
+            </span>
+          </span>
+        </label>
       </Card>
 
       {/* Sprachausgabe */}

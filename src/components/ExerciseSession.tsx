@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { Exercise } from '../types';
 import type { Language } from '../types-view';
 import { Button, Card, Bar } from '../ui';
 import { similarity, speak } from '../lib/speech';
+import { useStore } from '../store';
 
 const TYPE_LABEL: Record<string, string> = {
   cloze: 'Lücke füllen',
@@ -36,13 +37,10 @@ export function ExerciseSession({
   onSolved: (exerciseId: string, solved: boolean) => void;
   onClose: () => void;
 }) {
-  // Runde einmal beim Öffnen festlegen: Ungelöste zuerst, damit man nicht
-  // ewig dieselben schon sitzenden Aufgaben wiederholt.
-  const [queue, setQueue] = useState<Exercise[]>(() => {
-    const open = exercises.filter((e) => !solvedIds.has(e.id));
-    const done = exercises.filter((e) => solvedIds.has(e.id));
-    return [...open, ...done].slice(0, ROUND_SIZE);
-  });
+  // Die Runde ist beim Öffnen fertig sortiert (fällig → neu → Rest) und wird
+  // hier eingefroren, damit sie sich beim Beantworten nicht unter der Hand
+  // umsortiert.
+  const [queue, setQueue] = useState<Exercise[]>(() => exercises.slice(0, ROUND_SIZE));
   const [pos, setPos] = useState(0);
   const [value, setValue] = useState('');
   const [result, setResult] = useState<Result | null>(null);
@@ -50,8 +48,19 @@ export function ExerciseSession({
   const [stats, setStats] = useState({ right: 0, wrong: 0 });
   const [repeated, setRepeated] = useState(false);
 
+  const { state, updateSettings } = useStore();
+  const listenMode = state.settings.listenMode;
   const current = queue[pos];
   const total = queue.length;
+  // Im Hörmodus bleibt der Satz verdeckt, bis geantwortet wurde.
+  const hidden = listenMode && current?.type === 'choice' && !result;
+
+  // Hörverstehen ist der Engpass im echten Gespräch, Lesen geht immer besser.
+  // Deshalb wird im Hörmodus automatisch abgespielt statt auf einen Klick zu warten.
+  useEffect(() => {
+    if (!hidden || !current) return;
+    speak(current.prompt.split('\n\n')[0], lang.code);
+  }, [hidden, current, lang.code]);
 
   function check(answer: string) {
     if (!current || result) return;
@@ -124,6 +133,17 @@ export function ExerciseSession({
               ✓ schon gelöst
             </span>
           )}
+          <span className="spacer" />
+          {current.type === 'choice' && (
+            <button
+              className={`pill tiny ${listenMode ? 'pill-accent' : ''}`}
+              style={{ cursor: 'pointer', border: 0 }}
+              onClick={() => updateSettings({ listenMode: !listenMode })}
+              title="Satz zuerst nur hören, Text erst nach der Antwort"
+            >
+              {listenMode ? '🎧 Hören' : '👁 Lesen'}
+            </button>
+          )}
         </div>
 
         {current.type === 'choice' ? (
@@ -132,13 +152,20 @@ export function ExerciseSession({
               <button
                 className="btn btn-ghost btn-sm"
                 onClick={() => speak(text, lang.code)}
-                aria-label="Vorlesen"
+                aria-label={hidden ? 'Nochmal abspielen' : 'Vorlesen'}
               >
                 ♪
               </button>
-              <div className="target-text" style={{ fontSize: 17 }}>
-                {text}
-              </div>
+              {hidden ? (
+                <div className="small muted" style={{ fontSize: 15 }}>
+                  Hör zu und beantworte die Frage. Nochmal abspielen mit ♪ – den Text gibt es
+                  nach der Antwort.
+                </div>
+              ) : (
+                <div className="target-text" style={{ fontSize: 17 }}>
+                  {text}
+                </div>
+              )}
             </div>
             <div style={{ fontWeight: 600 }}>{question}</div>
             <div className="stack" style={{ gap: 8 }}>

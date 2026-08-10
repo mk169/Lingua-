@@ -48,6 +48,11 @@ export interface Card {
   createdAt: number;
   /** null = noch im Pool, wartet auf Freischaltung. */
   unlockedAt: number | null;
+  /**
+   * Ausgesetzt, weil zu oft vergessen (Leech). Solche Karten fallen aus der
+   * Tagesfälligkeit, statt jeden Tag dieselbe Zeit zu fressen.
+   */
+  suspended?: boolean;
   order: number; // Frequenzrang – bestimmt die Freischaltreihenfolge
   srs: Srs;
   history: { date: string; quality: number }[];
@@ -110,11 +115,22 @@ export interface Exercise {
   translation?: string;
 }
 
-/** Nur das Ergebnis wird gespeichert, nicht die Übung selbst. */
+/**
+ * Nur das Ergebnis wird gespeichert, nicht die Übung selbst.
+ *
+ * Übungen laufen durch dasselbe SM-2 wie Vokabeln: Grammatik verblasst
+ * schneller als Wortschatz, weil sie an keinem einzelnen Wort hängt. `wrong`
+ * ist das Fehlergedächtnis – ohne es sähe eine viermal verhauene Aufgabe
+ * genauso aus wie eine, die sofort saß.
+ */
 export interface ExerciseProgress {
+  /** Mindestens einmal richtig – für die Fortschrittsanzeige. */
   solved: boolean;
   attempts: number;
+  wrong: number;
   lastAt: number;
+  /** Fehlt bei Ständen aus der Zeit vor dem Übungs-SRS. */
+  srs?: Srs;
 }
 
 export interface ReaderText {
@@ -210,12 +226,22 @@ export interface DayLog {
   outputs: number; // Chat-/Schreib-Beiträge
 }
 
+/**
+ * `adapt` fragt die ersten beiden Wiederholungen erkennend ab und schaltet
+ * danach pro Karte auf Produktion um – die schwerere Richtung, die sich aufs
+ * Sprechen überträgt.
+ */
+export type ReviewMode = 'adapt' | 'recognize' | 'produce';
+
 export interface Settings {
   apiKey: string;
   model: string;
   effort: 'low' | 'medium' | 'high';
   nativeLanguage: string;
   ttsEnabled: boolean;
+  reviewMode: ReviewMode;
+  /** Verständnisübungen zuerst nur hören, Text erst nach der Antwort. */
+  listenMode: boolean;
 }
 
 export interface AppState {

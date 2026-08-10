@@ -422,6 +422,12 @@ select {
   border-color: transparent;
 }
 
+/* Hinweiskarte, wenn die App etwas bewusst zurückhält (Rückstandsbremse). */
+.card-warn {
+  border-color: var(--warn);
+  background: var(--warn-soft);
+}
+
 .divider {
   height: 1px;
   background: var(--line);

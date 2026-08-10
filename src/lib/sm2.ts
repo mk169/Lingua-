@@ -7,6 +7,24 @@ import { addDays, todayISO } from './date';
  */
 export const INITIAL_LADDER = [1, 3, 7, 14];
 
+/**
+ * Ab so vielen Lapses gilt eine Karte als Leech und wird ausgesetzt.
+ * Eine Karte, die man achtmal vergessen hat, ist nicht schwer – sie ist
+ * schlecht formuliert. Jeden Tag erneut daran zu scheitern kostet nur Zeit.
+ */
+export const LEECH_LIMIT = 8;
+
+/**
+ * Ab wie vielen fälligen Karten keine neuen mehr freigeschaltet werden.
+ *
+ * Der häufigste Abbruchgrund bei SRS ist nicht fehlende Motivation, sondern
+ * ein Berg, der unbezwingbar aussieht: Drei Tage ausgesetzt, und am vierten
+ * warten Hunderte Karten – plus das volle Tageskontingent obendrauf.
+ */
+export function backlogLimit(dailyNewWords: number): number {
+  return Math.max(60, dailyNewWords * 3);
+}
+
 /** Bewertungsstufen im Review – gemappt auf SM-2 Qualität 0–5. */
 export const RATINGS = [
   { quality: 0, label: 'Nochmal', hint: 'nicht gewusst', key: '1' },
@@ -73,13 +91,14 @@ export function previewIntervals(srs: Srs, today: string = todayISO()) {
   });
 }
 
-/** Alle heute fälligen, bereits freigeschalteten Karten. */
+/** Alle heute fälligen, freigeschalteten und nicht ausgesetzten Karten. */
 export function dueCards(cards: Card[], languageId: string, today = todayISO()): Card[] {
   return cards
     .filter(
       (c) =>
         c.languageId === languageId &&
         c.unlockedAt !== null &&
+        !c.suspended &&
         c.srs.due <= today,
     )
     .sort((a, b) => {
@@ -98,4 +117,11 @@ export function lockedCards(cards: Card[], languageId: string): Card[] {
   return cards
     .filter((c) => c.languageId === languageId && c.unlockedAt === null)
     .sort((a, b) => a.order - b.order);
+}
+
+/** Ausgesetzte Karten – im Vokabelmodul sichtbar und reaktivierbar. */
+export function suspendedCards(cards: Card[], languageId: string): Card[] {
+  return cards
+    .filter((c) => c.languageId === languageId && c.suspended)
+    .sort((a, b) => b.srs.lapses - a.srs.lapses);
 }

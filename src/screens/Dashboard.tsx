@@ -3,7 +3,7 @@ import { useStore } from '../store';
 import type { Language, View } from '../types-view';
 import { Bar, Button, Card, SectionTitle, Stat } from '../ui';
 import { getPhase, PHASE_META, WEEK_PLAN } from '../lib/phase';
-import { dueCards, lockedCards } from '../lib/sm2';
+import { backlogLimit, dueCards, lockedCards, suspendedCards } from '../lib/sm2';
 import { todayISO } from '../lib/date';
 
 /**
@@ -62,8 +62,50 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
     (c) => c.unlockedAt !== null && todayISO(new Date(c.unlockedAt)) === today,
   ).length;
 
+  // Rückstandsbremse: Solange zu viel offen ist, kommen keine neuen Wörter
+  // dazu. Das wird hier erklärt, damit es nicht wie ein Fehler wirkt.
+  const backlogged = due.length > backlogLimit(dailyTarget);
+  const suspended = suspendedCards(state.cards, lang.id);
+  const minutes = log?.minutes ?? 0;
+
   return (
     <div className="stack">
+      {backlogged && (
+        <Card className="card-warn">
+          <div className="row" style={{ alignItems: 'flex-start' }}>
+            <span style={{ fontSize: 20 }}>⏸</span>
+            <div>
+              <div style={{ fontWeight: 600 }}>Keine neuen Wörter heute</div>
+              <p className="small muted" style={{ margin: '4px 0 0' }}>
+                {due.length} Karten sind fällig – das ist mehr, als an einem Tag sinnvoll
+                geht. Neue Wörter kommen erst wieder dazu, wenn der Stapel unter{' '}
+                {backlogLimit(dailyTarget)} liegt. Aufholen schlägt Anhäufen.
+              </p>
+            </div>
+          </div>
+        </Card>
+      )}
+
+      {suspended.length > 0 && (
+        <Card>
+          <div className="row" style={{ alignItems: 'flex-start' }}>
+            <span style={{ fontSize: 20 }}>🐛</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 600 }}>
+                {suspended.length} {suspended.length === 1 ? 'Karte' : 'Karten'} ausgesetzt
+              </div>
+              <p className="small muted" style={{ margin: '4px 0 0' }}>
+                Zu oft vergessen. Solche Karten brauchen eine neue Formulierung, keine
+                weitere Wiederholung – unter Vokabeln kannst du sie überarbeiten.
+              </p>
+            </div>
+            <Button size="sm" onClick={() => go('vocab')}>
+              Ansehen
+            </Button>
+          </div>
+        </Card>
+      )}
+
       {/* Kopf: Phase & Sprint-Fortschritt */}
       <Card>
         <div className="row row-wrap" style={{ marginBottom: 14 }}>
@@ -114,6 +156,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
       {/* Kennzahlen */}
       <div className="stats">
         <Stat value={due.length} label="heute fällig" />
+        <Stat value={`${minutes}/${lang.dailyMinutes}`} label="Minuten heute" />
         <Stat value={`${newToday}/${dailyTarget}`} label="neue Wörter heute" />
         <Stat value={active.length} label="aktive Karten" />
         <Stat value={learned.length} label="gefestigt" />

@@ -5,6 +5,7 @@ import type { Analysis } from '../types';
 import { Button, Card, Empty, SectionTitle, useAsyncAction, useToast } from '../ui';
 import { analyzeWriting, generateWritingPrompts } from '../lib/llm';
 import { todayISO, formatDate } from '../lib/date';
+import { useTimeOnTask } from '../lib/useTimeOnTask';
 
 const FALLBACK_PROMPTS = [
   'Beschreibe deinen heutigen Tag in 3–5 Sätzen.',
@@ -16,6 +17,7 @@ const FALLBACK_PROMPTS = [
 
 /** Schreib-Tagebuch: 3–5 Sätze täglich, die KI korrigiert knapp und erklärt Muster. */
 export function Writing({ lang }: { lang: Language }) {
+  useTimeOnTask(lang.id);
   const { state, addJournal, patchJournal, addCards } = useStore();
   const notify = useToast();
   const { busy, run } = useAsyncAction();
