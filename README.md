@@ -11,9 +11,17 @@ sprechen direkt mit der Claude Messages API.
 
 ## Der Lernablauf
 
-Beim Start wählt man eine Sprache – oder legt über **+** eine neue an. Jede Sprache hat
-ihren eigenen 30-Tage-Sprint mit eigenem Startdatum, eigenem Deck und eigenem Fortschritt.
-Das Dashboard verändert sich mit der Phase:
+Beim Start wählt man eine Sprache – oder legt über **+** eine neue an. Jede Sprache läuft in
+**30-Tage-Sprints von einer Stufe zur nächsten**: Sprint 1 holt A1 und A2 zusammen ab, danach
+geht es A2 → B1 → B2, jeder Sprint wieder 30 Tage mit denselben drei Phasen. Am Ende eines
+Sprints bietet das Dashboard den nächsten an; Deck und Fortschritt bleiben, nur das Skelett
+wechselt auf die nächste Stufe. Abgeschlossene Sprints stehen in der Historie.
+
+Sprachen laufen dabei **unabhängig parallel** – jede mit eigenem Startdatum, eigener Stufe,
+eigenem Deck und eigenem Slot (eine im Fokus, bis zu drei in Wartung). Italienisch kann im
+B1-Sprint stehen, während Polnisch bei Tag 3 von A1 anfängt.
+
+Innerhalb eines Sprints verändert sich das Dashboard mit der Phase:
 
 | Phase | Zeitraum | Fokus | Freigeschaltete Module |
 | --- | --- | --- | --- |
@@ -52,9 +60,14 @@ Drei Mechanismen halten das effizient:
 **Karteikarten + LLM** – Auf jeder Karte erzeugt „Neue Sätze“ frische Alltagsbeispiele mit
 genau diesem Wort, mit wechselnder Zeitform und Satzart, optional auf einen Zielort bezogen.
 
-**Skeleton-Drills** – Kerngrammatik als Minimalmuster (Satzstellung, Fragewörter,
-Verneinung, Tempora, Relativsätze), nach Wochen 1–4 gegliedert, mit Formel, Erklärung und
-Beispielen. Dazu Übungen in drei Kategorien pro Muster: Beispielsätze, Konstruktion
+**Skeleton-Drills** – Kerngrammatik als Minimalmuster, nach Wochen 1–4 und Niveaustufe
+gegliedert, mit Formel, Erklärung und Beispielen. Ein Sprint zeigt nur die Muster seiner
+Stufe, nicht das ganze Skelett bis B2.
+
+**Italienisch ist bis A2 vollständig**: 28 Muster vom Aussagesatz über Artikel, Plural,
+Modalverben und Präposition+Artikel bis zu passato prossimo (mit avere und essere),
+imperfetto, Objektpronomen, ne/ci, Imperativ, Komparativ und Relativsatz. Woche 1–2 deckt A1
+ab, Woche 3–4 A2. Spanisch, Französisch und Polnisch haben bisher die vier Woche-1/2-Muster. Dazu Übungen in drei Kategorien pro Muster: Beispielsätze, Konstruktion
 (Lücke füllen, Umformen, Satz ordnen, Satz bilden) und Verständnis – eine Aufgabe pro
 Bildschirm, mit toleranter Antwortprüfung.
 
@@ -255,18 +268,19 @@ danebenliegende `<lang>.generated.ts`, die das Skript überschreibt. Beide werde
 zusammengeführt und über einen dynamischen `import()` erst auf dem Drills-Screen geladen —
 der Katalog landet so in einem eigenen Chunk und nicht im Hauptbundle.
 
-Aktuell im Repo: **1500 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
+Aktuell im Repo: **1800 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
 50 Verständnisübungen pro Muster.
 
 | Sprache | Muster mit Übungen | Übungen | offen |
 | --- | --- | --- | --- |
-| Italienisch | alle vier | 600 | — |
+| Italienisch | 6 von 28 | 900 | 22 Muster, darunter imperfetto und die Pronomen |
 | Spanisch | Aussagesatz, Verneinung | 300 | Entscheidungsfrage, ser/estar, höfliche Bitte |
 | Französisch | Aussagesatz, Verneinung | 300 | est-ce que, höfliche Bitte |
 | Polnisch | Aussagesatz, Verneinung | 300 | czy-Frage, höfliche Bitte |
 
 Die offenen Muster haben bereits Slugs — sie brauchen nur noch Inhalt, entweder von Hand
-oder mit einem Lauf des Generators.
+oder mit einem Lauf des Generators. Das **Skelett** ist für Italienisch vollständig bis A2;
+die Übungen dazu wachsen nach.
 
 ---
 

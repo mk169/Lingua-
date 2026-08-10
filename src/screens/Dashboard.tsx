@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useStore } from '../store';
 import type { Language, View } from '../types-view';
 import { Bar, Button, Card, SectionTitle, Stat } from '../ui';
-import { getPhase, PHASE_META, WEEK_PLAN } from '../lib/phase';
+import { getPhase, levelsInSprint, nextLevel, PHASE_META, WEEK_PLAN } from '../lib/phase';
 import { backlogLimit, dueCards, lockedCards, suspendedCards } from '../lib/sm2';
 import { todayISO } from '../lib/date';
 
@@ -12,7 +12,7 @@ import { todayISO } from '../lib/date';
  * Phase 3 schaltet Konversation, Schreiben und den Alltags-Modus frei.
  */
 export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => void }) {
-  const { state, unlockDaily } = useStore();
+  const { state, unlockDaily, startNextSprint } = useStore();
   const today = todayISO();
   const phase = getPhase(lang, today);
 
@@ -33,7 +33,9 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   const learned = cards.filter((c) => c.srs.reps >= 2);
   const log = state.logs.find((l) => l.date === today && l.languageId === lang.id);
   const patterns = state.patterns.filter((p) => p.languageId === lang.id);
-  const weekPatterns = patterns.filter((p) => p.week === phase.week);
+  const weekPatterns = patterns.filter(
+    (p) => p.week === phase.week && levelsInSprint(lang.targetLevel).includes(p.level ?? 'A1'),
+  );
   const habits = state.habits.filter((h) => h.languageId === lang.id);
 
   const streak = useMemo(() => {
@@ -67,6 +69,10 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   const backlogged = due.length > backlogLimit(dailyTarget);
   const suspended = suspendedCards(state.cards, lang.id);
   const lastAssessment = state.assessments.find((a) => a.languageId === lang.id);
+  // Nach Tag 30 ist der Sprint durch. Dann geht es entweder eine Stufe höher
+  // oder in den Alltags-Modus – beides ist eine bewusste Entscheidung.
+  const sprintDone = phase.day > 30;
+  const upcoming = nextLevel(lang.targetLevel);
   const minutes = log?.minutes ?? 0;
 
   return (
@@ -83,6 +89,29 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
                 {backlogLimit(dailyTarget)} liegt. Aufholen schlägt Anhäufen.
               </p>
             </div>
+          </div>
+        </Card>
+      )}
+
+      {sprintDone && (
+        <Card className="card-accent">
+          <div className="row" style={{ alignItems: 'flex-start' }}>
+            <span style={{ fontSize: 20 }}>▲</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 600 }}>
+                Sprint {lang.sprint} auf {lang.targetLevel} ist durch
+              </div>
+              <p className="small muted" style={{ margin: '4px 0 0' }}>
+                {upcoming
+                  ? `Tag ${phase.day} – du kannst den nächsten 30-Tage-Sprint auf ${upcoming} starten. Dein Deck und aller Fortschritt bleiben, nur das Skelett wechselt auf die nächste Stufe.`
+                  : `${lang.targetLevel} ist die letzte Stufe der Leiter. Ab hier trägt der Alltags-Modus.`}
+              </p>
+            </div>
+            {upcoming && (
+              <Button variant="primary" size="sm" onClick={() => startNextSprint(lang.id)}>
+                Sprint auf {upcoming}
+              </Button>
+            )}
           </div>
         </Card>
       )}
@@ -139,6 +168,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
           <span className="spacer" />
           <div className="row">
             <span className="pill">{lang.slot === 'focus' ? 'Fokus-Slot' : 'Wartung'}</span>
+            <span className="pill pill-accent">Sprint {lang.sprint} → {lang.targetLevel}</span>
             <span className="pill mono">Tag {phase.day}</span>
           </div>
         </div>
@@ -291,14 +321,42 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
 
           {/* Wochenplan */}
           <Card>
-            <SectionTitle title={WEEK_PLAN[phase.week].title} />
-            <ul className="small muted" style={{ margin: 0, paddingLeft: 18 }}>
-              {WEEK_PLAN[phase.week].goals.map((g) => (
-                <li key={g} style={{ marginBottom: 4 }}>
-                  {g}
-                </li>
-              ))}
-            </ul>
+            {/* Der Wochenplan ist auf den ersten Sprint (A1→A2) geschrieben –
+                seine Ziele wären auf B1 schlicht falsch. Ab Sprint 2 zeigen
+                wir stattdessen die Muster, die diese Woche tatsächlich anstehen. */}
+            {lang.targetLevel === 'A2' ? (
+              <>
+                <SectionTitle title={WEEK_PLAN[phase.week].title} />
+                <ul className="small muted" style={{ margin: 0, paddingLeft: 18 }}>
+                  {WEEK_PLAN[phase.week].goals.map((g) => (
+                    <li key={g} style={{ marginBottom: 4 }}>
+                      {g}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <>
+                <SectionTitle
+                  title={`Woche ${phase.week} · ${lang.targetLevel}`}
+                  hint={`Sprint ${lang.sprint}`}
+                />
+                {weekPatterns.length > 0 ? (
+                  <ul className="small muted" style={{ margin: 0, paddingLeft: 18 }}>
+                    {weekPatterns.map((p) => (
+                      <li key={p.id} style={{ marginBottom: 4 }}>
+                        {p.title}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="small muted" style={{ margin: 0 }}>
+                    Für {lang.targetLevel} gibt es in dieser Woche noch keine Muster im
+                    Startpaket. Unter Drills lassen sie sich erzeugen.
+                  </p>
+                )}
+              </>
+            )}
           </Card>
         </div>
 

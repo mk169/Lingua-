@@ -1,5 +1,24 @@
-import type { Language, Phase } from '../types';
+import type { CefrLevel, Language, Phase } from '../types';
 import { daysBetween, todayISO } from './date';
+
+/** Aufstiegskette der Sprints. B2 ist vorerst das Ende der Leiter. */
+export const LEVEL_LADDER: CefrLevel[] = ['A1', 'A2', 'B1', 'B2'];
+
+/** Die Stufe, auf die der nächste Sprint zielt. */
+export function nextLevel(current: CefrLevel): CefrLevel | null {
+  const i = LEVEL_LADDER.indexOf(current);
+  return i >= 0 && i < LEVEL_LADDER.length - 1 ? LEVEL_LADDER[i + 1] : null;
+}
+
+/**
+ * Welche Muster-Stufen ein Sprint abdeckt.
+ *
+ * Der erste Sprint holt A1 und A2 zusammen ab – das Skelett von null auf
+ * Alltagstauglichkeit. Jeder weitere nimmt sich genau eine Stufe vor.
+ */
+export function levelsInSprint(targetLevel: CefrLevel): CefrLevel[] {
+  return targetLevel === 'A2' ? ['A1', 'A2'] : [targetLevel];
+}
 
 export interface PhaseInfo {
   phase: Phase;

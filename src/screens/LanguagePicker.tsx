@@ -83,7 +83,7 @@ export function LanguagePicker() {
               <span style={{ flex: 1 }}>
                 <span style={{ fontWeight: 600, display: 'block' }}>{lang.name}</span>
                 <span className="small muted">
-                  Tag {phase.day} · Phase {phase.phase} – {phase.title}
+                  Sprint {lang.sprint} → {lang.targetLevel} · Tag {phase.day} · {phase.title}
                   {lang.slot === 'focus' ? ' · Fokus' : ' · Wartung'}
                 </span>
               </span>

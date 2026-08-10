@@ -3,6 +3,12 @@
 export type Phase = 1 | 2 | 3;
 export type Slot = 'focus' | 'maintenance';
 
+/**
+ * Referenzniveau. Steuert, welche Muster ein Sprint abdeckt, und trägt das
+ * Skelett über den ersten 30-Tage-Sprint hinaus bis B2.
+ */
+export type CefrLevel = 'A1' | 'A2' | 'B1' | 'B2';
+
 /** Eine Sprache = ein eigener Lernraum mit eigenem Sprint-Startdatum. */
 export interface Language {
   id: string;
@@ -11,7 +17,17 @@ export interface Language {
   code: string; // BCP-47 für TTS/STT, z.B. "es-ES"
   emoji: string;
   createdAt: number;
-  startDate: string; // ISO-Datum, Tag 1 des 30-Tage-Sprints
+  startDate: string; // ISO-Datum, Tag 1 des LAUFENDEN Sprints
+  /**
+   * Stufe, auf die der laufende Sprint hinarbeitet.
+   * Sprint 1 zielt auf A2 und deckt dabei A1 und A2 ab; jeder weitere Sprint
+   * nimmt sich genau die nächste Stufe vor.
+   */
+  targetLevel: CefrLevel;
+  /** Laufende Nummer, 1 = der erste Sprint dieser Sprache. */
+  sprint: number;
+  /** Abgeschlossene Sprints – Grundlage für den Verlauf. */
+  sprintHistory: { sprint: number; targetLevel: CefrLevel; startDate: string; endedAt: string }[];
   slot: Slot;
   dailyNewWords: number; // 40–50 in Phase 1
   dailyMinutes: number; // Zeitbudget
@@ -73,6 +89,9 @@ export interface GrammarPattern {
   explanation: string;
   examples: { target: string; native: string }[];
   week: 1 | 2 | 3 | 4;
+  level: CefrLevel;
+  /** Reihenfolge innerhalb der Woche – Verneinung erst nach dem Aussagesatz. */
+  order: number;
   mastered: boolean;
   createdAt: number;
 }

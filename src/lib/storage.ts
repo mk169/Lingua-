@@ -1,4 +1,4 @@
-import type { AppState } from '../types';
+import type { AppState, Language } from '../types';
 import { DEFAULT_MODEL } from './llm';
 
 const KEY = 'lingua.state.v1';
@@ -32,6 +32,20 @@ export function emptyState(): AppState {
   };
 }
 
+/**
+ * Sprachen aus der Zeit vor den mehrstufigen Sprints kennen weder Zielstufe
+ * noch Sprint-Nummer. Sie laufen weiter als erster Sprint auf A2 – ihr
+ * Startdatum und aller Fortschritt bleiben unangetastet.
+ */
+function withSprintDefaults(lang: Language): Language {
+  return {
+    ...lang,
+    targetLevel: lang.targetLevel ?? 'A2',
+    sprint: lang.sprint ?? 1,
+    sprintHistory: lang.sprintHistory ?? [],
+  };
+}
+
 export function loadState(): AppState {
   if (typeof localStorage === 'undefined') return emptyState();
   try {
@@ -43,6 +57,7 @@ export function loadState(): AppState {
     return {
       ...base,
       ...parsed,
+      languages: (parsed.languages ?? []).map(withSprintDefaults),
       settings: { ...base.settings, ...(parsed.settings ?? {}) },
       version: STATE_VERSION,
     };
@@ -75,6 +90,7 @@ export function importState(json: string): AppState {
   return {
     ...base,
     ...parsed,
+    languages: (parsed.languages ?? []).map(withSprintDefaults),
     settings: { ...base.settings, ...(parsed.settings ?? {}) },
     version: STATE_VERSION,
   };

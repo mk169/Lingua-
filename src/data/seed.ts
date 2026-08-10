@@ -5,6 +5,7 @@
  * Kompaktformat je Wort: [Wort, Übersetzung, Wortart, Beispielsatz, Übersetzung]
  */
 
+import type { CefrLevel } from '../types';
 import { ITALIAN_1000, expandPos } from './italian1000';
 
 export type SeedWord = [string, string, string, string, string];
@@ -23,6 +24,8 @@ export interface SeedPattern {
   explanation: string;
   examples: [string, string][];
   week: 1 | 2 | 3 | 4;
+  /** Referenzniveau. Fehlt es, gilt A1. */
+  level?: CefrLevel;
 }
 
 export interface SeedLanguage {
@@ -101,6 +104,7 @@ const spanish: SeedLanguage = {
         ['Ana come pan.', 'Ana isst Brot.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'es-negacion-no',
@@ -112,6 +116,7 @@ const spanish: SeedLanguage = {
         ['No tengo nada.', 'Ich habe nichts.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'es-pregunta',
@@ -124,6 +129,7 @@ const spanish: SeedLanguage = {
         ['¿Tienes tiempo?', 'Hast du Zeit?'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'es-ser-estar',
@@ -136,6 +142,7 @@ const spanish: SeedLanguage = {
         ['Estoy cansado.', 'Ich bin müde.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'es-podria',
@@ -147,6 +154,7 @@ const spanish: SeedLanguage = {
         ['¿Podría ayudarme?', 'Könnten Sie mir helfen?'],
       ],
       week: 2,
+      level: 'A1',
     },
   ],
 };
@@ -168,6 +176,46 @@ const italian: SeedLanguage = {
         ['Anna mangia il pane.', 'Anna isst das Brot.'],
       ],
       week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'it-articoli',
+      title: 'Bestimmter und unbestimmter Artikel',
+      formula: 'il · lo · la — un · uno · una',
+      explanation:
+        'Der Artikel richtet sich nach Geschlecht und Anlaut: "il" vor Konsonant, "lo" vor s+Konsonant, z, gn, ps, "l’" vor Vokal. Weiblich immer "la", vor Vokal "l’".',
+      examples: [
+        ['il treno, lo studente, l’amico', 'der Zug, der Student, der Freund'],
+        ['un caffè, uno sbaglio, una domanda', 'ein Kaffee, ein Fehler, eine Frage'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'it-plurale',
+      title: 'Plural der Nomen',
+      formula: '-o → -i · -a → -e · -e → -i',
+      explanation:
+        'Männliche Nomen auf -o enden im Plural auf -i, weibliche auf -a auf -e. Nomen auf -e bilden beide Geschlechter den Plural auf -i. Der Artikel wandert mit: il → i, lo → gli, la → le.',
+      examples: [
+        ['il treno → i treni', 'der Zug → die Züge'],
+        ['la casa → le case', 'das Haus → die Häuser'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'it-essere-avere',
+      title: 'essere und avere',
+      formula: 'sono, sei, è, siamo, siete, sono · ho, hai, ha, abbiamo, avete, hanno',
+      explanation:
+        'Die zwei wichtigsten Verben. "essere" für Identität, Herkunft und Zustand, "avere" für Besitz — und für Alter, Hunger und Durst: "Ho fame", nicht "Sono fame".',
+      examples: [
+        ['Sono di Berlino e sono in vacanza.', 'Ich bin aus Berlin und im Urlaub.'],
+        ['Ho venticinque anni e ho fame.', 'Ich bin fünfundzwanzig und habe Hunger.'],
+      ],
+      week: 1,
+      level: 'A1',
     },
     {
       slug: 'it-negazione-non',
@@ -179,6 +227,7 @@ const italian: SeedLanguage = {
         ['Non ho niente.', 'Ich habe nichts.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'it-domanda-intonazione',
@@ -190,6 +239,46 @@ const italian: SeedLanguage = {
         ['Hai tempo?', 'Hast du Zeit?'],
       ],
       week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'it-interrogativi',
+      title: 'Fragewörter',
+      formula: 'Fragewort + Verb + ... ?',
+      explanation:
+        'dove (wo), quando (wann), come (wie), quanto (wie viel), perché (warum), chi (wer), che cosa (was). Das Fragewort steht vorn, der Rest bleibt wie im Aussagesatz.',
+      examples: [
+        ['Dov’è la stazione?', 'Wo ist der Bahnhof?'],
+        ['Quanto costa il biglietto?', 'Was kostet die Fahrkarte?'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'it-presente-regolare',
+      title: 'Präsens der drei Konjugationen',
+      formula: '-are: -o -i -a -iamo -ate -ano · -ere: -o -i -e -iamo -ete -ono · -ire: -o -i -e -iamo -ite -ono',
+      explanation:
+        'Drei Muster decken fast alle Verben ab. Eine Gruppe der -ire-Verben schiebt -isc- ein: capisco, capisci, capisce, capiamo, capite, capiscono.',
+      examples: [
+        ['Parlo italiano, prendo il treno, dormo poco.', 'Ich spreche Italienisch, nehme den Zug, schlafe wenig.'],
+        ['Non capisco, può ripetere?', 'Ich verstehe nicht, können Sie wiederholen?'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'it-modali',
+      title: 'Modalverben: potere, dovere, volere',
+      formula: 'posso / devo / voglio + Infinitiv',
+      explanation:
+        'Nach dem Modalverb steht immer der Infinitiv, ohne Präposition. "potere" können und dürfen, "dovere" müssen, "volere" wollen.',
+      examples: [
+        ['Posso pagare con la carta?', 'Kann ich mit Karte zahlen?'],
+        ['Devo andare adesso, scusa.', 'Ich muss jetzt gehen, tut mir leid.'],
+      ],
+      week: 2,
+      level: 'A1',
     },
     {
       slug: 'it-vorrei-potrebbe',
@@ -201,6 +290,241 @@ const italian: SeedLanguage = {
         ['Potrebbe aiutarmi?', 'Könnten Sie mir helfen?'],
       ],
       week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'it-ci-sono',
+      title: 'c’è und ci sono',
+      formula: 'c’è + Singular · ci sono + Plural',
+      explanation:
+        'Beides heißt "es gibt". Die Form richtet sich nach dem, was folgt: "C’è un problema", aber "Ci sono due problemi".',
+      examples: [
+        ['C’è un bancomat qui vicino?', 'Gibt es hier in der Nähe einen Geldautomaten?'],
+        ['Ci sono molte persone in fila.', 'Es stehen viele Leute in der Schlange.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'it-preposizioni',
+      title: 'Präposition mit Artikel',
+      formula: 'a+il=al · di+il=del · in+il=nel · su+il=sul · da+il=dal',
+      explanation:
+        'Präposition und bestimmter Artikel verschmelzen zu einem Wort: "Vado al bar", nicht "a il bar". Vor lo, la und l’ entsprechend allo, alla, all’.',
+      examples: [
+        ['Vado al lavoro in macchina.', 'Ich fahre mit dem Auto zur Arbeit.'],
+        ['La chiave è nella borsa.', 'Der Schlüssel ist in der Tasche.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'it-possessivi',
+      title: 'Possessivpronomen mit Artikel',
+      formula: 'il mio · la mia · i miei · le mie',
+      explanation:
+        'Anders als im Deutschen steht der Artikel mit dabei: "il mio libro". Ausnahme sind einzelne Familienmitglieder im Singular: "mia madre", ohne Artikel.',
+      examples: [
+        ['Questa è la mia valigia.', 'Das ist mein Koffer.'],
+        ['Mio fratello abita a Roma.', 'Mein Bruder wohnt in Rom.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'it-piacere',
+      title: 'mi piace / mi piacciono',
+      formula: 'mi piace + Singular · mi piacciono + Plural',
+      explanation:
+        'Wörtlich "es gefällt mir". Das Verb richtet sich nach dem, was gefällt, nicht nach der Person: "Mi piacciono i film italiani".',
+      examples: [
+        ['Mi piace il caffè senza zucchero.', 'Ich mag Kaffee ohne Zucker.'],
+        ['Non mi piacciono le olive.', 'Ich mag keine Oliven.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'it-passato-avere',
+      title: 'Perfekt mit avere',
+      formula: 'ho / hai / ha / abbiamo / avete / hanno + Partizip',
+      explanation:
+        'Die Vergangenheit des Alltags. Partizip: -are → -ato, -ere → -uto, -ire → -ito. Mit "avere" bleibt das Partizip unverändert.',
+      examples: [
+        ['Ho mangiato una pizza.', 'Ich habe eine Pizza gegessen.'],
+        ['Hai visto il film ieri sera?', 'Hast du gestern Abend den Film gesehen?'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'it-passato-essere',
+      title: 'Perfekt mit essere',
+      formula: 'sono / sei / è / siamo / siete / sono + Partizip (angeglichen)',
+      explanation:
+        'Verben der Bewegung und Veränderung nehmen "essere": andare, venire, uscire, restare, nascere. Dann richtet sich das Partizip nach dem Subjekt – "sono andato", "sono andata".',
+      examples: [
+        ['Sono andato al mercato stamattina.', 'Ich bin heute Morgen zum Markt gegangen.'],
+        ['Anna è arrivata tardi.', 'Anna ist spät angekommen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'it-imperfetto',
+      title: 'Imperfetto',
+      formula: '-avo / -evo / -ivo · ero, avevo, facevo',
+      explanation:
+        'Für Zustände, Gewohnheiten und Beschreibungen in der Vergangenheit: wie es war, was man immer tat. Unregelmäßig vor allem "essere" (ero) und "fare" (facevo).',
+      examples: [
+        ['Da bambino abitavo in campagna.', 'Als Kind wohnte ich auf dem Land.'],
+        ['Faceva freddo e non c’era nessuno.', 'Es war kalt und niemand war da.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'it-passato-vs-imperfetto',
+      title: 'Perfekt oder Imperfetto?',
+      formula: 'passato prossimo = was geschah · imperfetto = wie es war',
+      explanation:
+        'Das Perfekt erzählt abgeschlossene Ereignisse, das Imperfetto den Rahmen drumherum. Oft stehen beide im selben Satz.',
+      examples: [
+        ['Mentre dormivo, è suonato il telefono.', 'Während ich schlief, hat das Telefon geklingelt.'],
+        ['Ieri ho visto un film che era bellissimo.', 'Gestern habe ich einen Film gesehen, der wunderschön war.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'it-riflessivi',
+      title: 'Reflexive Verben',
+      formula: 'mi / ti / si / ci / vi / si + Verb — Perfekt immer mit essere',
+      explanation:
+        'alzarsi, svegliarsi, chiamarsi, lavarsi. Das Pronomen steht vor dem Verb. Im Perfekt nehmen sie immer "essere", das Partizip gleicht sich an: "mi sono alzata".',
+      examples: [
+        ['Mi chiamo Marco e mi alzo alle sette.', 'Ich heiße Marco und stehe um sieben auf.'],
+        ['Ci siamo visti ieri.', 'Wir haben uns gestern gesehen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'it-pronomi-diretti',
+      title: 'Direkte Objektpronomen',
+      formula: 'lo · la · li · le — vor dem Verb',
+      explanation:
+        'Sie ersetzen das direkte Objekt: "Compro il pane" wird zu "Lo compro". Im Perfekt gleicht sich das Partizip an: "L’ho comprata".',
+      examples: [
+        ['Conosci Anna? Sì, la conosco.', 'Kennst du Anna? Ja, ich kenne sie.'],
+        ['I biglietti? Li ho già presi.', 'Die Tickets? Die habe ich schon gekauft.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'it-pronomi-indiretti',
+      title: 'Indirekte Objektpronomen',
+      formula: 'mi · ti · gli · le · ci · vi · gli',
+      explanation:
+        'Sie antworten auf "wem": "Scrivo a Marco" wird zu "Gli scrivo". "gli" für ihn, "le" für sie – im Plural für beide "gli".',
+      examples: [
+        ['Le ho telefonato stamattina.', 'Ich habe sie heute Morgen angerufen.'],
+        ['Ci puoi dare una mano?', 'Kannst du uns helfen?'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'it-ne-ci',
+      title: 'ne und ci',
+      formula: 'ne = davon · ci = dorthin, dabei',
+      explanation:
+        '"ne" ersetzt eine Menge oder ein "von etwas": "Quante ne vuoi?" – "Ne prendo due." "ci" steht für einen Ort: "Vai a Roma? Sì, ci vado domani."',
+      examples: [
+        ['Vuoi del vino? Sì, ne prendo un bicchiere.', 'Möchtest du Wein? Ja, ich nehme ein Glas davon.'],
+        ['Al mare? Ci andiamo ogni estate.', 'Ans Meer? Da fahren wir jeden Sommer hin.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'it-futuro',
+      title: 'Über Zukünftiges sprechen',
+      formula: 'Präsens + Zeitangabe · Futur: -erò, -irò',
+      explanation:
+        'Für Geplantes reicht meist das Präsens mit Zeitangabe: "Domani parto". Das echte Futur benutzt man für Vorhersagen und Vermutungen.',
+      examples: [
+        ['Domani vado a Milano.', 'Morgen fahre ich nach Mailand.'],
+        ['Sarà difficile, ma ci proverò.', 'Es wird schwierig, aber ich werde es versuchen.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'it-imperativo',
+      title: 'Imperativ',
+      formula: 'tu: parla! · Lei: parli! — verneint: non + Infinitiv',
+      explanation:
+        'Für Bitten und Wegbeschreibungen. Bei -are-Verben endet die Du-Form auf -a, die Sie-Form auf -i; bei -ere und -ire umgekehrt. Verneint immer "non" plus Infinitiv.',
+      examples: [
+        ['Scusi, mi dica!', 'Entschuldigung, sagen Sie!'],
+        ['Gira a destra e poi vai dritto.', 'Bieg rechts ab und geh dann geradeaus.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'it-comparativo',
+      title: 'Vergleichen',
+      formula: 'più / meno … di · così … come · il più …',
+      explanation:
+        '"più caro di" teurer als, "meno caro di" weniger teuer als, "come" bei Gleichheit. Unregelmäßig: buono → migliore, cattivo → peggiore.',
+      examples: [
+        ['Il treno è più veloce della macchina.', 'Der Zug ist schneller als das Auto.'],
+        ['Questo è il ristorante migliore della città.', 'Das ist das beste Restaurant der Stadt.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'it-relative-che',
+      title: 'Relativsatz mit che und cui',
+      formula: 'che = der/die/das · Präposition + cui',
+      explanation:
+        '"che" gilt für Subjekt und direktes Objekt, unabhängig von Geschlecht und Zahl. Nach einer Präposition steht "cui": "la città in cui abito".',
+      examples: [
+        ['Il libro che leggo è italiano.', 'Das Buch, das ich lese, ist italienisch.'],
+        ['La ragione per cui non vengo è semplice.', 'Der Grund, warum ich nicht komme, ist einfach.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'it-stare-gerundio',
+      title: 'stare + gerundio',
+      formula: 'sto / stai / sta + -ando, -endo',
+      explanation:
+        'Was gerade in diesem Moment passiert: "Sto mangiando". Anders als im Englischen nur für den Augenblick, nie für die nahe Zukunft.',
+      examples: [
+        ['Che cosa stai facendo?', 'Was machst du gerade?'],
+        ['Sto cercando la stazione.', 'Ich suche gerade den Bahnhof.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'it-connettivi',
+      title: 'Sätze verbinden',
+      formula: 'perché · quindi · però · anche se · mentre',
+      explanation:
+        'Aus zwei Sätzen einen machen: perché (weil), quindi (also), però (aber), anche se (obwohl), mentre (während). Sie stehen zwischen den Teilen, das Verb bleibt an seinem Platz.',
+      examples: [
+        ['Non esco perché piove.', 'Ich gehe nicht raus, weil es regnet.'],
+        ['È tardi, quindi prendo un taxi.', 'Es ist spät, also nehme ich ein Taxi.'],
+      ],
+      week: 4,
+      level: 'A2',
     },
   ],
 };
@@ -269,6 +593,7 @@ const french: SeedLanguage = {
         ['Anne mange du pain.', 'Anne isst Brot.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'fr-negation-ne-pas',
@@ -280,6 +605,7 @@ const french: SeedLanguage = {
         ['Il n’est pas là.', 'Er ist nicht da.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'fr-est-ce-que',
@@ -291,6 +617,7 @@ const french: SeedLanguage = {
         ['Est-ce qu’il y a un bus ?', 'Gibt es einen Bus?'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'fr-je-voudrais',
@@ -302,6 +629,7 @@ const french: SeedLanguage = {
         ['Pourriez-vous m’aider ?', 'Könnten Sie mir helfen?'],
       ],
       week: 2,
+      level: 'A1',
     },
   ],
 };
@@ -385,6 +713,7 @@ const polish: SeedLanguage = {
         ['Anna je chleb.', 'Anna isst Brot.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'pl-negacja-nie',
@@ -397,6 +726,7 @@ const polish: SeedLanguage = {
         ['Nie mam czasu.', 'Ich habe keine Zeit.'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'pl-pytanie-czy',
@@ -409,6 +739,7 @@ const polish: SeedLanguage = {
         ['Czy jest wolny stolik?', 'Ist ein Tisch frei?'],
       ],
       week: 1,
+      level: 'A1',
     },
     {
       slug: 'pl-poprosze',
@@ -421,6 +752,7 @@ const polish: SeedLanguage = {
         ['Czy mógłby Pan mi pomóc?', 'Könnten Sie mir helfen?'],
       ],
       week: 2,
+      level: 'A1',
     },
   ],
 };

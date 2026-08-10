@@ -3,7 +3,7 @@ import { useStore } from '../store';
 import type { Language } from '../types-view';
 import type { Drill, Exercise, ExerciseKind, GrammarPattern } from '../types';
 import { Button, Card, Empty, SectionTitle, useAsyncAction } from '../ui';
-import { getPhase } from '../lib/phase';
+import { getPhase, levelsInSprint } from '../lib/phase';
 import { generateDrills, generatePatterns } from '../lib/llm';
 import { speak } from '../lib/speech';
 import { loadExercises } from '../data/exercises';
@@ -55,12 +55,22 @@ export function Drills({ lang }: { lang: Language }) {
     };
   }, [lang.name]);
 
+  // Ein Sprint zeigt nur die Muster seiner Stufe. Der erste holt A1 und A2
+  // zusammen ab, jeder weitere genau die nächste Stufe – sonst stünde das
+  // ganze Skelett bis B2 vom ersten Tag an in der Liste.
+  const sprintLevels = useMemo(() => new Set(levelsInSprint(lang.targetLevel)), [lang.targetLevel]);
+
   const patterns = useMemo(
     () =>
       state.patterns
-        .filter((p) => p.languageId === lang.id)
-        .sort((a, b) => a.week - b.week || a.createdAt - b.createdAt),
-    [state.patterns, lang.id],
+        .filter((p) => p.languageId === lang.id && sprintLevels.has(p.level ?? 'A1'))
+        // Reihenfolge aus dem Startpaket: Verneinung erst nach dem Aussagesatz.
+        // Ältere Stände ohne `order` fallen auf die Anlagereihenfolge zurück.
+        .sort(
+          (a, b) =>
+            a.week - b.week || (a.order ?? 0) - (b.order ?? 0) || a.createdAt - b.createdAt,
+        ),
+    [state.patterns, lang.id, sprintLevels],
   );
 
   const solvedIds = useMemo(() => {
@@ -200,7 +210,7 @@ export function Drills({ lang }: { lang: Language }) {
         return (
           <div key={week} className="stack" style={{ gap: 10 }}>
             <div className="eyebrow">
-              Woche {week}
+              Woche {week} · {list[0]?.level ?? 'A1'}
               {week === phase.week && ' · aktuell'}
             </div>
             {list.map((p) => (
@@ -279,6 +289,9 @@ function PatternCard({
           </div>
           <div className="tiny muted mono">{pattern.formula}</div>
         </div>
+        {pattern.level && pattern.level !== 'A1' && (
+          <span className="pill tiny">{pattern.level}</span>
+        )}
         {due > 0 && <span className="pill pill-accent tiny">{due} fällig</span>}
         {total > 0 && (
           <span className="tiny muted mono">

@@ -228,7 +228,7 @@ export function Daily({ lang }: { lang: Language }) {
         <div className="row row-wrap" style={{ marginTop: 10 }}>
           {state.languages.map((l) => (
             <span key={l.id} className={`pill ${l.slot === 'focus' ? 'pill-accent' : ''}`}>
-              {l.emoji} {l.name} · {l.slot === 'focus' ? 'Fokus' : 'Wartung'}
+              {l.emoji} {l.name} · {l.targetLevel} · {l.slot === 'focus' ? 'Fokus' : 'Wartung'}
             </span>
           ))}
         </div>

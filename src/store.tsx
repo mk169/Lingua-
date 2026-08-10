@@ -27,6 +27,7 @@ import type {
 import { loadState, saveState } from './lib/storage';
 import { LEECH_LIMIT, backlogLimit, dueCards, freshSrs, schedule } from './lib/sm2';
 import { todayISO } from './lib/date';
+import { nextLevel } from './lib/phase';
 import { uid } from './lib/id';
 import type { GeneratedWord, GeneratedPattern, GeneratedDrill } from './lib/llm';
 import { findSeed, type SeedLanguage } from './data/seed';
@@ -64,6 +65,9 @@ interface Store {
   markExercise: (exerciseId: string, languageId: string, correct: boolean) => void;
   /** Ausgesetzten Leech wieder in die Wiederholung nehmen. */
   restoreCard: (id: string) => void;
+
+  /** Nächsten 30-Tage-Sprint auf die nächste Stufe starten. */
+  startNextSprint: (languageId: string) => void;
 
   // Standortbestimmung
   addAssessment: (result: Omit<AssessmentResult, 'id' | 'createdAt'>) => void;
@@ -219,6 +223,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           emoji,
           createdAt: Date.now(),
           startDate: todayISO(),
+          // Der erste Sprint holt A1 und A2 zusammen ab.
+          targetLevel: 'A2',
+          sprint: 1,
+          sprintHistory: [],
           slot: 'focus',
           dailyNewWords: 45,
           dailyMinutes: 40,
@@ -246,7 +254,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
               }))
             : [];
           const patterns: GrammarPattern[] = pack
-            ? pack.patterns.map((p) => ({
+            ? pack.patterns.map((p, i) => ({
                 id: uid('pat'),
                 languageId: lang.id,
                 slug: p.slug,
@@ -255,6 +263,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 explanation: p.explanation,
                 examples: p.examples.map(([target, native]) => ({ target, native })),
                 week: p.week,
+                level: p.level ?? 'A1',
+                // Reihenfolge aus dem Startpaket – Verneinung erst nach dem
+                // Aussagesatz, nicht alphabetisch oder zufällig.
+                order: i,
                 mastered: false,
                 createdAt: Date.now(),
               }))
@@ -383,7 +395,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       unlockNow,
 
       addPatterns(languageId, patterns, week) {
-        const created: GrammarPattern[] = patterns.map((p) => ({
+        const created: GrammarPattern[] = patterns.map((p, i) => ({
           id: uid('pat'),
           languageId,
           title: p.title,
@@ -391,6 +403,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           explanation: p.explanation,
           examples: p.examples ?? [],
           week,
+          // Per LLM ergänzte Muster hängen sich hinten an die Woche an.
+          level: week <= 2 ? 'A1' : 'A2',
+          order: 1000 + i,
           mastered: false,
           createdAt: Date.now(),
         }));
@@ -441,6 +456,38 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           };
           return correct ? bumpLog(next, languageId, { drills: 1 }) : next;
         });
+      },
+
+      /**
+       * Schließt den laufenden Sprint ab und startet den nächsten auf der
+       * nächsten Stufe. Der Fortschritt bleibt erhalten – nur Startdatum,
+       * Zielstufe und Zähler wandern weiter.
+       */
+      startNextSprint(languageId) {
+        update((s) => ({
+          ...s,
+          languages: s.languages.map((l) => {
+            if (l.id !== languageId) return l;
+            const target = nextLevel(l.targetLevel);
+            if (!target) return l;
+            return {
+              ...l,
+              startDate: todayISO(),
+              targetLevel: target,
+              sprint: l.sprint + 1,
+              sprintHistory: [
+                ...l.sprintHistory,
+                {
+                  sprint: l.sprint,
+                  targetLevel: l.targetLevel,
+                  startDate: l.startDate,
+                  endedAt: todayISO(),
+                },
+              ],
+              phaseOverride: null,
+            };
+          }),
+        }));
       },
 
       addAssessment(result) {
