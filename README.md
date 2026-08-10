@@ -268,12 +268,13 @@ danebenliegende `<lang>.generated.ts`, die das Skript überschreibt. Beide werde
 zusammengeführt und über einen dynamischen `import()` erst auf dem Drills-Screen geladen —
 der Katalog landet so in einem eigenen Chunk und nicht im Hauptbundle.
 
-Aktuell im Repo: **1800 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
-50 Verständnisübungen pro Muster.
+Aktuell im Repo: **2400 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
+50 Verständnisübungen pro Muster. **Woche 1 für Italienisch ist vollständig** – alle sieben
+Muster der ersten Sprintwoche haben Material.
 
 | Sprache | Muster mit Übungen | Übungen | offen |
 | --- | --- | --- | --- |
-| Italienisch | 6 von 28 | 900 | 22 Muster, darunter imperfetto und die Pronomen |
+| Italienisch | 10 von 28 | 1500 | 18 Muster, darunter imperfetto und die Pronomen |
 | Spanisch | Aussagesatz, Verneinung | 300 | Entscheidungsfrage, ser/estar, höfliche Bitte |
 | Französisch | Aussagesatz, Verneinung | 300 | est-ce que, höfliche Bitte |
 | Polnisch | Aussagesatz, Verneinung | 300 | czy-Frage, höfliche Bitte |
