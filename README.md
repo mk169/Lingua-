@@ -64,18 +64,23 @@ genau diesem Wort, mit wechselnder Zeitform und Satzart, optional auf einen Ziel
 gegliedert, mit Formel, Erklärung und Beispielen. Ein Sprint zeigt nur die Muster seiner
 Stufe, nicht das ganze Skelett bis B2.
 
-**Italienisch ist bis B2 vollständig**: 56 Muster – A1 und A2 vom Aussagesatz über Artikel,
-Plural und Modalverben bis zu passato prossimo, imperfetto und Objektpronomen; B1 mit
-Congiuntivo, Condizionale, realem Bedingungssatz, Passiv und indirekter Rede; B2 mit
-irrealen Bedingungssätzen, Zeitenfolge, passato remoto, pronominalen Verben und
-Diskursmarkern.
+**Alle fünf Sprachen haben ein Skelett bis B2** – zusammen 276 Muster, jeweils von A1 bis
+B2 durchgezogen und innerhalb der Stufe auf vier Sprintwochen verteilt:
 
-**Portugiesisch** ist mit 53 Mustern bis B2 dabei (europäische Variante, pt-PT), inklusive
-der beiden Eigenheiten, die es sonst nirgends gibt: **futuro do conjuntivo** und
-**persönlicher Infinitiv**. Wo Portugal und Brasilien auseinandergehen, sagt das Muster es
-dazu; ein eigenes Muster stellt die vier auffälligsten Unterschiede nebeneinander.
+| Sprache | Muster | A1 | A2 | B1 | B2 |
+| --- | --- | --- | --- | --- | --- |
+| Italienisch | 56 | 14 | 14 | 15 | 13 |
+| Französisch | 56 | 15 | 14 | 14 | 13 |
+| Polnisch | 56 | 15 | 14 | 14 | 13 |
+| Spanisch | 55 | 14 | 14 | 14 | 13 |
+| Portugiesisch | 53 | 14 | 13 | 13 | 13 |
 
-Spanisch, Französisch und Polnisch haben bisher nur ihre vier bis fünf Woche-1/2-Muster.
+Jede Sprache bekommt dabei ihre eigenen Hürden statt einer übersetzten Einheitsliste:
+Italienisch das passato remoto und die pronominalen Verben, Spanisch por/para und die
+kombinierten Pronomen, Französisch Teilungsartikel, „y“ und „en“, Gérondif und passé
+simple, Polnisch den Aspekt, die sieben Kasus und den männlich-personalen Plural,
+Portugiesisch **futuro do conjuntivo** und den **persönlichen Infinitiv**. Wo Portugal und
+Brasilien auseinandergehen, sagt das Muster es dazu.
 
 Zu jedem Muster gibt es Übungen in drei Kategorien: Beispielsätze, Konstruktion (Lücke
 füllen, Umformen, Satz ordnen, Satz bilden) und Verständnis – eine Aufgabe pro Bildschirm,
@@ -285,14 +290,15 @@ Muster der ersten Sprintwoche haben Material.
 | Sprache | Muster mit Übungen | Übungen | offen |
 | --- | --- | --- | --- |
 | Italienisch | 10 von 56 | 1500 | 46 Muster, darunter imperfetto, die Pronomen und ganz B1/B2 |
+| Spanisch | 2 von 55 | 300 | 53 Muster ab der Entscheidungsfrage |
+| Französisch | 2 von 56 | 300 | 54 Muster ab „est-ce que“ |
+| Polnisch | 2 von 56 | 300 | 54 Muster ab der czy-Frage |
 | Portugiesisch | 0 von 53 | 0 | das komplette Skelett |
-| Spanisch | Aussagesatz, Verneinung | 300 | Entscheidungsfrage, ser/estar, höfliche Bitte |
-| Französisch | Aussagesatz, Verneinung | 300 | est-ce que, höfliche Bitte |
-| Polnisch | Aussagesatz, Verneinung | 300 | czy-Frage, höfliche Bitte |
 
-Die offenen Muster haben bereits Slugs — sie brauchen nur noch Inhalt, entweder von Hand
-oder mit einem Lauf des Generators. Das **Skelett** ist für Italienisch vollständig bis A2;
-die Übungen dazu wachsen nach.
+Das **Skelett steht damit für alle fünf Sprachen bis B2** — die Übungen dazu sind der
+Rückstand: 265 der 276 Muster haben noch kein Material. Die Slugs liegen bereits, es fehlt
+nur der Inhalt, von Hand oder aus einem Lauf des Generators. Der Reihe nach kommen zuerst
+die A1/A2-Muster, weil dort der erste Sprint jeder Sprache läuft.
 
 ---
 

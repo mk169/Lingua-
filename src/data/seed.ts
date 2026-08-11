@@ -156,6 +156,656 @@ const spanish: SeedLanguage = {
       week: 2,
       level: 'A1',
     },
+    {
+      slug: 'es-articulos',
+      title: 'Artikel',
+      formula: 'el · la · los · las — un · una · unos · unas',
+      explanation:
+        'Zwei Geschlechter. Bei weiblichen Wörtern, die betont mit a- beginnen, steht im Singular "el": "el agua fría" – das Adjektiv bleibt trotzdem weiblich.',
+      examples: [
+        ['El tren llega tarde.', 'Der Zug kommt spät.'],
+        ['El agua está fría.', 'Das Wasser ist kalt.'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'es-plural',
+      title: 'Plural der Nomen',
+      formula: 'Vokal + -s · Konsonant + -es · -z → -ces',
+      explanation:
+        'casa → casas, hotel → hoteles, lápiz → lápices. Der Akzent verschwindet oft im Plural: estación → estaciones.',
+      examples: [
+        ['la estación → las estaciones', 'der Bahnhof → die Bahnhöfe'],
+        ['el hotel → los hoteles', 'das Hotel → die Hotels'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'es-interrogativos',
+      title: 'Fragewörter',
+      formula: 'dónde · cuándo · cómo · cuánto · por qué · quién · qué',
+      explanation:
+        'Alle tragen im Fragesatz einen Akzent – ohne Akzent sind es andere Wörter: "porque" heißt weil, "por qué" warum.',
+      examples: [
+        ['¿Dónde está la estación?', 'Wo ist der Bahnhof?'],
+        ['¿Cuánto cuesta el billete?', 'Was kostet die Fahrkarte?'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'es-presente',
+      title: 'Präsens der drei Konjugationen',
+      formula: '-ar: -o -as -a -amos -áis -an · -er: -o -es -e -emos -éis -en · -ir: … -imos -ís -en',
+      explanation:
+        'Dazu die Stammwechsler: e→ie (querer → quiero), o→ue (poder → puedo), e→i (pedir → pido). Sie ändern sich überall außer bei "nosotros" und "vosotros".',
+      examples: [
+        ['Hablo español, como pan, vivo aquí.', 'Ich spreche Spanisch, esse Brot, wohne hier.'],
+        ['Quiero un café pero no puedo pagar.', 'Ich möchte einen Kaffee, kann aber nicht zahlen.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'es-modales',
+      title: 'poder, deber, querer, tener que',
+      formula: 'puedo / debo / quiero / tengo que + Infinitiv',
+      explanation:
+        'Nach dem Modalverb steht der Infinitiv. "tener que" ist das starke Müssen, "deber" eher die Pflicht oder Empfehlung.',
+      examples: [
+        ['Tengo que irme ahora.', 'Ich muss jetzt gehen.'],
+        ['¿Puedo pagar con tarjeta?', 'Kann ich mit Karte zahlen?'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'es-hay',
+      title: 'hay – es gibt',
+      formula: 'hay + Singular oder Plural',
+      explanation:
+        'Eine unveränderliche Form. Aufpassen: "hay" für die bloße Existenz, "está/están" für einen bestimmten Ort: "¿Hay un banco?" gegenüber "¿Dónde está el banco?".',
+      examples: [
+        ['¿Hay un cajero por aquí?', 'Gibt es hier in der Nähe einen Geldautomaten?'],
+        ['Hay mucha gente en la plaza.', 'Auf dem Platz sind viele Leute.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'es-preposiciones',
+      title: 'Präpositionen und die zwei Verschmelzungen',
+      formula: 'a + el = al · de + el = del',
+      explanation:
+        'Nur diese beiden verschmelzen, sonst bleibt alles getrennt. "a" für Richtung und vor Personen als Objekt, "de" für Herkunft und Besitz, "en" für Ort.',
+      examples: [
+        ['Voy al trabajo en coche.', 'Ich fahre mit dem Auto zur Arbeit.'],
+        ['Es la casa del vecino.', 'Das ist das Haus des Nachbarn.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'es-posesivos',
+      title: 'Possessivpronomen',
+      formula: 'mi · tu · su · nuestro — ohne Artikel',
+      explanation:
+        'Anders als im Italienischen ohne Artikel: "mi casa", nicht "la mi casa". "su" ist mehrdeutig – sein, ihr oder Ihr; im Zweifel "de él", "de ella".',
+      examples: [
+        ['Esta es mi maleta.', 'Das ist mein Koffer.'],
+        ['Su hermano vive en Madrid.', 'Sein Bruder wohnt in Madrid.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'es-gustar',
+      title: 'gustar und seine Verwandten',
+      formula: 'me gusta + Singular · me gustan + Plural',
+      explanation:
+        'Wörtlich "es gefällt mir". Das Verb richtet sich nach dem, was gefällt: "Me gustan las películas". Genauso: encantar, interesar, doler.',
+      examples: [
+        ['Me gusta el café sin azúcar.', 'Ich mag Kaffee ohne Zucker.'],
+        ['No me gustan las aceitunas.', 'Ich mag keine Oliven.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'es-indefinido',
+      title: 'Pretérito indefinido',
+      formula: '-é -aste -ó -amos -aron · fui, tuve, hice',
+      explanation:
+        'Die abgeschlossene Vergangenheit mit Zeitpunkt: ayer, el año pasado, en 2020. In Lateinamerika deckt sie fast die ganze Vergangenheit ab.',
+      examples: [
+        ['Ayer comí pescado.', 'Gestern habe ich Fisch gegessen.'],
+        ['Fui al mercado por la mañana.', 'Ich bin morgens zum Markt gegangen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'es-perfecto',
+      title: 'Pretérito perfecto',
+      formula: 'he / has / ha + Partizip',
+      explanation:
+        'Für heute, diese Woche, schon und noch nie: "Hoy he trabajado mucho." In Spanien alltäglich, in Lateinamerika seltener als das indefinido.',
+      examples: [
+        ['Hoy he trabajado mucho.', 'Heute habe ich viel gearbeitet.'],
+        ['¿Has estado alguna vez en México?', 'Warst du schon einmal in Mexiko?'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'es-imperfecto',
+      title: 'Pretérito imperfecto',
+      formula: '-aba, -ía · era, tenía, hacía',
+      explanation:
+        'Zustände, Gewohnheiten und Beschreibungen. Nur drei Verben sind unregelmäßig: ser (era), ir (iba), ver (veía).',
+      examples: [
+        ['Cuando era pequeño vivía en el campo.', 'Als ich klein war, wohnte ich auf dem Land.'],
+        ['Hacía frío y no había nadie.', 'Es war kalt und niemand war da.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'es-indefinido-vs-imperfecto',
+      title: 'Indefinido oder Imperfecto?',
+      formula: 'indefinido = was geschah · imperfecto = wie es war',
+      explanation:
+        'Das indefinido erzählt Ereignisse, das imperfecto den Rahmen. Oft im selben Satz: "Mientras dormía, sonó el teléfono."',
+      examples: [
+        ['Mientras dormía, sonó el teléfono.', 'Während ich schlief, klingelte das Telefon.'],
+        ['Ayer vi una película que era muy buena.', 'Gestern sah ich einen Film, der sehr gut war.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'es-reflexivos',
+      title: 'Reflexive Verben',
+      formula: 'me / te / se / nos / os / se + Verb',
+      explanation:
+        'levantarse, llamarse, acordarse de. Das Pronomen steht vor dem konjugierten Verb, hängt sich aber an Infinitiv und Gerundium an: "voy a levantarme".',
+      examples: [
+        ['Me llamo Ana y me levanto a las siete.', 'Ich heiße Ana und stehe um sieben auf.'],
+        ['No me acuerdo del nombre.', 'Ich erinnere mich nicht an den Namen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'es-pronombres-od',
+      title: 'Direkte Objektpronomen',
+      formula: 'lo · la · los · las',
+      explanation:
+        '"Compro el pan" wird zu "Lo compro". In weiten Teilen Spaniens sagt man bei männlichen Personen "le" statt "lo" – das ist der leísmo und gilt als korrekt.',
+      examples: [
+        ['¿Conoces a Ana? Sí, la conozco.', 'Kennst du Ana? Ja, ich kenne sie.'],
+        ['Los billetes ya los tengo.', 'Die Tickets habe ich schon.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'es-pronombres-oi',
+      title: 'Indirekte Objektpronomen',
+      formula: 'me · te · le · nos · os · les',
+      explanation:
+        'Sie antworten auf "wem". Oft steht das Pronomen zusätzlich zum Namen: "Le he dado el libro a Marco" – die Doppelung ist Standard, kein Fehler.',
+      examples: [
+        ['Le he escrito un correo.', 'Ich habe ihm eine Mail geschrieben.'],
+        ['¿Nos puedes ayudar?', 'Kannst du uns helfen?'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'es-ir-a-infinitivo',
+      title: 'Zukunft mit "ir a" + Infinitiv',
+      formula: 'voy / vas / va a + Infinitiv',
+      explanation:
+        'Der Alltagsweg in die Zukunft: "Voy a salir mañana." Das echte Futur (saldré) benutzt man vor allem für Vermutungen: "Serán las tres."',
+      examples: [
+        ['Mañana voy a ir a Sevilla.', 'Morgen fahre ich nach Sevilla.'],
+        ['Va a llover esta tarde.', 'Heute Nachmittag wird es regnen.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'es-imperativo',
+      title: 'Imperativ',
+      formula: 'tú: habla · usted: hable · verneint: no hables',
+      explanation:
+        'Die bejahte Du-Form ist kurz, die verneinte nimmt den Subjuntivo: "habla" gegenüber "no hables". Pronomen hängen bejaht an: "dímelo".',
+      examples: [
+        ['Siga todo recto y gire a la derecha.', 'Gehen Sie geradeaus und biegen Sie rechts ab.'],
+        ['No te preocupes.', 'Mach dir keine Sorgen.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'es-comparativo',
+      title: 'Vergleichen',
+      formula: 'más/menos … que · tan … como · el más …',
+      explanation:
+        '"más caro que". Unregelmäßig: bueno → mejor, malo → peor, grande → mayor. Vor Zahlen steht "de": "más de veinte euros".',
+      examples: [
+        ['El tren es más rápido que el coche.', 'Der Zug ist schneller als das Auto.'],
+        ['Es el mejor restaurante de la ciudad.', 'Das ist das beste Restaurant der Stadt.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'es-relativas-que',
+      title: 'Relativsatz mit que und donde',
+      formula: 'que · donde · Präposition + el que',
+      explanation:
+        '"que" für Personen und Sachen. Nach Präposition steht "el que" oder bei Personen "quien": "el colega con quien trabajo".',
+      examples: [
+        ['El libro que leo es español.', 'Das Buch, das ich lese, ist spanisch.'],
+        ['La ciudad donde vivo es pequeña.', 'Die Stadt, in der ich lebe, ist klein.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'es-estar-gerundio',
+      title: 'estar + gerundio',
+      formula: 'estoy / estás / está + -ando, -iendo',
+      explanation:
+        'Was gerade in diesem Moment passiert: "Estoy comiendo." Nie für die Zukunft – "mañana voy" heißt morgen gehe ich, nicht "estoy yendo".',
+      examples: [
+        ['¿Qué estás haciendo?', 'Was machst du gerade?'],
+        ['Estoy buscando la estación.', 'Ich suche gerade den Bahnhof.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'es-demostrativos',
+      title: 'este, ese, aquel',
+      formula: 'este = bei mir · ese = bei dir · aquel = weit weg',
+      explanation:
+        'Drei Stufen statt zwei. Die neutralen Formen esto, eso, aquello stehen für etwas Unbenanntes: "¿Qué es esto?".',
+      examples: [
+        ['Este billete es mío, ese es tuyo.', 'Diese Fahrkarte ist meine, die da ist deine.'],
+        ['¿Qué es esto?', 'Was ist das?'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'es-conectores',
+      title: 'Sätze verbinden',
+      formula: 'porque · así que · pero · aunque · mientras',
+      explanation:
+        'porque (weil), así que (also), pero (aber), mientras (während). "aunque" mit Indikativ nennt eine Tatsache, mit Subjuntivo eine Möglichkeit.',
+      examples: [
+        ['No salgo porque está lloviendo.', 'Ich gehe nicht raus, weil es regnet.'],
+        ['Es tarde, así que voy a coger un taxi.', 'Es ist spät, also nehme ich ein Taxi.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'es-por-para',
+      title: 'por und para',
+      formula: 'por = Grund, Weg, Tausch · para = Ziel, Zweck, Empfänger',
+      explanation:
+        'Die klassische Hürde: "Lo hago por ti" (deinetwegen) gegenüber "Es para ti" (für dich). "por" blickt zurück auf den Grund, "para" nach vorn auf das Ziel.',
+      examples: [
+        ['Este regalo es para ti.', 'Dieses Geschenk ist für dich.'],
+        ['Gracias por tu ayuda.', 'Danke für deine Hilfe.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'es-condicional',
+      title: 'Condicional',
+      formula: '-ía, -ías, -ía · sería, tendría, haría',
+      explanation:
+        'Für Höflichkeit, Rat und Hypothesen: "Deberías descansar", "Sería mejor así". Auch für Vermutungen in der Vergangenheit: "Serían las tres."',
+      examples: [
+        ['Deberías descansar un poco.', 'Du solltest dich etwas ausruhen.'],
+        ['Sería mejor salir temprano.', 'Es wäre besser, früh loszufahren.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'es-subjuntivo-presente',
+      title: 'Subjuntivo presente',
+      formula: 'espero que · es mejor que · quiero que + sea, tenga, haga',
+      explanation:
+        'Nach Wunsch, Gefühl, Zweifel und Wertung. Die Endungen tauschen: -ar-Verben bekommen -e, -er/-ir-Verben bekommen -a.',
+      examples: [
+        ['Espero que todo esté bien.', 'Ich hoffe, es ist alles in Ordnung.'],
+        ['Es mejor que vayas ahora.', 'Es ist besser, wenn du jetzt gehst.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'es-subjuntivo-conjunciones',
+      title: 'Auslöser des Subjuntivo',
+      formula: 'cuando (Zukunft) · para que · antes de que · aunque',
+      explanation:
+        '"Cuando llegues, llámame" – bezieht sich der Satz auf die Zukunft, steht der Subjuntivo. Bei Gewohnheiten bleibt es der Indikativ: "Cuando llego, siempre llamo."',
+      examples: [
+        ['Cuando llegues, llámame.', 'Wenn du ankommst, ruf mich an.'],
+        ['Te lo digo para que lo sepas.', 'Ich sage es dir, damit du es weißt.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'es-si-real',
+      title: 'Bedingungssatz: der reale Fall',
+      formula: 'Si + Präsens, Präsens/Futur/Imperativ',
+      explanation:
+        'Was wahrscheinlich eintritt: "Si llueve, me quedo en casa." Nach "si" steht nie das Futur und nie der Subjuntivo presente.',
+      examples: [
+        ['Si llueve, me quedo en casa.', 'Wenn es regnet, bleibe ich zu Hause.'],
+        ['Si tienes tiempo, llámame.', 'Wenn du Zeit hast, ruf mich an.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'es-pluscuamperfecto',
+      title: 'Pluscuamperfecto',
+      formula: 'había + Partizip',
+      explanation:
+        'Das Davor in der Vergangenheit: "Cuando llegué, ya se había ido." Hilfsverb im imperfecto, sonst wie das perfecto.',
+      examples: [
+        ['Cuando llegué, ya se había ido.', 'Als ich ankam, war er schon weg.'],
+        ['No sabía que habías llamado.', 'Ich wusste nicht, dass du angerufen hattest.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'es-pronombres-combinados',
+      title: 'Kombinierte Pronomen: se lo',
+      formula: 'me lo · te la · se lo · nos los',
+      explanation:
+        'Treffen "le/les" und "lo/la" aufeinander, wird aus "le" ein "se": nicht "le lo doy", sondern "se lo doy". Indirekt steht immer vor direkt.',
+      examples: [
+        ['¿Me lo puedes explicar?', 'Kannst du es mir erklären?'],
+        ['Se lo digo mañana.', 'Ich sage es ihm morgen.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'es-se-impersonal',
+      title: 'se impersonal und se pasiva',
+      formula: 'se + 3. Person',
+      explanation:
+        'Das deutsche "man": "En España se cena tarde." Steht ein Objekt dahinter, richtet sich das Verb danach: "Aquí se hablan tres idiomas."',
+      examples: [
+        ['En España se cena tarde.', 'In Spanien isst man spät zu Abend.'],
+        ['Aquí se hablan tres idiomas.', 'Hier werden drei Sprachen gesprochen.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'es-pasiva',
+      title: 'Passiv',
+      formula: 'ser + Partizip (+ por …) · estar + Partizip',
+      explanation:
+        '"La carta fue escrita por Marco" beschreibt die Handlung, "la tienda está cerrada" das Ergebnis. Im Alltag ersetzt meist das se-Passiv beides.',
+      examples: [
+        ['La carta fue escrita por Marco.', 'Der Brief wurde von Marco geschrieben.'],
+        ['La tienda está cerrada.', 'Der Laden ist geschlossen.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'es-estilo-indirecto',
+      title: 'Indirekte Rede',
+      formula: 'dijo que + Zeitverschiebung',
+      explanation:
+        'Beim Berichten rutschen die Zeiten zurück: Präsens wird imperfecto, indefinido wird pluscuamperfecto, Futur wird condicional.',
+      examples: [
+        ['Dijo que estaba cansado.', 'Er sagte, er sei müde.'],
+        ['Me preguntó si tenía tiempo.', 'Sie fragte mich, ob ich Zeit hätte.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'es-perifrasis',
+      title: 'Verbalperiphrasen',
+      formula: 'acabar de · volver a · seguir + gerundio · ponerse a',
+      explanation:
+        'Feinheiten des Ablaufs ohne eigene Zeitform: "acabo de llegar" – ich bin gerade angekommen; "vuelvo a intentarlo" – ich versuche es noch einmal.',
+      examples: [
+        ['Acabo de llegar a casa.', 'Ich bin gerade nach Hause gekommen.'],
+        ['Sigo trabajando en el proyecto.', 'Ich arbeite weiter an dem Projekt.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'es-adverbios',
+      title: 'Adverbien und ihre Stellung',
+      formula: 'Adjektiv (weiblich) + -mente',
+      explanation:
+        'lenta → lentamente. Bei zwei Adverbien bekommt nur das letzte die Endung: "habló clara y lentamente". Der Akzent des Adjektivs bleibt: rápida → rápidamente.',
+      examples: [
+        ['Habla muy despacio.', 'Er spricht sehr langsam.'],
+        ['Todavía no he recibido la respuesta.', 'Ich habe die Antwort noch nicht bekommen.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'es-relativas-cuyo',
+      title: 'Relativsätze mit cuyo und el cual',
+      formula: 'cuyo/cuya + Nomen · el cual',
+      explanation:
+        '"cuyo" richtet sich nach dem Besitz, nicht nach dem Besitzer: "la empresa cuyos empleados…". "el cual" ist die formelle Variante nach Präposition.',
+      examples: [
+        ['El colega con quien trabajo es alemán.', 'Der Kollege, mit dem ich arbeite, ist Deutscher.'],
+        ['La empresa cuyos empleados hicieron huelga.', 'Die Firma, deren Angestellte gestreikt haben.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'es-conectores-b1',
+      title: 'Argumentieren: además, sin embargo, ya que',
+      formula: 'además · sin embargo · por lo tanto · ya que · a pesar de',
+      explanation:
+        'Über "pero" und "porque" hinaus: "ya que" leitet den Grund ein, "por lo tanto" die Folge, "sin embargo" den Einwand.',
+      examples: [
+        ['Ya que estaba lloviendo, nos quedamos en casa.', 'Da es regnete, blieben wir zu Hause.'],
+        ['Es caro; sin embargo, vale la pena.', 'Es ist teuer; dennoch lohnt es sich.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'es-subjuntivo-imperfecto',
+      title: 'Subjuntivo imperfecto',
+      formula: 'fuera/fuese, tuviera, hiciera · pensaba que …',
+      explanation:
+        'Zwei gleichwertige Formen auf -ra und -se. Steht der Hauptsatz in der Vergangenheit oder im condicional, folgt der subjuntivo imperfecto.',
+      examples: [
+        ['Pensaba que fuera más fácil.', 'Ich dachte, es wäre leichter.'],
+        ['Quería que vinieras conmigo.', 'Ich wollte, dass du mitkommst.'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'es-si-irreal',
+      title: 'Bedingungssatz: der irreale Fall',
+      formula: 'Si + subjuntivo imperfecto, condicional',
+      explanation:
+        'Was möglich, aber unwahrscheinlich ist: "Si tuviera tiempo, iría." Nie "si tendría" – nach "si" steht nie das condicional.',
+      examples: [
+        ['Si tuviera tiempo, iría contigo.', 'Wenn ich Zeit hätte, käme ich mit.'],
+        ['Yo que tú, no lo haría.', 'An deiner Stelle würde ich das nicht tun.'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'es-si-imposible',
+      title: 'Bedingungssatz: die verpasste Möglichkeit',
+      formula: 'Si + hubiera + Partizip, habría + Partizip',
+      explanation:
+        'Was nicht mehr zu ändern ist: "Si lo hubiera sabido, habría venido." Der Satz des Bedauerns und des Vorwurfs.',
+      examples: [
+        ['Si lo hubiera sabido, habría venido.', 'Hätte ich es gewusst, wäre ich gekommen.'],
+        ['Si hubiéramos salido antes, no habríamos perdido el tren.', 'Wären wir früher losgefahren, hätten wir den Zug nicht verpasst.'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'es-concordancia-tiempos',
+      title: 'Zeitenfolge im Subjuntivo',
+      formula: 'Gegenwart → presente · Vergangenheit → imperfecto',
+      explanation:
+        'Die Zeit im Nebensatz richtet sich nach dem Hauptsatz: "Espero que venga" gegenüber "Esperaba que viniera".',
+      examples: [
+        ['Espero que tenga razón.', 'Ich hoffe, er hat recht.'],
+        ['Esperaba que tuviera razón.', 'Ich hoffte, er hätte recht.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'es-subjuntivo-pasado',
+      title: 'Subjuntivo in der Vergangenheit',
+      formula: 'haya + Partizip · hubiera + Partizip',
+      explanation:
+        'Für Vorzeitigkeit: "Me alegro de que hayas venido" – ich freue mich, dass du gekommen bist. In der Vergangenheit: "Me alegré de que hubieras venido."',
+      examples: [
+        ['Me alegro de que hayas venido.', 'Ich freue mich, dass du gekommen bist.'],
+        ['No creo que haya llegado todavía.', 'Ich glaube nicht, dass er schon angekommen ist.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'es-subordinadas-reducidas',
+      title: 'Verkürzte Nebensätze',
+      formula: 'antes de + Inf. · después de + Inf. · al + Inf.',
+      explanation:
+        'Bei gleichem Subjekt wird der Nebensatz verkürzt: "Al llegar a casa, te llamé" statt "Cuando llegué a casa…".',
+      examples: [
+        ['Al llegar a casa, te llamé.', 'Als ich nach Hause kam, habe ich dich angerufen.'],
+        ['Después de comer, salimos.', 'Nach dem Essen sind wir rausgegangen.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'es-pasiva-avanzada',
+      title: 'Passiv und seine Alternativen',
+      formula: 'ser + Partizip · se pasiva · 3. Person Plural',
+      explanation:
+        'Das echte Passiv klingt im Spanischen schriftlich. Gesprochen nimmt man das se-Passiv oder einfach die 3. Person Plural: "Me robaron el móvil."',
+      examples: [
+        ['Me robaron el móvil en el metro.', 'Mir wurde in der Metro das Handy gestohlen.'],
+        ['Se ruega no fumar.', 'Bitte nicht rauchen.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'es-conectores-b2',
+      title: 'Formelle Konnektoren',
+      formula: 'a fin de que · siempre que · en caso de que · pese a que',
+      explanation:
+        'Für Schriftliches und formelle Gespräche. Fast alle verlangen den Subjuntivo: "siempre que estés de acuerdo", "en caso de que sea necesario".',
+      examples: [
+        ['Voy, siempre que estés de acuerdo.', 'Ich gehe, sofern du einverstanden bist.'],
+        ['Pese a que era tarde, continuaron.', 'Obwohl es spät war, machten sie weiter.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'es-matices-modales',
+      title: 'Modalverben mit Nuance',
+      formula: 'debería · podría ser · debería haber',
+      explanation:
+        'Im condicional drücken Modalverben Vermutung und Vorwurf aus: "Deberías habérmelo dicho" – du hättest es mir sagen sollen. "Debe de ser" heißt es wird wohl sein.',
+      examples: [
+        ['El tren debería llegar a las ocho.', 'Der Zug müsste um acht ankommen.'],
+        ['Deberías habérmelo dicho antes.', 'Du hättest es mir früher sagen sollen.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'es-marcadores',
+      title: 'Diskursmarker: o sea, vale, pues, en plan',
+      formula: 'o sea · vale · pues · bueno · en plan',
+      explanation:
+        'Die kleinen Wörter, an denen man Muttersprachler erkennt. "o sea" erklärt nach, "vale" bestätigt, "bueno" leitet einen Einwand ein.',
+      examples: [
+        ['Bueno, no es tan sencillo.', 'Also, so einfach ist das nicht.'],
+        ['Vale, nos vemos a las ocho.', 'Okay, wir sehen uns um acht.'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'es-registro',
+      title: 'Register und Anrede',
+      formula: 'tú · usted · vosotros / ustedes',
+      explanation:
+        'In Spanien duzt man mit "tú" und siezt mit "usted"; im Plural "vosotros" gegenüber "ustedes". In Lateinamerika gibt es kein "vosotros", und vielerorts steht "vos" statt "tú".',
+      examples: [
+        ['¿Le importaría esperar un momento?', 'Würde es Ihnen etwas ausmachen zu warten?'],
+        ['¿Te apetece un café?', 'Hast du Lust auf einen Kaffee?'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'es-nominalizacion',
+      title: 'Nominalstil der Zeitungssprache',
+      formula: 'el aumento de los precios · a raíz de · en cuanto a',
+      explanation:
+        'Zeitungen und Behörden verwandeln Verben in Nomen: nicht "los precios han subido", sondern "la subida de los precios".',
+      examples: [
+        ['La subida de los precios preocupa a las familias.', 'Der Preisanstieg beunruhigt die Familien.'],
+        ['A raíz de la huelga, se cancelaron los trenes.', 'Infolge des Streiks wurden die Züge gestrichen.'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'es-variedades',
+      title: 'Spanien und Lateinamerika unterscheiden',
+      formula: 'vosotros/ustedes · coche/carro · perfecto/indefinido',
+      explanation:
+        'Beide Varianten sind richtig, nur nicht gemischt. Die auffälligsten Unterschiede: die Plural-Anrede, die Vorliebe für indefinido statt perfecto, das "vos" am Río de la Plata und ein paar Alltagswörter.',
+      examples: [
+        ['¿Habéis comido? / ¿Ya comieron?', 'Habt ihr gegessen? (ES / LatAm)'],
+        ['Coger el autobús. / Tomar el bus.', 'Den Bus nehmen. (ES / LatAm)'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
   ],
 };
 
@@ -995,6 +1645,682 @@ const french: SeedLanguage = {
       week: 2,
       level: 'A1',
     },
+    {
+      slug: 'fr-articles',
+      title: 'Bestimmte und unbestimmte Artikel',
+      formula: 'le · la · l’ · les — un · une · des',
+      explanation:
+        'Jedes Nomen hat ein Geschlecht, und es stimmt selten mit dem deutschen überein: "le train" ist maskulin, "la gare" feminin. Vor Vokal wird "le/la" zu "l’". Artikel deshalb immer zusammen mit dem Wort lernen.',
+      examples: [
+        ['Le train part de la gare.', 'Der Zug fährt vom Bahnhof ab.'],
+        ['Je cherche une pharmacie.', 'Ich suche eine Apotheke.'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-pluriel',
+      title: 'Plural der Nomen',
+      formula: '-s (stumm) · -al → -aux · -eau → -eaux',
+      explanation:
+        'Das Plural-s hört man nicht. Ob ein oder mehrere gemeint sind, verrät im Gesprochenen der Artikel: "le" gegen "les", "un" gegen "des".',
+      examples: [
+        ['le journal → les journaux', 'die Zeitung → die Zeitungen'],
+        ['le gâteau → les gâteaux', 'der Kuchen → die Kuchen'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-etre-avoir',
+      title: 'être und avoir',
+      formula: 'je suis, tu es, il est, nous sommes, vous êtes, ils sont — j’ai, tu as, il a, nous avons, vous avez, ils ont',
+      explanation:
+        'Die beiden häufigsten Verben und zugleich die Hilfsverben der Vergangenheit. Achtung: Alter, Hunger, Durst und Angst laufen im Französischen über "avoir", nicht über "être".',
+      examples: [
+        ['J’ai trente ans.', 'Ich bin dreißig Jahre alt.'],
+        ['Nous sommes en retard.', 'Wir sind zu spät.'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-interrogatifs',
+      title: 'Fragewörter',
+      formula: 'où · quand · comment · pourquoi · combien · qui · que',
+      explanation:
+        'Am sichersten mit "est-ce que": "Où est-ce que tu habites ?". Im Alltag rutscht das Fragewort oft ans Satzende: "Tu habites où ?" — beides ist richtig, das zweite klingt gesprochener.',
+      examples: [
+        ['Où est-ce que tu habites ?', 'Wo wohnst du?'],
+        ['Tu pars quand ?', 'Wann fährst du?'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-present',
+      title: 'Präsens der regelmäßigen Verben',
+      formula: '-er: -e, -es, -e, -ons, -ez, -ent · -ir: -is, -is, -it, -issons, -issez, -issent',
+      explanation:
+        'Bei den -er-Verben klingen "parle", "parles" und "parlent" identisch. Man hört nur drei verschiedene Formen, obwohl man sechs schreibt.',
+      examples: [
+        ['Je parle un peu français.', 'Ich spreche ein bisschen Französisch.'],
+        ['Nous finissons à six heures.', 'Wir sind um sechs fertig.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-modaux',
+      title: 'Modalverben + Infinitiv',
+      formula: 'pouvoir · vouloir · devoir + Infinitiv',
+      explanation:
+        'Drei unregelmäßige Verben, die den halben Alltag tragen: können, wollen, müssen. Der Infinitiv folgt ohne Präposition.',
+      examples: [
+        ['Je dois partir maintenant.', 'Ich muss jetzt gehen.'],
+        ['Tu peux m’aider ?', 'Kannst du mir helfen?'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-il-y-a',
+      title: '"il y a" für "es gibt"',
+      formula: 'il y a + Nomen · il n’y a pas de + Nomen',
+      explanation:
+        'Unveränderlich, egal ob eins oder viele. In der Verneinung wird der Artikel zu "de": "il n’y a pas de place".',
+      examples: [
+        ['Il y a un bus à huit heures.', 'Um acht fährt ein Bus.'],
+        ['Il n’y a pas de place.', 'Es gibt keinen Platz.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-partitifs',
+      title: 'Teilungsartikel: du, de la, des',
+      formula: 'du · de la · de l’ · des — nach Verneinung: de',
+      explanation:
+        'Deutsch sagt "Ich trinke Wasser", Französisch braucht einen Artikel: "Je bois de l’eau." Ihn wegzulassen ist einer der häufigsten deutschen Fehler.',
+      examples: [
+        ['Je voudrais du pain.', 'Ich hätte gern Brot.'],
+        ['Je ne bois pas de café.', 'Ich trinke keinen Kaffee.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-contractions',
+      title: 'Verschmelzung: au, aux, du, des',
+      formula: 'à + le = au · à + les = aux · de + le = du · de + les = des',
+      explanation:
+        'Pflicht, keine Stilfrage: "à le marché" gibt es nicht, es heißt "au marché". Bei "la" und "l’" bleibt alles getrennt.',
+      examples: [
+        ['Je vais au marché.', 'Ich gehe zum Markt.'],
+        ['C’est la clé de la chambre.', 'Das ist der Schlüssel zum Zimmer.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-possessifs',
+      title: 'Possessivbegleiter',
+      formula: 'mon/ma/mes · ton/ta/tes · son/sa/ses · notre/nos · votre/vos · leur/leurs',
+      explanation:
+        'Die Form richtet sich nach dem besessenen Nomen, nicht nach dem Besitzer: "sa voiture" heißt sowohl "sein Auto" als auch "ihr Auto". Vor Vokal steht "mon" auch bei femininen Wörtern: "mon amie".',
+      examples: [
+        ['C’est mon billet.', 'Das ist meine Fahrkarte.'],
+        ['Sa sœur habite à Lyon.', 'Seine Schwester wohnt in Lyon.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-adjectifs',
+      title: 'Adjektiv: Stellung und Angleichung',
+      formula: 'Nomen + Adjektiv · davor: beau, bon, grand, petit, jeune, vieux, nouveau',
+      explanation:
+        'Das Adjektiv steht meist hinter dem Nomen und gleicht sich in Geschlecht und Zahl an: "une voiture rouge", "des voitures rouges". Eine kleine Gruppe häufiger Adjektive steht davor.',
+      examples: [
+        ['une voiture rouge', 'ein rotes Auto'],
+        ['une grande maison', 'ein großes Haus'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'fr-passe-compose-avoir',
+      title: 'Passé composé mit "avoir"',
+      formula: 'avoir (Präsens) + Partizip II',
+      explanation:
+        'Die Standardvergangenheit des Gesprochenen. Partizip: -er → -é, -ir → -i, -re → -u. Unregelmäßig sind unter anderem "pris", "fait", "vu", "eu", "été".',
+      examples: [
+        ['J’ai mangé au restaurant.', 'Ich habe im Restaurant gegessen.'],
+        ['Nous avons pris le train.', 'Wir haben den Zug genommen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-passe-compose-etre',
+      title: 'Passé composé mit "être"',
+      formula: 'être (Präsens) + Partizip II, das sich dem Subjekt angleicht',
+      explanation:
+        'Bewegungs- und Zustandswechselverben (aller, venir, partir, arriver, rester, naître, mourir …) und alle reflexiven Verben nehmen "être". Dann gleicht sich das Partizip an: "elle est partie", "nous sommes arrivés".',
+      examples: [
+        ['Elle est partie hier.', 'Sie ist gestern abgefahren.'],
+        ['Nous sommes arrivés à midi.', 'Wir sind mittags angekommen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-accord-participe',
+      title: 'Angleichung des Partizips bei vorangestelltem Objekt',
+      formula: 'direktes Objekt vor dem Verb → Partizip gleicht sich an',
+      explanation:
+        'Mit "avoir" bleibt das Partizip normalerweise unverändert — außer das direkte Objekt steht davor, als Pronomen oder in einem Relativsatz: "Je les ai perdues."',
+      examples: [
+        ['Les clés ? Je les ai perdues.', 'Die Schlüssel? Ich habe sie verloren.'],
+        ['la lettre que j’ai écrite', 'der Brief, den ich geschrieben habe'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-imparfait',
+      title: 'Imparfait',
+      formula: 'Stamm der nous-Form + -ais, -ais, -ait, -ions, -iez, -aient',
+      explanation:
+        'Für Zustände, Gewohnheiten und Beschreibungen der Vergangenheit. Einzige echte Ausnahme: "être" → "j’étais".',
+      examples: [
+        ['Quand j’étais petit, j’habitais à Berlin.', 'Als ich klein war, wohnte ich in Berlin.'],
+        ['Il faisait beau.', 'Das Wetter war schön.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-passe-compose-vs-imparfait',
+      title: 'Passé composé oder Imparfait?',
+      formula: 'Ereignis → passé composé · Rahmen, Zustand, Gewohnheit → imparfait',
+      explanation:
+        'Das Imparfait malt den Hintergrund, das Passé composé setzt die Ereignisse hinein. Deutsch unterscheidet das nicht, deshalb muss man es bewusst üben.',
+      examples: [
+        ['Je lisais quand tu as appelé.', 'Ich las gerade, als du angerufen hast.'],
+        ['Il pleuvait, alors nous sommes rentrés.', 'Es regnete, also sind wir zurückgegangen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-pronoms-cod',
+      title: 'Direkte Objektpronomen',
+      formula: 'me · te · le/la · nous · vous · les — vor dem konjugierten Verb',
+      explanation:
+        'Anders als im Deutschen stehen die Pronomen vor dem Verb: "Je le connais." In zusammengesetzten Zeiten vor dem Hilfsverb: "Je l’ai vu."',
+      examples: [
+        ['Je le connais.', 'Ich kenne ihn.'],
+        ['Tu les vois ?', 'Siehst du sie?'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-pronoms-coi',
+      title: 'Indirekte Objektpronomen',
+      formula: 'me · te · lui · nous · vous · leur',
+      explanation:
+        '"lui" und "leur" ersetzen "à + Person" — unabhängig vom Geschlecht. Welches Verb ein indirektes Objekt verlangt, muss man mitlernen: téléphoner à, répondre à, demander à.',
+      examples: [
+        ['Je lui téléphone ce soir.', 'Ich rufe ihn heute Abend an.'],
+        ['Nous leur avons écrit.', 'Wir haben ihnen geschrieben.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-futur-proche',
+      title: 'Nahe Zukunft mit "aller"',
+      formula: 'aller (Präsens) + Infinitiv',
+      explanation:
+        'Im Gesprochenen die übliche Zukunft, auch für weit Entferntes. Das Futur simple wirkt daneben schriftlich.',
+      examples: [
+        ['Je vais partir demain.', 'Ich werde morgen abreisen.'],
+        ['Il va pleuvoir.', 'Es wird regnen.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-imperatif',
+      title: 'Imperativ',
+      formula: 'tu-, nous-, vous-Form ohne Subjektpronomen',
+      explanation:
+        'Bei -er-Verben fällt in der du-Form das -s weg: "Parle !", "Va !". In der Verneinung umklammert "ne … pas" das Verb: "Ne pars pas !"',
+      examples: [
+        ['Viens avec moi !', 'Komm mit mir!'],
+        ['N’oubliez pas votre billet !', 'Vergessen Sie Ihre Fahrkarte nicht!'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-comparatif',
+      title: 'Vergleich und Superlativ',
+      formula: 'plus/moins/aussi + Adjektiv + que · le plus … — bon → meilleur, bien → mieux',
+      explanation:
+        '"meilleur" vergleicht Dinge (Adjektiv), "mieux" vergleicht Handlungen (Adverb). Diese Unterscheidung fehlt im Deutschen und wird deshalb gern verwechselt.',
+      examples: [
+        ['C’est moins cher qu’à Paris.', 'Das ist billiger als in Paris.'],
+        ['Elle parle mieux que moi.', 'Sie spricht besser als ich.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-relatives-qui-que',
+      title: 'Relativsätze mit "qui" und "que"',
+      formula: 'qui = Subjekt · que = Objekt',
+      explanation:
+        'Die Faustregel: Folgt ein Verb, steht "qui"; folgt ein Subjekt, steht "que". Vor Vokal wird "que" zu "qu’", "qui" bleibt unverändert.',
+      examples: [
+        ['le train qui part à huit heures', 'der Zug, der um acht abfährt'],
+        ['Le livre que je lis est bon.', 'Das Buch, das ich lese, ist gut.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-demonstratifs',
+      title: 'Demonstrativbegleiter',
+      formula: 'ce · cet (vor Vokal) · cette · ces — verstärkt mit -ci / -là',
+      explanation:
+        'Eine Form für "dieser" und "jener". Wenn man wirklich unterscheiden muss, hängt man "-ci" (hier) oder "-là" (dort) ans Nomen.',
+      examples: [
+        ['Ce train est complet.', 'Dieser Zug ist voll.'],
+        ['Cette semaine je travaille.', 'Diese Woche arbeite ich.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-adverbes',
+      title: 'Adverbien auf -ment',
+      formula: 'feminine Form des Adjektivs + -ment',
+      explanation:
+        '"lent" → "lente" → "lentement". Bei -ant/-ent wird daraus -amment/-emment: "prudent" → "prudemment", beides gesprochen wie [amã].',
+      examples: [
+        ['Parlez lentement, s’il vous plaît.', 'Sprechen Sie bitte langsam.'],
+        ['Il conduit prudemment.', 'Er fährt vorsichtig.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-connecteurs',
+      title: 'Verknüpfen: d’abord, ensuite, donc',
+      formula: 'd’abord · puis · ensuite · enfin · donc · alors · parce que',
+      explanation:
+        'Mit diesen sieben Wörtern wird aus einer Reihe von Sätzen eine Erzählung. Sie sind der billigste Sprung im wahrgenommenen Niveau.',
+      examples: [
+        ['D’abord je mange, ensuite je travaille.', 'Zuerst esse ich, dann arbeite ich.'],
+        ['Il pleut, donc je reste ici.', 'Es regnet, also bleibe ich hier.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'fr-futur-simple',
+      title: 'Futur simple',
+      formula: 'Infinitiv + -ai, -as, -a, -ons, -ez, -ont',
+      explanation:
+        'Für Pläne, Vorhersagen und Versprechen, vor allem geschrieben. Unregelmäßige Stämme muss man lernen: ser- (être), aur- (avoir), ir- (aller), fer- (faire), viendr- (venir), pourr- (pouvoir).',
+      examples: [
+        ['Je partirai lundi.', 'Ich werde am Montag abfahren.'],
+        ['Nous serons là à huit heures.', 'Wir werden um acht da sein.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-conditionnel',
+      title: 'Conditionnel présent',
+      formula: 'Futurstamm + Imparfait-Endungen (-ais, -ais, -ait, -ions, -iez, -aient)',
+      explanation:
+        'Zwei Funktionen: Höflichkeit ("je voudrais", "pourriez-vous") und die Folge einer Bedingung ("je viendrais"). Der Stamm ist derselbe wie im Futur.',
+      examples: [
+        ['Je prendrais le train.', 'Ich würde den Zug nehmen.'],
+        ['Vous pourriez répéter ?', 'Könnten Sie wiederholen?'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-subjonctif-present',
+      title: 'Subjonctif présent',
+      formula: 'Stamm der ils-Form + -e, -es, -e, -ions, -iez, -ent',
+      explanation:
+        'Kein Tempus, sondern ein Modus: Er steht nach Wunsch, Gefühl, Zweifel und Notwendigkeit — "il faut que", "je veux que", "je suis content que". Unregelmäßig: sois, aie, aille, fasse, puisse, sache.',
+      examples: [
+        ['Il faut que tu viennes.', 'Du musst kommen.'],
+        ['Je veux qu’il soit à l’heure.', 'Ich will, dass er pünktlich ist.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-si-reel',
+      title: 'Reale Bedingung',
+      formula: 'Si + Präsens, Hauptsatz im Futur oder Präsens',
+      explanation:
+        'Nach "si" steht nie das Futur — das ist der häufigste Fehler. "Si j’aurai" gibt es nicht, es heißt "Si j’ai".',
+      examples: [
+        ['Si j’ai le temps, je viendrai.', 'Wenn ich Zeit habe, komme ich.'],
+        ['S’il pleut, on reste ici.', 'Wenn es regnet, bleiben wir hier.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-si-irreel',
+      title: 'Irreale Bedingung der Gegenwart',
+      formula: 'Si + Imparfait, Hauptsatz im Conditionnel présent',
+      explanation:
+        'Auch hier gilt: nach "si" nie der Conditionnel. Die Bedingung steht im Imparfait, die Folge im Conditionnel.',
+      examples: [
+        ['Si j’avais le temps, je viendrais.', 'Wenn ich Zeit hätte, käme ich.'],
+        ['Si j’étais toi, je partirais.', 'An deiner Stelle würde ich gehen.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-plus-que-parfait',
+      title: 'Plus-que-parfait',
+      formula: 'avoir/être im Imparfait + Partizip II',
+      explanation:
+        'Die Vorvergangenheit: etwas war schon geschehen, bevor etwas anderes passierte. Die Wahl von "avoir" oder "être" folgt derselben Regel wie im Passé composé.',
+      examples: [
+        ['Le train était déjà parti.', 'Der Zug war schon abgefahren.'],
+        ['J’avais oublié mon passeport.', 'Ich hatte meinen Pass vergessen.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-pronoms-y-en',
+      title: 'Die Pronomen "y" und "en"',
+      formula: 'y = à + Sache oder Ort · en = de + Sache oder Menge',
+      explanation:
+        'Zwei winzige Wörter, an denen man Fortgeschrittene erkennt. "J’y vais" statt "Je vais là", "J’en ai deux" statt "J’ai deux de ça".',
+      examples: [
+        ['J’y vais demain.', 'Ich fahre morgen hin.'],
+        ['Du pain ? J’en ai acheté.', 'Brot? Davon habe ich welches gekauft.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-pronoms-combines',
+      title: 'Mehrere Pronomen im Satz',
+      formula: 'me/te/se/nous/vous → le/la/les → lui/leur → y → en',
+      explanation:
+        'Die Reihenfolge ist fest und lässt sich nicht nach Gefühl bilden: "Je te le donne", "Il le lui a dit", "Il y en a".',
+      examples: [
+        ['Je te le donne.', 'Ich gebe es dir.'],
+        ['Il le lui a dit.', 'Er hat es ihm gesagt.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-passif',
+      title: 'Passiv und seine Umgehung',
+      formula: 'être + Partizip II (+ par …) · Alternative: "on"',
+      explanation:
+        'Das Passiv existiert, wird aber seltener benutzt als im Deutschen. Im Alltag ersetzt "on" es fast immer: "On parle français ici."',
+      examples: [
+        ['La lettre a été envoyée hier.', 'Der Brief wurde gestern verschickt.'],
+        ['On parle français ici.', 'Hier spricht man Französisch.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-discours-indirect',
+      title: 'Indirekte Rede',
+      formula: 'que … · si … (ob) · ce que … (was) — mit Zeitenverschiebung',
+      explanation:
+        'Nach einem Verb der Vergangenheit rutschen die Zeiten: Präsens → Imparfait, Passé composé → Plus-que-parfait, Futur → Conditionnel.',
+      examples: [
+        ['Il a dit qu’il viendrait.', 'Er sagte, er würde kommen.'],
+        ['Elle m’a demandé si j’avais le temps.', 'Sie fragte mich, ob ich Zeit hätte.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-verbes-prepositions',
+      title: 'Verben mit fester Präposition',
+      formula: 'commencer à · essayer de · penser à · parler de · réussir à',
+      explanation:
+        'Ob "à" oder "de" folgt, ist nicht ableitbar und gehört zum Verb dazu. Am besten gleich mit einem Beispielsatz lernen.',
+      examples: [
+        ['J’essaie de comprendre.', 'Ich versuche zu verstehen.'],
+        ['Il commence à pleuvoir.', 'Es fängt an zu regnen.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-relatives-dont',
+      title: 'Relativsätze mit "dont" und "où"',
+      formula: 'dont = de + Bezugswort · où = Ort und Zeit · ce qui / ce que / ce dont',
+      explanation:
+        '"dont" ersetzt alles, was mit "de" angeschlossen wird — auch nach Verben wie "parler de" oder "avoir besoin de". "où" steht nicht nur räumlich, sondern auch zeitlich: "le jour où".',
+      examples: [
+        ['le livre dont je t’ai parlé', 'das Buch, von dem ich dir erzählt habe'],
+        ['le jour où nous sommes arrivés', 'der Tag, an dem wir angekommen sind'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-gerondif',
+      title: 'Gérondif: "en + Partizip Präsens"',
+      formula: 'en + Stamm der nous-Form + -ant',
+      explanation:
+        'Drückt Gleichzeitigkeit, Art und Weise oder Bedingung aus. Wichtig: Beide Handlungen müssen dasselbe Subjekt haben.',
+      examples: [
+        ['Il travaille en écoutant la radio.', 'Er arbeitet und hört dabei Radio.'],
+        ['En arrivant, j’ai vu la lettre.', 'Als ich ankam, sah ich den Brief.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-connecteurs-b1',
+      title: 'Argumentieren: cependant, pourtant, en revanche',
+      formula: 'cependant · pourtant · en revanche · c’est pourquoi · d’ailleurs · par contre',
+      explanation:
+        'Der Schritt vom Erzählen zum Argumentieren. "pourtant" markiert den Widerspruch zur Erwartung, "en revanche" den nüchternen Gegensatz.',
+      examples: [
+        ['C’est cher ; cependant, ça vaut le coup.', 'Es ist teuer; dennoch lohnt es sich.'],
+        ['Il pleut, pourtant elle sort.', 'Es regnet, trotzdem geht sie raus.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'fr-subjonctif-passe',
+      title: 'Subjonctif passé',
+      formula: 'que + aie/sois (Subjonctif) + Partizip II',
+      explanation:
+        'Für Abgeschlossenes im Bereich von Gefühl, Zweifel und Wertung: "Je suis content que tu sois venu." Die Auslöser sind dieselben wie beim Subjonctif présent.',
+      examples: [
+        ['Je suis content que tu sois venu.', 'Ich freue mich, dass du gekommen bist.'],
+        ['Bien qu’il ait plu, nous sommes sortis.', 'Obwohl es geregnet hat, sind wir rausgegangen.'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-subjonctif-conjonctions',
+      title: 'Konjunktionen mit Subjonctif',
+      formula: 'bien que · avant que · pour que · à condition que · jusqu’à ce que — aber: après que + Indikativ',
+      explanation:
+        'Diese Konjunktionen verlangen den Subjonctif unabhängig vom Inhalt. Die eine Falle: "après que" gehört grammatisch zum Indikativ, auch wenn viele Muttersprachler es anders sagen.',
+      examples: [
+        ['Je t’explique pour que tu comprennes.', 'Ich erkläre es dir, damit du es verstehst.'],
+        ['Avant que tu partes, appelle-moi.', 'Bevor du gehst, ruf mich an.'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-si-impossible',
+      title: 'Irreale Bedingung der Vergangenheit',
+      formula: 'Si + Plus-que-parfait, Hauptsatz im Conditionnel passé',
+      explanation:
+        'Der Blick zurück auf das, was nicht geschah: "Si j’avais su, je serais venu." Der Conditionnel passé besteht aus "aurais/serais" + Partizip.',
+      examples: [
+        ['Si j’avais su, je serais venu.', 'Wenn ich das gewusst hätte, wäre ich gekommen.'],
+        ['Si tu m’avais appelé, j’aurais aidé.', 'Wenn du mich angerufen hättest, hätte ich geholfen.'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-concordance-temps',
+      title: 'Zeitenfolge im Nebensatz',
+      formula: 'Hauptsatz Vergangenheit → Nebensatz: Imparfait (gleichzeitig), Plus-que-parfait (vorher), Conditionnel (nachher)',
+      explanation:
+        'Die Regel greift überall dort, wo ein Nebensatz von einem Verb der Vergangenheit abhängt — in der indirekten Rede, aber auch nach "penser", "croire", "savoir".',
+      examples: [
+        ['Il pensait que nous étions déjà partis.', 'Er dachte, wir seien schon weg.'],
+        ['Elle a dit qu’elle aurait fini avant midi.', 'Sie sagte, sie werde vor Mittag fertig sein.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-participe-present',
+      title: 'Participe présent',
+      formula: 'Stamm der nous-Form + -ant, ohne "en"',
+      explanation:
+        'Verkürzt einen Relativsatz: "les personnes parlant français" statt "qui parlent français". Ohne "en" ist es kein Gérondif und bezieht sich auf ein Nomen, nicht auf das Subjekt.',
+      examples: [
+        ['les personnes parlant français', 'die Personen, die Französisch sprechen'],
+        ['Ayant fini, il est parti.', 'Da er fertig war, ging er.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-infinitives',
+      title: 'Infinitivkonstruktion statt Nebensatz',
+      formula: 'gleiches Subjekt → de/à + Infinitiv statt "que"',
+      explanation:
+        'Wenn Haupt- und Nebensatz dasselbe Subjekt haben, wäre "que" schwerfällig: nicht "Je suis content que je te voie", sondern "Je suis content de te voir".',
+      examples: [
+        ['Je suis content de te voir.', 'Ich freue mich, dich zu sehen.'],
+        ['Avant de partir, ferme la fenêtre.', 'Bevor du gehst, schließ das Fenster.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-passe-simple',
+      title: 'Passé simple erkennen',
+      formula: '-a, -as, -a, -âmes, -âtes, -èrent · -is, -is, -it, -îmes, -îtes, -irent',
+      explanation:
+        'Das Erzähltempus der Literatur und der Presse. Man muss es nicht aktiv bilden — aber wer Romane oder Zeitungen liest, stolpert sonst über jede zweite Zeile.',
+      examples: [
+        ['Il entra et ferma la porte.', 'Er trat ein und schloss die Tür.'],
+        ['Ils partirent au lever du jour.', 'Sie brachen bei Tagesanbruch auf.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-connecteurs-b2',
+      title: 'Konnektoren der Schriftsprache',
+      formula: 'néanmoins · toutefois · en effet · or · dans la mesure où · quoique',
+      explanation:
+        'Präziser als die B1-Reihe. "en effet" bestätigt (nicht "tatsächlich aber"), "or" führt ein neues Argument ein, "toutefois" schränkt vorsichtig ein.',
+      examples: [
+        ['En effet, les chiffres le confirment.', 'Tatsächlich bestätigen die Zahlen das.'],
+        ['Or, rien n’a changé depuis.', 'Nun hat sich seitdem nichts geändert.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-nuances-modales',
+      title: 'Vermutung und Abstufung',
+      formula: 'devoir = wohl · pouvoir = könnte · il se peut que + Subjonctif · sans doute',
+      explanation:
+        'Sicherheitsgrade ausdrücken, ohne "vielleicht" zu wiederholen. "Il doit être malade" heißt nicht "er muss krank sein", sondern "er ist wohl krank".',
+      examples: [
+        ['Il doit être malade.', 'Er ist wohl krank.'],
+        ['Il se peut qu’elle soit déjà partie.', 'Es kann sein, dass sie schon weg ist.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-marqueurs',
+      title: 'Gesprächsmarker',
+      formula: 'bon · alors · du coup · en fait · bref · quoi · genre',
+      explanation:
+        'Die Wörter, die gesprochenes Französisch zusammenhalten. Sie tragen wenig Bedeutung, aber ohne sie klingt jeder Satz wie vorgelesen.',
+      examples: [
+        ['Du coup, on a annulé.', 'Also haben wir abgesagt.'],
+        ['En fait, je ne savais pas.', 'Ehrlich gesagt wusste ich es nicht.'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-registre',
+      title: 'Register: tu, vous und das verschluckte "ne"',
+      formula: 'tu/vous · gesprochen fällt "ne" weg · Frage: Inversion (formell) vs. Intonation (locker)',
+      explanation:
+        'Drei Register für dieselbe Frage: "Viendrez-vous ?" (formell), "Est-ce que vous venez ?" (neutral), "Tu viens ?" (locker). Das gesprochene "ne" verschwindet fast immer — in der Schrift nie.',
+      examples: [
+        ['Viendrez-vous demain ?', 'Werden Sie morgen kommen?'],
+        ['Tu viens demain ?', 'Kommst du morgen?'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-nominalisation',
+      title: 'Nominalisierung',
+      formula: 'Verb → Nomen: mettre en œuvre → la mise en œuvre · fermer → la fermeture',
+      explanation:
+        'Französische Sachtexte bevorzugen das Nomen, wo das Deutsche einen Nebensatz baut. Wer das beherrscht, klingt schriftsprachlich statt übersetzt.',
+      examples: [
+        ['la mise en œuvre du projet', 'die Umsetzung des Projekts'],
+        ['après la fermeture du magasin', 'nach Ladenschluss'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'fr-mise-en-relief',
+      title: 'Hervorheben: c’est … qui / c’est … que',
+      formula: 'c’est + Element + qui/que · ce qui/ce que …, c’est …',
+      explanation:
+        'Das Französische kann die Betonung nicht wie das Deutsche allein über die Wortstellung setzen — es baut sie grammatisch: "C’est toi qui as raison."',
+      examples: [
+        ['C’est toi qui as raison.', 'Du hast recht.'],
+        ['Ce que je veux, c’est du calme.', 'Was ich will, ist Ruhe.'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
   ],
 };
 
@@ -1117,6 +2443,682 @@ const polish: SeedLanguage = {
       ],
       week: 2,
       level: 'A1',
+    },
+    {
+      slug: 'pl-rodzaj',
+      title: 'Kein Artikel, aber drei Geschlechter',
+      formula: 'Endung -Ø → maskulin · -a → feminin · -o/-e → neutrum',
+      explanation:
+        'Polnisch hat weder "der/die/das" noch "ein/eine". Das Geschlecht steckt in der Endung: "dom" maskulin, "kawa" feminin, "okno" neutrum. Es entscheidet über jede weitere Endung im Satz.',
+      examples: [
+        ['dom, kawa, okno', 'Haus, Kaffee, Fenster'],
+        ['To jest dobra kawa.', 'Das ist ein guter Kaffee.'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-biernik',
+      title: 'Akkusativ als Objektfall',
+      formula: 'feminin -a → -ę · maskulin belebt → wie Genitiv · maskulin unbelebt und neutrum unverändert',
+      explanation:
+        'Der wichtigste Kasus nach dem Nominativ: Wer oder was direkt vom Verb betroffen ist, steht im Akkusativ. "Kawa" wird zu "kawę", "woda" zu "wodę", "chleb" bleibt "chleb".',
+      examples: [
+        ['Piję kawę.', 'Ich trinke Kaffee.'],
+        ['Kupuję chleb i wodę.', 'Ich kaufe Brot und Wasser.'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-byc-miec',
+      title: 'być und mieć',
+      formula: 'jestem, jesteś, jest, jesteśmy, jesteście, są — mam, masz, ma, mamy, macie, mają',
+      explanation:
+        'Die beiden Grundverben. "być" verlangt in "Ich bin Lehrer" den Instrumental ("jestem nauczycielem"), "mieć" den Akkusativ.',
+      examples: [
+        ['Jestem z Niemiec.', 'Ich bin aus Deutschland.'],
+        ['Mamy dużo czasu.', 'Wir haben viel Zeit.'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-pytajniki',
+      title: 'Fragewörter',
+      formula: 'gdzie · kiedy · jak · ile · co · kto · dlaczego',
+      explanation:
+        'Das Fragewort steht am Satzanfang, der Rest bleibt wie im Aussagesatz. "co" und "kto" werden mitdekliniert: "kogo?" (wen), "czego?" (wessen).',
+      examples: [
+        ['Gdzie jest dworzec?', 'Wo ist der Bahnhof?'],
+        ['Ile to kosztuje?', 'Was kostet das?'],
+      ],
+      week: 1,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-czas-terazniejszy',
+      title: 'Präsens: die drei Konjugationen',
+      formula: '-ę/-esz (pisać) · -ę/-isz (mówić) · -am/-asz (mieszkać)',
+      explanation:
+        'Die 1. Person Singular und die 2. Person Singular zusammen verraten die ganze Reihe. Deshalb Verben immer als Paar lernen: "piszę – piszesz".',
+      examples: [
+        ['Mieszkam w Warszawie.', 'Ich wohne in Warschau.'],
+        ['Mówisz po polsku?', 'Sprichst du Polnisch?'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-modalne',
+      title: 'Modalverben + Infinitiv',
+      formula: 'móc · chcieć · musieć + Infinitiv',
+      explanation:
+        'Können, wollen, müssen — der Infinitiv folgt direkt. "móc" ist unregelmäßig: mogę, możesz, może, możemy, możecie, mogą.',
+      examples: [
+        ['Muszę już iść.', 'Ich muss schon gehen.'],
+        ['Czy mogę zapłacić kartą?', 'Kann ich mit Karte zahlen?'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-dopelniacz',
+      title: 'Genitiv: Verneinung, Mengen, Herkunft',
+      formula: 'nie ma + Genitiv · dużo/mało + Genitiv · od, do, z, bez + Genitiv',
+      explanation:
+        'Der meistgebrauchte Kasus des Polnischen. Er erscheint überall dort, wo etwas fehlt, gemessen wird oder von irgendwo kommt: "Nie mam czasu", "dużo pracy", "z Berlina".',
+      examples: [
+        ['Nie ma chleba.', 'Es gibt kein Brot.'],
+        ['Jadę do Krakowa.', 'Ich fahre nach Krakau.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-miejscownik',
+      title: 'Lokativ: der Ort mit w und na',
+      formula: 'w + Lokativ (in) · na + Lokativ (auf, bei Veranstaltungen)',
+      explanation:
+        'Wo etwas ist, steht im Lokativ: "w Warszawie", "na poczcie". Gebäude und Länder nehmen meist "w", offene Flächen und Veranstaltungen "na".',
+      examples: [
+        ['Jestem w domu.', 'Ich bin zu Hause.'],
+        ['Pracuję na uniwersytecie.', 'Ich arbeite an der Universität.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-liczba-mnoga',
+      title: 'Plural der Nomen',
+      formula: 'feminin/maskulin unbelebt → -y/-i/-e · neutrum → -a · Männergruppen → eigene Endung',
+      explanation:
+        'Polnisch trennt im Plural Gruppen mit mindestens einem Mann von allem anderen. "studenci" gegen "studentki" — diese Unterscheidung zieht sich durch Adjektive und Verben.',
+      examples: [
+        ['kawa → kawy, okno → okna', 'Kaffee → Kaffees, Fenster → Fenster'],
+        ['W sklepie są ludzie.', 'Im Laden sind Leute.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-zaimki-dzierzawcze',
+      title: 'Possessivpronomen',
+      formula: 'mój/moja/moje · twój · jego (unveränderlich) · jej (unveränderlich) · nasz · wasz · ich',
+      explanation:
+        '"mój", "twój", "nasz" und "wasz" richten sich nach dem Nomen. "jego", "jej" und "ich" bleiben immer gleich — das ist die gute Nachricht.',
+      examples: [
+        ['To jest mój bilet.', 'Das ist meine Fahrkarte.'],
+        ['Jej siostra mieszka w Gdańsku.', 'Ihre Schwester wohnt in Danzig.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-przymiotnik',
+      title: 'Adjektiv: Angleichung',
+      formula: 'Adjektiv vor dem Nomen, gleicht sich in Geschlecht, Zahl und Kasus an',
+      explanation:
+        'dobry dzień, dobra kawa, dobre wino. Im Akkusativ wird daraus "dobrą kawę" — Adjektiv und Nomen ändern sich immer gemeinsam.',
+      examples: [
+        ['To jest dobra restauracja.', 'Das ist ein gutes Restaurant.'],
+        ['Poproszę zimną wodę.', 'Ein kaltes Wasser, bitte.'],
+      ],
+      week: 2,
+      level: 'A1',
+    },
+    {
+      slug: 'pl-czas-przeszly',
+      title: 'Vergangenheit',
+      formula: 'Infinitivstamm + -łem/-łam, -łeś/-łaś, -ł/-ła/-ło, -liśmy/-łyśmy …',
+      explanation:
+        'Die Vergangenheit zeigt das Geschlecht des Sprechers: ein Mann sagt "byłem", eine Frau "byłam". Das gibt es im Deutschen nicht und wird deshalb gern vergessen.',
+      examples: [
+        ['Wczoraj byłem w kinie.', 'Gestern war ich im Kino.'],
+        ['Ona kupiła bilety.', 'Sie hat die Fahrkarten gekauft.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-aspekt',
+      title: 'Aspekt: unvollendet und vollendet',
+      formula: 'imperfektiv = Verlauf, Gewohnheit · perfektiv = abgeschlossenes Ergebnis',
+      explanation:
+        'Das Herzstück des polnischen Verbsystems. Jedes Verb existiert als Paar: "czytać – przeczytać", "robić – zrobić". Nicht die Zeitform, sondern der Aspekt entscheidet über die Bedeutung.',
+      examples: [
+        ['Czytałem książkę.', 'Ich las in einem Buch.'],
+        ['Przeczytałem książkę.', 'Ich habe das Buch zu Ende gelesen.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-czas-przyszly',
+      title: 'Zukunft',
+      formula: 'będę + Infinitiv (imperfektiv) · Präsensform des perfektiven Verbs',
+      explanation:
+        'Zwei Wege: "będę czytać" für einen Vorgang, "przeczytam" für ein Ergebnis. Das perfektive Verb hat keine Gegenwart — seine Präsensform ist bereits Zukunft.',
+      examples: [
+        ['Jutro będę pracować.', 'Morgen werde ich arbeiten.'],
+        ['Zrobię to jutro.', 'Ich mache das morgen fertig.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-narzednik',
+      title: 'Instrumental',
+      formula: 'jestem + Instrumental (Beruf) · z + Instrumental (mit) · maskulin -em, feminin -ą',
+      explanation:
+        'Zwei Hauptaufgaben: der Beruf nach "być" ("jestem nauczycielem") und die Begleitung nach "z" ("z przyjacielem"). Auch Verkehrsmittel: "jadę autobusem".',
+      examples: [
+        ['Jestem nauczycielem.', 'Ich bin Lehrer.'],
+        ['Jadę pociągiem z bratem.', 'Ich fahre mit dem Zug mit meinem Bruder.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-celownik',
+      title: 'Dativ',
+      formula: 'maskulin -owi · feminin -e/-i · mi, ci, mu, jej, nam, wam, im',
+      explanation:
+        'Der Empfänger einer Handlung: "daję to bratu", "pomagam jej". Auch bei Befinden: "jest mi zimno" — mir ist kalt.',
+      examples: [
+        ['Pomagam mojej siostrze.', 'Ich helfe meiner Schwester.'],
+        ['Jest mi zimno.', 'Mir ist kalt.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-tryb-rozkazujacy',
+      title: 'Imperativ',
+      formula: '2. Person Singular des Präsens ohne Endung · proszę + Infinitiv als höfliche Form',
+      explanation:
+        '"Czekaj!" ist direkt, "Proszę czekać" höflich. Die verneinte Aufforderung nimmt fast immer das imperfektive Verb: "Nie zamykaj!"',
+      examples: [
+        ['Poczekaj chwilę!', 'Warte einen Moment!'],
+        ['Proszę mówić wolniej.', 'Sprechen Sie bitte langsamer.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-zwrotne-sie',
+      title: 'Reflexive Verben mit "się"',
+      formula: 'Verb + się — die Stellung im Satz ist beweglich',
+      explanation:
+        '"się" ist ein eigenes Wort und wandert: "Jak się masz?" oder "Jak masz się?" — üblich ist die erste Variante. Am Satzanfang steht es nie.',
+      examples: [
+        ['Nazywam się Anna.', 'Ich heiße Anna.'],
+        ['Uczę się polskiego.', 'Ich lerne Polnisch.'],
+      ],
+      week: 3,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-stopniowanie',
+      title: 'Steigerung',
+      formula: '-szy/-ejszy · bardziej + Adjektiv — dobry → lepszy → najlepszy',
+      explanation:
+        'Kurze Adjektive steigern mit Endung ("tani – tańszy"), lange mit "bardziej". Der Vergleich läuft über "niż" oder über "od" + Genitiv.',
+      examples: [
+        ['To jest tańsze niż w Berlinie.', 'Das ist billiger als in Berlin.'],
+        ['Ona mówi lepiej ode mnie.', 'Sie spricht besser als ich.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-liczebniki',
+      title: 'Zahlen und ihr Kasus',
+      formula: '2, 3, 4 + Nominativ Plural · 5 und mehr + Genitiv Plural',
+      explanation:
+        'Die berüchtigte Regel: "dwa bilety", aber "pięć biletów". Ab 5 steht das Nomen im Genitiv Plural und das Verb im Neutrum Singular.',
+      examples: [
+        ['Mam trzy bilety.', 'Ich habe drei Fahrkarten.'],
+        ['Kupiłem pięć biletów.', 'Ich habe fünf Fahrkarten gekauft.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-godziny-daty',
+      title: 'Uhrzeit und Datum',
+      formula: 'o + Lokativ (o ósmej) · w + Akkusativ beim Wochentag (w poniedziałek) · Datum im Genitiv',
+      explanation:
+        'Die Uhrzeit nutzt Ordnungszahlen im Lokativ: "o dziesiątej". Das Datum steht im Genitiv: "piątego maja".',
+      examples: [
+        ['Pociąg odjeżdża o ósmej.', 'Der Zug fährt um acht ab.'],
+        ['W poniedziałek mam czas.', 'Am Montag habe ich Zeit.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-ruch-przypadki',
+      title: 'Richtung oder Ort?',
+      formula: 'wohin: do/na + Genitiv/Akkusativ · wo: w/na + Lokativ',
+      explanation:
+        'Dasselbe Wortpaar, zwei Kasus: "Idę do sklepu" (wohin, Genitiv) gegen "Jestem w sklepie" (wo, Lokativ). Das Deutsche macht es mit Akkusativ und Dativ ähnlich — die Logik ist übertragbar.',
+      examples: [
+        ['Idę na pocztę.', 'Ich gehe zur Post.'],
+        ['Jestem na poczcie.', 'Ich bin auf der Post.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-zaimki-osobowe',
+      title: 'Personalpronomen in den Kasus',
+      formula: 'ja/mnie/mi · ty/ciebie/ci · on/jego/jemu · ona/ją/jej',
+      explanation:
+        'Die betonten Langformen ("mnie", "tobie") stehen nach Präpositionen und bei Betonung, die Kurzformen ("mi", "ci") im normalen Satz.',
+      examples: [
+        ['Daj mi to, proszę.', 'Gib mir das, bitte.'],
+        ['To jest dla ciebie.', 'Das ist für dich.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-wolacz',
+      title: 'Vokativ: die Anrede',
+      formula: 'maskulin -e/-u · feminin -o — Panie! Pani! Aniu!',
+      explanation:
+        'Ein eigener Kasus nur für die Anrede. Im Alltag hört man ihn bei Vornamen ("Aniu!") und in der höflichen Anrede ("Proszę pana").',
+      examples: [
+        ['Aniu, chodź tutaj!', 'Anna, komm her!'],
+        ['Proszę pana, gdzie jest wyjście?', 'Entschuldigen Sie, wo ist der Ausgang?'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-spojniki',
+      title: 'Verknüpfen: i, ale, bo, więc',
+      formula: 'i · ale · bo · ponieważ · więc · dlatego · potem',
+      explanation:
+        'Mit diesen Wörtern werden aus Einzelsätzen Zusammenhänge. Vor "ale", "bo" und "ponieważ" steht im Polnischen immer ein Komma.',
+      examples: [
+        ['Chcę, ale nie mogę.', 'Ich will, aber ich kann nicht.'],
+        ['Pada deszcz, więc zostaję w domu.', 'Es regnet, also bleibe ich zu Hause.'],
+      ],
+      week: 4,
+      level: 'A2',
+    },
+    {
+      slug: 'pl-tryb-przypuszczajacy',
+      title: 'Konditional mit -bym',
+      formula: 'Vergangenheitsform + bym, byś, by, byśmy, byście, by',
+      explanation:
+        'Für Wünsche, höfliche Bitten und Irreales: "chciałbym" (ich hätte gern), "zrobiłbym" (ich würde machen). Die Partikel kann auch an die Konjunktion wandern: "gdybym miał czas".',
+      examples: [
+        ['Chciałbym zarezerwować stolik.', 'Ich würde gern einen Tisch reservieren.'],
+        ['Na twoim miejscu poszedłbym tam.', 'An deiner Stelle würde ich hingehen.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-czasowniki-ruchu',
+      title: 'Bewegungsverben: iść/chodzić, jechać/jeździć',
+      formula: 'iść/jechać = einmalig, gerichtet · chodzić/jeździć = wiederholt, ungerichtet',
+      explanation:
+        'Polnisch unterscheidet, ob man gerade unterwegs ist oder gewohnheitsmäßig irgendwohin geht. "Idę do pracy" (jetzt) gegen "Chodzę do pracy pieszo" (immer).',
+      examples: [
+        ['Teraz idę do pracy.', 'Ich gehe gerade zur Arbeit.'],
+        ['Codziennie jeżdżę autobusem.', 'Ich fahre täglich mit dem Bus.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-prefiksy',
+      title: 'Verbpräfixe',
+      formula: 'iść → przyjść, pójść, wyjść, wejść, przejść',
+      explanation:
+        'Präfixe verändern Richtung und Aspekt zugleich: "wejść" (hineingehen), "wyjść" (hinausgehen), "przejść" (hinübergehen). Wer die zehn häufigsten Präfixe kennt, versteht hunderte Verben.',
+      examples: [
+        ['Wejdź do środka.', 'Komm herein.'],
+        ['Muszę wyjść wcześniej.', 'Ich muss früher gehen.'],
+      ],
+      week: 1,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-zdania-warunkowe',
+      title: 'Bedingungssätze',
+      formula: 'jeśli/jeżeli + Indikativ (real) · gdyby + Konditional (irreal)',
+      explanation:
+        '"Jeśli będę miał czas, przyjdę" ist real. Wird es hypothetisch, wechselt der Satz auf "gdybym" und die -by-Formen im Hauptsatz.',
+      examples: [
+        ['Jeśli będę miał czas, przyjdę.', 'Wenn ich Zeit habe, komme ich.'],
+        ['Gdybym miał czas, przyszedłbym.', 'Wenn ich Zeit hätte, käme ich.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-mowa-zalezna',
+      title: 'Indirekte Rede',
+      formula: 'że … · czy … (ob) · żeby … (Aufforderung) — keine Zeitenverschiebung',
+      explanation:
+        'Angenehmer als im Deutschen: Die Zeit des Originalsatzes bleibt stehen. "Powiedział, że przyjdzie" — er sagte, dass er kommen werde.',
+      examples: [
+        ['Powiedział, że przyjdzie jutro.', 'Er sagte, dass er morgen komme.'],
+        ['Zapytała, czy mam czas.', 'Sie fragte, ob ich Zeit habe.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-strona-bierna',
+      title: 'Passiv',
+      formula: 'być/zostać + Passivpartizip (-ny, -ty)',
+      explanation:
+        '"zostać" für den Vorgang ("list został wysłany"), "być" für den Zustand ("sklep jest zamknięty"). Im Alltag weicht man oft auf die się-Form aus.',
+      examples: [
+        ['List został wysłany wczoraj.', 'Der Brief wurde gestern verschickt.'],
+        ['Sklep jest zamknięty.', 'Der Laden ist geschlossen.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-rekcja',
+      title: 'Verben mit festem Kasus',
+      formula: 'szukać + Genitiv · pomagać + Dativ · interesować się + Instrumental · czekać na + Akkusativ',
+      explanation:
+        'Welchen Kasus ein Verb verlangt, ist nicht ableitbar und stimmt selten mit dem Deutschen überein. "Szukam pracy" steht im Genitiv, obwohl man im Deutschen Arbeit sucht.',
+      examples: [
+        ['Szukam pracy.', 'Ich suche Arbeit.'],
+        ['Czekam na autobus.', 'Ich warte auf den Bus.'],
+      ],
+      week: 2,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-zaimki-wzgledne',
+      title: 'Relativsätze mit "który"',
+      formula: 'który/która/które — Geschlecht vom Bezugswort, Kasus vom Relativsatz',
+      explanation:
+        'Die doppelte Buchhaltung ist der Knackpunkt: Das Geschlecht kommt vom Wort davor, der Kasus von der Rolle im Nebensatz. "Pociąg, którym jadę" — Instrumental, weil man mit ihm fährt.',
+      examples: [
+        ['To jest pociąg, który jedzie do Krakowa.', 'Das ist der Zug, der nach Krakau fährt.'],
+        ['Książka, którą czytam, jest dobra.', 'Das Buch, das ich lese, ist gut.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-przyimki-przypadki',
+      title: 'Präpositionen und ihre Kasus',
+      formula: 'do, od, z, dla, bez + Genitiv · na, po, przez + Akkusativ · z, nad, pod, przed + Instrumental · w, o, na + Lokativ',
+      explanation:
+        'Manche Präpositionen nehmen je nach Bedeutung zwei Kasus: "na stół" (wohin, Akkusativ) gegen "na stole" (wo, Lokativ). Präposition und Kasus immer im Paar lernen.',
+      examples: [
+        ['Idę na dworzec.', 'Ich gehe zum Bahnhof.'],
+        ['Spotkajmy się przed dworcem.', 'Treffen wir uns vor dem Bahnhof.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-deklinacja-mnoga',
+      title: 'Deklination im Plural',
+      formula: 'Genitiv Plural -ów/-Ø/-i · Dativ -om · Instrumental -ami · Lokativ -ach',
+      explanation:
+        'Der Plural ist regelmäßiger als der Singular: Dativ, Instrumental und Lokativ haben für alle Geschlechter dieselben Endungen. Nur der Genitiv Plural bleibt Kleinarbeit.',
+      examples: [
+        ['Rozmawiam z kolegami.', 'Ich rede mit den Kollegen.'],
+        ['W tych sklepach jest drogo.', 'In diesen Läden ist es teuer.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-konektory-b1',
+      title: 'Argumentieren: jednak, dlatego, mimo to',
+      formula: 'jednak · natomiast · dlatego · mimo to · poza tym · z drugiej strony',
+      explanation:
+        'Der Schritt vom Aufzählen zum Abwägen. "jednak" setzt den Widerspruch, "natomiast" den nüchternen Gegensatz, "poza tym" das zusätzliche Argument.',
+      examples: [
+        ['Jest drogo, jednak warto.', 'Es ist teuer, dennoch lohnt es sich.'],
+        ['Z drugiej strony, nie mamy czasu.', 'Andererseits haben wir keine Zeit.'],
+      ],
+      week: 3,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-aspekt-zaawansowany',
+      title: 'Aspekt in Verneinung und Aufforderung',
+      formula: 'verneinter Imperativ → imperfektiv · verneinte Vergangenheit meist imperfektiv',
+      explanation:
+        'Die Regeln, die selbst Fortgeschrittene stolpern lassen: "Zamknij okno!" wird verneint zu "Nie zamykaj okna!" — nicht "nie zamknij".',
+      examples: [
+        ['Nie zamykaj okna!', 'Mach das Fenster nicht zu!'],
+        ['Nie czytałem tej książki.', 'Ich habe dieses Buch nicht gelesen.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-bezosobowe',
+      title: 'Unpersönliche Ausdrücke',
+      formula: 'trzeba · można · warto · wolno · nie wolno + Infinitiv',
+      explanation:
+        'Ohne Subjekt und ohne Konjugation: "trzeba iść" (man muss gehen), "nie wolno palić" (Rauchen verboten). In der Vergangenheit tritt "było" dazu: "trzeba było".',
+      examples: [
+        ['Tutaj nie wolno palić.', 'Hier darf man nicht rauchen.'],
+        ['Warto to zobaczyć.', 'Das lohnt sich anzusehen.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-forma-no-to',
+      title: 'Unpersönliche Vergangenheit auf -no/-to',
+      formula: 'Passivpartizip-Stamm + -no/-to · dazu die się-Konstruktion',
+      explanation:
+        'Die polnische Art, ohne Handelnden zu erzählen: "Zbudowano most" (man baute eine Brücke). In Zeitungen und Berichten allgegenwärtig.',
+      examples: [
+        ['Zbudowano nowy most.', 'Man hat eine neue Brücke gebaut.'],
+        ['Mówi się, że będzie padać.', 'Man sagt, es werde regnen.'],
+      ],
+      week: 4,
+      level: 'B1',
+    },
+    {
+      slug: 'pl-imieslow-przyslowkowy',
+      title: 'Adverbialpartizipien',
+      formula: 'gleichzeitig: -ąc (robiąc) · vorzeitig: -wszy/-łszy (zrobiwszy)',
+      explanation:
+        'Verkürzt einen Nebensatz: "Czytając gazetę, piję kawę." Bedingung: Beide Handlungen müssen dasselbe Subjekt haben — sonst ist der Satz falsch, nicht nur stilistisch schief.',
+      examples: [
+        ['Czytając gazetę, piję kawę.', 'Während ich Zeitung lese, trinke ich Kaffee.'],
+        ['Skończywszy pracę, poszedł do domu.', 'Nachdem er die Arbeit beendet hatte, ging er nach Hause.'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-imieslow-przymiotnikowy',
+      title: 'Adjektivpartizipien',
+      formula: 'aktiv: -ący (czytający) · passiv: -ny/-ty (przeczytany)',
+      explanation:
+        'Ersetzt einen Relativsatz und wird wie ein Adjektiv dekliniert: "osoby mówiące po polsku" statt "osoby, które mówią po polsku". Kennzeichen der Schriftsprache.',
+      examples: [
+        ['osoby mówiące po polsku', 'Personen, die Polnisch sprechen'],
+        ['przeczytana książka', 'das gelesene Buch'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-rzeczownik-odslowny',
+      title: 'Verbalsubstantive',
+      formula: 'Verb → Nomen auf -nie/-cie: czytać → czytanie, pić → picie',
+      explanation:
+        'Aus jedem Verb lässt sich ein Nomen bilden. Es behält den Aspekt: "czytanie" ist der Vorgang, "przeczytanie" das abgeschlossene Lesen.',
+      examples: [
+        ['Czytanie po polsku jest trudne.', 'Auf Polnisch zu lesen ist schwierig.'],
+        ['po przeczytaniu listu', 'nach dem Lesen des Briefes'],
+      ],
+      week: 1,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-zdania-zlozone',
+      title: 'Komplexe Nebensätze',
+      formula: 'aby/żeby (Zweck) · mimo że (obwohl) · podczas gdy (während) · o ile (sofern)',
+      explanation:
+        '"żeby" verlangt bei Subjektwechsel die -by-Form: "Chcę, żebyś przyszedł." Bei gleichem Subjekt reicht der Infinitiv: "Chcę przyjść."',
+      examples: [
+        ['Chcę, żebyś przyszedł.', 'Ich will, dass du kommst.'],
+        ['Mimo że padało, wyszliśmy.', 'Obwohl es regnete, gingen wir raus.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-gdyby-przeszle',
+      title: 'Irreales in der Vergangenheit',
+      formula: 'gdyby + Vergangenheitsform, Hauptsatz mit -by — verstärkt durch "był"',
+      explanation:
+        '"Gdybym wiedział, przyszedłbym" deckt Gegenwart und Vergangenheit ab. Wer die Vergangenheit eindeutig markieren will, schiebt "był" ein: "byłbym przyszedł".',
+      examples: [
+        ['Gdybym wiedział, przyszedłbym.', 'Wenn ich das gewusst hätte, wäre ich gekommen.'],
+        ['Gdybyś zadzwonił, pomógłbym ci.', 'Wenn du angerufen hättest, hätte ich dir geholfen.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-szyk-wyrazow',
+      title: 'Wortstellung als Betonung',
+      formula: 'Neues und Betontes ans Satzende',
+      explanation:
+        'Die Kasusendungen machen die Reihenfolge frei — aber nicht beliebig. "Anna czyta książkę" antwortet auf "Was macht Anna?", "Książkę czyta Anna" auf "Wer liest das Buch?".',
+      examples: [
+        ['Anna czyta książkę.', 'Anna liest ein Buch.'],
+        ['Książkę czyta Anna.', 'Das Buch liest Anna.'],
+      ],
+      week: 2,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-liczebniki-zbiorowe',
+      title: 'Sammelzahlwörter',
+      formula: 'dwoje, troje, czworo, pięcioro + Genitiv Plural',
+      explanation:
+        'Für gemischte Gruppen ("dwoje dzieci", "troje studentów") und für Nomen, die nur im Plural existieren ("dwoje drzwi"). Das Verb steht im Neutrum Singular.',
+      examples: [
+        ['Mamy dwoje dzieci.', 'Wir haben zwei Kinder.'],
+        ['Przyszło pięcioro studentów.', 'Es kamen fünf Studenten.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-meskoosobowy',
+      title: 'Der männlich-personale Plural',
+      formula: 'Gruppe mit mindestens einem Mann → eigene Form bei Verb, Adjektiv und Pronomen',
+      explanation:
+        '"Studenci byli zmęczeni" gegen "Studentki były zmęczone". Sobald ein Mann dabei ist, wechselt der ganze Satz die Form — Verb, Adjektiv und Zahlwort inbegriffen.',
+      examples: [
+        ['Ci studenci byli zmęczeni.', 'Diese Studenten waren müde.'],
+        ['Te studentki były zmęczone.', 'Diese Studentinnen waren müde.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-konektory-b2',
+      title: 'Konnektoren der Schriftsprache',
+      formula: 'niemniej jednak · wobec tego · o ile · zważywszy na · tym samym',
+      explanation:
+        'Präziser als die B1-Reihe und deutlich schriftlicher. "niemniej jednak" schränkt ein, "wobec tego" zieht die Folgerung, "tym samym" markiert die Konsequenz.',
+      examples: [
+        ['Niemniej jednak wynik jest dobry.', 'Nichtsdestoweniger ist das Ergebnis gut.'],
+        ['Wobec tego zmieniamy plan.', 'Angesichts dessen ändern wir den Plan.'],
+      ],
+      week: 3,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-rejestr',
+      title: 'Register: Pan, Pani und das Du',
+      formula: 'Pan/Pani + 3. Person Singular · Państwo + 3. Person Plural · ty + 2. Person',
+      explanation:
+        'Die höfliche Anrede läuft nicht über eine eigene Form, sondern über die dritte Person: "Czy Pan mówi po polsku?" — wörtlich "Spricht der Herr Polnisch?".',
+      examples: [
+        ['Czy Pan mówi po polsku?', 'Sprechen Sie Polnisch?'],
+        ['Czy mówisz po polsku?', 'Sprichst du Polnisch?'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-frazeologia',
+      title: 'Feste Wendungen',
+      formula: 'dać sobie radę · mieć ochotę na · zależy mi na · chodzi o to, że',
+      explanation:
+        'Wendungen, die man nicht Wort für Wort übersetzen kann. "Zależy mi na tym" heißt "das ist mir wichtig", nicht "es hängt mir davon ab".',
+      examples: [
+        ['Dam sobie radę.', 'Ich komme zurecht.'],
+        ['Mam ochotę na kawę.', 'Ich hätte Lust auf einen Kaffee.'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-nominalizacja',
+      title: 'Nominalisierung',
+      formula: 'Verb → Nomen: wprowadzić → wprowadzenie · zmienić → zmiana',
+      explanation:
+        'Amts- und Fachsprache bevorzugt das Nomen, wo die Umgangssprache einen Nebensatz baut: "po wprowadzeniu zmian" statt "po tym, jak wprowadzono zmiany".',
+      examples: [
+        ['po wprowadzeniu zmian', 'nach Einführung der Änderungen'],
+        ['w celu poprawy jakości', 'zur Verbesserung der Qualität'],
+      ],
+      week: 4,
+      level: 'B2',
+    },
+    {
+      slug: 'pl-jezyk-potoczny',
+      title: 'Umgangssprache und Standard',
+      formula: 'gesprochen: no, właśnie, w sumie, spoko · geschrieben: vollständige Formen',
+      explanation:
+        'Gesprochenes Polnisch kürzt und färbt: "nie ma sprawy", "w sumie", "no dobra". Diese Marker gehören ins Ohr, nicht in einen Brief oder Bericht.',
+      examples: [
+        ['No dobra, chodźmy.', 'Na gut, gehen wir.'],
+        ['W sumie masz rację.', 'Im Grunde hast du recht.'],
+      ],
+      week: 4,
+      level: 'B2',
     },
   ],
 };
