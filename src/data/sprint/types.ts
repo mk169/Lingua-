@@ -28,6 +28,7 @@ export type Aufgabentyp =
   | 'endung'
   | 'praeposition'
   | 'satzbau'
+  | 'umformen'
   | 'fehler'
   | 'auswahl'
   | 'frage-bilden'
@@ -51,6 +52,7 @@ export const APP_TYPE: Record<Aufgabentyp, ExerciseType> = {
   endung: 'cloze',
   praeposition: 'cloze',
   satzbau: 'order',
+  umformen: 'transform',
   fehler: 'transform',
   auswahl: 'choice',
   'frage-bilden': 'transform',
