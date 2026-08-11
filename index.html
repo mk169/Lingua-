@@ -13,9 +13,129 @@
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%232f6f5e'/%3E%3C/svg%3E"
     />
     <title>Lingua</title>
+    <style>
+      /* Nur für Start und Fehlerfall – bewusst hier, damit es auch dann steht,
+         wenn das Stylesheet nicht lädt. */
+      #boot {
+        font: 15px/1.5 ui-sans-serif, system-ui, -apple-system, sans-serif;
+        color: #17181a;
+        max-width: 34rem;
+        margin: 0 auto;
+        padding: 3rem 1.25rem;
+      }
+      #boot h1 { font-size: 1.15rem; margin: 0 0 0.5rem; }
+      #boot p { margin: 0 0 0.75rem; }
+      #boot pre {
+        background: #f4f2ee;
+        border: 1px solid #e4e1db;
+        border-radius: 8px;
+        padding: 0.75rem;
+        overflow-x: auto;
+        font-size: 12px;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      #boot button {
+        font: inherit;
+        padding: 0.5rem 0.9rem;
+        margin-right: 0.5rem;
+        border: 1px solid #d2cec6;
+        border-radius: 8px;
+        background: #fff;
+        cursor: pointer;
+      }
+      @media (prefers-color-scheme: dark) {
+        #boot { color: #e9e8e4; }
+        #boot pre { background: #1e2126; border-color: #262a30; }
+        #boot button { background: #17191c; border-color: #333840; color: inherit; }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!--
+      Der Startzustand steht im DOM, nicht im Bundle. React ersetzt ihn beim
+      Mount. Bleibt er stehen, sieht man wenigstens, dass etwas hängt – vorher
+      war an dieser Stelle eine leere weiße Seite ohne jede Auskunft.
+    -->
+    <div id="root">
+      <div id="boot">
+        <h1>Lingua</h1>
+        <p>wird geladen …</p>
+      </div>
+    </div>
+
+    <noscript>
+      <div id="boot">
+        <h1>Lingua</h1>
+        <p>Diese App braucht JavaScript. Bitte im Browser aktivieren.</p>
+      </div>
+    </noscript>
+
+    <!--
+      Muss VOR dem Modul-Script stehen und darf selbst kein Modul sein: Ein
+      Syntaxfehler im Bundle bricht ab, bevor irgendein React-Code läuft – ein
+      ErrorBoundary kann das prinzipiell nicht fangen. Nur ein früher,
+      klassischer Handler bekommt so etwas noch zu sehen.
+    -->
+    <script>
+      (function () {
+        var shown = false;
+        function show(title, detail) {
+          if (shown) return;
+          shown = true;
+          var root = document.getElementById('root');
+          if (!root) return;
+          var box = document.createElement('div');
+          box.id = 'boot';
+          var h = document.createElement('h1');
+          h.textContent = 'Lingua konnte nicht starten';
+          var p = document.createElement('p');
+          p.textContent = title;
+          var pre = document.createElement('pre');
+          pre.textContent = detail + '\n\n' + navigator.userAgent;
+          var reload = document.createElement('button');
+          reload.textContent = 'Neu laden';
+          reload.onclick = function () {
+            location.reload();
+          };
+          var reset = document.createElement('button');
+          reset.textContent = 'Daten zurücksetzen';
+          reset.onclick = function () {
+            try {
+              localStorage.removeItem('lingua.state.v1');
+            } catch (e) {
+              /* Privater Modus: dann gibt es auch nichts zu löschen. */
+            }
+            location.reload();
+          };
+          box.appendChild(h);
+          box.appendChild(p);
+          box.appendChild(reload);
+          box.appendChild(reset);
+          box.appendChild(pre);
+          root.textContent = '';
+          root.appendChild(box);
+        }
+        window.__linguaBootError = show;
+        window.addEventListener('error', function (e) {
+          // Fehlgeschlagene Ressourcen (Bild, Script) haben kein e.error.
+          if (e.error) {
+            show('Ein Fehler beim Start:', String(e.error.stack || e.error.message || e.error));
+          } else if (e.message) {
+            show('Ein Fehler beim Start:', e.message + ' (' + (e.filename || '?') + ':' + e.lineno + ')');
+          }
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+          var r = e.reason;
+          show('Ein Fehler beim Start:', String((r && (r.stack || r.message)) || r));
+        });
+      })();
+    </script>
+
+    <script
+      type="module"
+      src="/src/main.tsx"
+      onerror="window.__linguaBootError &amp;&amp; window.__linguaBootError('Das Programm konnte nicht geladen werden. Meist hilft ein Neuladen; sonst ist die Verbindung unterbrochen.', 'Script konnte nicht geladen werden: ' + this.src)"
+    ></script>
   </body>
 </html>

@@ -885,3 +885,68 @@ select {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ── Absturzbildschirm ─────────────────────────────────────────────────────
+   Gehört zum ErrorBoundary. Bewusst eigenständig gehalten und ohne Bezug auf
+   die Komponentenklassen darüber: Wenn die App abstürzt, soll die Meldung
+   nicht davon abhängen, dass der Rest des Stylesheets zu ihr passt. */
+.crash {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+.crash h1 {
+  font-size: 1.15rem;
+  margin: 0 0 0.5rem;
+}
+
+.crash p {
+  margin: 0 0 0.75rem;
+  color: var(--ink-2);
+}
+
+.crash-actions {
+  display: flex;
+  gap: 8px;
+  margin: 1rem 0 0.75rem;
+}
+
+.crash-actions button {
+  font: inherit;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: inherit;
+  cursor: pointer;
+}
+
+.crash-note {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.crash details {
+  margin-top: 1.25rem;
+}
+
+.crash summary {
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.crash pre {
+  margin-top: 0.5rem;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  overflow-x: auto;
+  font: 12px/1.5 var(--mono);
+  white-space: pre-wrap;
+  word-break: break-word;
+}

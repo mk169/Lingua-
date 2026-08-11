@@ -48,6 +48,14 @@ jobs:
       - name: Build
         run: npm run build
 
+      # Die App war auf iOS Safari eine weiße Seite, während jede Prüfung in
+      # Chromium grün war. Seitdem läuft der Start-Test über drei Engines.
+      - name: Browser für den Smoke-Test
+        run: npx playwright install --with-deps chromium webkit firefox
+
+      - name: Smoke-Test
+        run: npm run smoke
+
       # Kein actions/configure-pages: Der Schritt dient nur dazu, die Basis-URL
       # automatisch zu ermitteln – die steht bei uns fest in vite.config.ts.
       # Er würde außerdem hart fehlschlagen, solange Pages nicht aktiviert ist,

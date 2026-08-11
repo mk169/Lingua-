@@ -1,5 +1,8 @@
-import Anthropic from '@anthropic-ai/sdk';
+import type Anthropic from '@anthropic-ai/sdk';
 import type { Analysis, Card, GrammarPattern, Language, Settings } from '../types';
+import { DEFAULT_MODEL } from './model';
+
+export { DEFAULT_MODEL };
 
 /**
  * Anbindung an die Claude Messages API.
@@ -8,9 +11,11 @@ import type { Analysis, Card, GrammarPattern, Language, Settings } from '../type
  * localStorage des Nutzers und wird direkt an api.anthropic.com geschickt.
  * `dangerouslyAllowBrowser` ist dafür erforderlich. Für einen Mehrbenutzer-
  * Betrieb gehört der Schlüssel hinter ein eigenes Backend.
+ *
+ * Das SDK wird **nachgeladen**, nicht beim Start ausgewertet. Ohne Schlüssel
+ * ruft niemand die API auf – dann hat mehrere hundert Kilobyte Drittcode auch
+ * nichts im Startpfad zu suchen, wo ein Fehler die ganze App verschluckt.
  */
-export const DEFAULT_MODEL = 'claude-opus-5';
-
 export class MissingKeyError extends Error {
   constructor() {
     super('Kein API-Schlüssel hinterlegt. Bitte unter Einstellungen eintragen.');
@@ -18,23 +23,30 @@ export class MissingKeyError extends Error {
   }
 }
 
-function client(settings: Settings): Anthropic {
+async function client(settings: Settings): Promise<Anthropic> {
   if (!settings.apiKey) throw new MissingKeyError();
+  const { default: Anthropic } = await import('@anthropic-ai/sdk');
   return new Anthropic({
     apiKey: settings.apiKey,
     dangerouslyAllowBrowser: true,
   });
 }
 
+/**
+ * Fehler des SDK werden über `name` und `status` erkannt, nicht über
+ * `instanceof`. Sonst müsste das Modul dafür geladen sein – und in genau dem
+ * Fall, in dem das Laden selbst scheitert, gäbe es keine Meldung.
+ */
 function describeError(err: unknown): string {
   if (err instanceof MissingKeyError) return err.message;
-  if (err instanceof Anthropic.AuthenticationError)
+  const e = err as { name?: string; status?: number; message?: string } | null;
+  if (e?.name === 'AuthenticationError' || e?.status === 401)
     return 'API-Schlüssel ungültig. Bitte in den Einstellungen prüfen.';
-  if (err instanceof Anthropic.RateLimitError)
+  if (e?.name === 'RateLimitError' || e?.status === 429)
     return 'Rate-Limit erreicht. Bitte kurz warten und erneut versuchen.';
-  if (err instanceof Anthropic.APIConnectionError)
+  if (e?.name === 'APIConnectionError' || e?.name === 'APIConnectionTimeoutError')
     return 'Keine Verbindung zur API. Netzwerk prüfen.';
-  if (err instanceof Anthropic.APIError) return `API-Fehler ${err.status}: ${err.message}`;
+  if (typeof e?.status === 'number') return `API-Fehler ${e.status}: ${e.message ?? ''}`.trim();
   return err instanceof Error ? err.message : 'Unbekannter Fehler.';
 }
 
@@ -55,7 +67,7 @@ async function callJSON<T>(
     maxTokens?: number;
   },
 ): Promise<T> {
-  const anthropic = client(settings);
+  const anthropic = await client(settings);
   try {
     const response = await anthropic.messages.create({
       model: settings.model || DEFAULT_MODEL,
@@ -453,7 +465,7 @@ export async function streamReply(
     signal?: AbortSignal;
   },
 ): Promise<string> {
-  const anthropic = client(settings);
+  const anthropic = await client(settings);
   try {
     const stream = anthropic.messages.stream(
       {

@@ -1,5 +1,5 @@
 import type { AppState, Language } from '../types';
-import { DEFAULT_MODEL } from './llm';
+import { DEFAULT_MODEL } from './model';
 import { syncSeedContent } from './seedSync';
 
 const KEY = 'lingua.state.v1';
