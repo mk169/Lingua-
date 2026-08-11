@@ -17,7 +17,8 @@ export async function loadExercises(languageName: string): Promise<Exercise[]> {
       return (await import('./fr')).EXERCISES;
     case 'Polnisch':
       return (await import('./pl')).EXERCISES;
-    // Portugiesisch hat bisher nur das Skelett, noch keinen Übungskatalog.
+    case 'Portugiesisch':
+      return (await import('./pt')).EXERCISES;
     default:
       return [];
   }

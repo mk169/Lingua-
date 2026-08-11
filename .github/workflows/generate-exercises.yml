@@ -1,0 +1,129 @@
+name: Übungen erzeugen
+
+# Erzeugt Übungen für ein Grammatikmuster und legt sie als Pull Request ab.
+#
+# Bewusst kein direkter Push auf main: Jede Lösung, die hier entsteht, wird von
+# allen Besuchern der Seite mitgelernt. Der PR erzwingt einen Blick auf den
+# Diff, bevor das passiert.
+#
+# Voraussetzung: Repository-Secret ANTHROPIC_API_KEY
+#   Settings → Secrets and variables → Actions → New repository secret
+#   Der Schlüssel bleibt bei GitHub, taucht in keinem Log auf und wird nicht
+#   mit der Seite ausgeliefert.
+
+on:
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: Sprache
+        required: true
+        default: it
+        type: choice
+        options: [it, es, fr, pl, pt]
+      pattern:
+        description: 'Muster-Slug (z.B. fr-articles) oder "all" für alle Muster der Sprache'
+        required: true
+        default: all
+        type: string
+      kind:
+        description: Art der Übungen
+        required: true
+        default: all
+        type: choice
+        options: [all, satz, konstruktion, verstaendnis]
+      count:
+        description: Anzahl je Art und Muster
+        required: true
+        default: '50'
+        type: string
+
+# Zwei parallele Läufe würden dieselbe .generated.ts schreiben und sich
+# gegenseitig überschreiben.
+concurrency:
+  group: generate-exercises
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Schlüssel prüfen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "::error::Das Secret ANTHROPIC_API_KEY fehlt. Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
+      - name: Übungen erzeugen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          npm run generate:exercises -- \
+            --lang "${{ inputs.lang }}" \
+            --pattern "${{ inputs.pattern }}" \
+            --kind "${{ inputs.kind }}" \
+            --count "${{ inputs.count }}"
+
+      # Dieselbe Prüfung wie im Deploy – aber hier, bevor der PR entsteht.
+      # Fehlende Lösungen, unbekannte Slugs und doppelte IDs fallen sofort auf.
+      - name: Übungen prüfen
+        run: npm run validate:exercises
+
+      - name: Typen und Build
+        run: npm run build
+
+      - name: Umfang zusammenfassen
+        id: summary
+        run: |
+          {
+            echo '## Erzeugte Übungen'
+            echo
+            echo '```'
+            npm run --silent validate:exercises | tail -n 40
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "count=$(git diff --numstat -- src/data/exercises | awk '{s+=$1} END {print s+0}')" >> "$GITHUB_OUTPUT"
+
+      - name: Pull Request anlegen
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: exercises/${{ inputs.lang }}-${{ inputs.pattern }}
+          base: main
+          commit-message: |
+            Übungen für ${{ inputs.lang }}/${{ inputs.pattern }} erzeugt
+
+            npm run generate:exercises -- --lang ${{ inputs.lang }} --pattern ${{ inputs.pattern }} --kind ${{ inputs.kind }} --count ${{ inputs.count }}
+          title: 'Übungen: ${{ inputs.lang }} / ${{ inputs.pattern }}'
+          body: |
+            Erzeugt von **Übungen erzeugen** ([Lauf](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})).
+
+            | | |
+            | --- | --- |
+            | Sprache | `${{ inputs.lang }}` |
+            | Muster | `${{ inputs.pattern }}` |
+            | Art | `${{ inputs.kind }}` |
+            | Anzahl je Art | `${{ inputs.count }}` |
+            | neue Zeilen | ${{ steps.summary.outputs.count }} |
+
+            `validate:exercises` und `npm run build` sind vor diesem PR durchgelaufen.
+
+            **Vor dem Merge den Diff lesen.** Die Prüfung findet fehlende Lösungen,
+            unbekannte Muster-Slugs und doppelte IDs – ob eine Lösung inhaltlich
+            richtig ist, kann sie nicht wissen. Was hier gemerged wird, lernt jeder
+            Besucher der Seite mit.
+          delete-branch: false
