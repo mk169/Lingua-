@@ -109,8 +109,14 @@ export interface Drill {
   solvedAt: number | null;
 }
 
-/** Kategorien, in die der Übungskatalog je Muster geteilt ist. */
-export type ExerciseKind = 'satz' | 'konstruktion' | 'verstaendnis';
+/**
+ * Kategorien des Übungskatalogs.
+ *
+ * Die ersten drei hängen an einem Grammatikmuster. `wortschatz` nicht – solche
+ * Übungen gehören zu einer Niveaustufe und laufen im Vokabel-Modul, nicht in
+ * den Drills.
+ */
+export type ExerciseKind = 'satz' | 'konstruktion' | 'verstaendnis' | 'wortschatz';
 
 export type ExerciseType = DrillType | 'choice' | 'translate';
 
@@ -122,7 +128,16 @@ export type ExerciseType = DrillType | 'choice' | 'translate';
 export interface Exercise {
   /** Stabil und im Diff lesbar, z.B. "it.negazione-non.konstruktion.001". */
   id: string;
-  patternSlug: string;
+  /**
+   * Grammatikmuster aus dem Startpaket. Fehlt bei `wortschatz` – dort steht
+   * stattdessen `level`. Der Validator besteht darauf, dass genau eines von
+   * beiden gesetzt ist.
+   */
+  patternSlug?: string;
+  /** Nur bei `wortschatz`: an welche Stufe die Übung gehört. */
+  level?: CefrLevel;
+  /** Nur bei `wortschatz`: das Wort, um das es geht – verbindet mit der Karte. */
+  term?: string;
   kind: ExerciseKind;
   type: ExerciseType;
   prompt: string;
@@ -150,6 +165,18 @@ export interface ExerciseProgress {
   lastAt: number;
   /** Fehlt bei Ständen aus der Zeit vor dem Übungs-SRS. */
   srs?: Srs;
+}
+
+/** Eine vom Nutzer als fehlerhaft gemeldete Katalog-Übung. */
+export interface ExerciseReport {
+  exerciseId: string;
+  languageId: string;
+  /** Was die Übung verlangt hat – damit die Meldung ohne Katalog lesbar ist. */
+  prompt: string;
+  /** Die hinterlegte Lösung, die der Nutzer für falsch hält. */
+  answer: string;
+  note?: string;
+  createdAt: number;
 }
 
 export type AssessmentArea = 'wortschatz' | 'grammatik' | 'hoerverstehen' | 'produktion';
@@ -295,6 +322,15 @@ export interface AppState {
   exerciseProgress: Record<string, ExerciseProgress>;
   /** Standortbestimmungen, neueste zuerst. */
   assessments: AssessmentResult[];
+  /**
+   * Gemeldete Übungen aus dem Repo-Katalog.
+   *
+   * Der Katalog ist von Hand geschrieben und nicht von Muttersprachlern
+   * geprüft. Der Validator sichert die Struktur, nicht die Richtigkeit einer
+   * Lösung – ohne einen Meldeweg bliebe ein falscher Satz stumm stehen und
+   * würde von allen mitgelernt.
+   */
+  reports: ExerciseReport[];
   texts: ReaderText[];
   chats: ChatSession[];
   journal: JournalEntry[];

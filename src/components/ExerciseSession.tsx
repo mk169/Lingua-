@@ -47,8 +47,9 @@ export function ExerciseSession({
   const [showHint, setShowHint] = useState(false);
   const [stats, setStats] = useState({ right: 0, wrong: 0 });
   const [repeated, setRepeated] = useState(false);
+  const [reported, setReported] = useState(false);
 
-  const { state, updateSettings } = useStore();
+  const { state, updateSettings, reportExercise } = useStore();
   const listenMode = state.settings.listenMode;
   const current = queue[pos];
   const total = queue.length;
@@ -85,6 +86,7 @@ export function ExerciseSession({
     setValue('');
     setResult(null);
     setShowHint(false);
+    setReported(false);
     if (pos + 1 >= queue.length) setRepeated(true);
     setPos((p) => p + 1);
   }
@@ -254,6 +256,28 @@ export function ExerciseSession({
                 Weiter
               </Button>
             )}
+            {/*
+              Erst nach der Auflösung, sonst wäre der Knopf ein Weg, sich die
+              Lösung anzusehen. Der Katalog ist von Hand geschrieben und nicht
+              muttersprachlich geprüft – ohne Meldeweg bliebe ein falscher Satz
+              stehen und würde von allen mitgelernt.
+            */}
+            <button
+              className="tiny muted"
+              style={{ background: 'none', border: 0, padding: 0, textAlign: 'left', cursor: 'pointer' }}
+              onClick={() => {
+                if (reported) return;
+                reportExercise({
+                  exerciseId: current.id,
+                  languageId: lang.id,
+                  prompt: current.prompt,
+                  answer: current.answer,
+                });
+                setReported(true);
+              }}
+            >
+              {reported ? '✓ Gemeldet – danke.' : 'Lösung stimmt nicht?'}
+            </button>
           </div>
         )}
 

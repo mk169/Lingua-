@@ -7,7 +7,7 @@
  * damit sich beim Nachtragen einer Übung nicht der halbe Katalog verschiebt.
  */
 
-import type { Exercise, ExerciseType } from '../../types';
+import type { CefrLevel, Exercise, ExerciseType } from '../../types';
 
 /** [Satz in der Muttersprache, Lösung in der Zielsprache] */
 export type SatzRow = [string, string];
@@ -76,4 +76,65 @@ export function buildFor(
       options: rotate([correct, w1, w2], i),
     })),
   ];
+}
+
+/**
+ * Vokabelübung: an eine Stufe gebunden, nicht an ein Grammatikmuster.
+ *
+ * Vier Formate, unterschieden über den Typ:
+ *   ['bedeutung',  'la chiave', 'der Schlüssel', 'die Küche', 'der Kuchen']
+ *   ['luecke',     'chiave', 'Ho perso la ___ di casa.', 'Ich habe den Haustürschlüssel verloren.']
+ *   ['produktion', 'chiave', 'Ich habe den Schlüssel verloren.', 'Ho perso la chiave.']
+ *   ['kollokation','caffè', 'Was passt: un ___ caffè?', 'forte', 'grande', 'alto']
+ *
+ * `term` bleibt in jeder Zeile an derselben Stelle: Er verbindet die Übung mit
+ * der Karte im Deck, damit sich später „Übung zu diesem Wort" anbieten lässt.
+ */
+export type VokRow =
+  | ['bedeutung', string, string, string, string]
+  | ['luecke', string, string, string]
+  | ['produktion', string, string, string]
+  | ['kollokation', string, string, string, string, string];
+
+export function buildVocab(lang: string, level: CefrLevel, rows: VokRow[]): Exercise[] {
+  const stufe = level.toLowerCase();
+  return rows.map<Exercise>((row, i) => {
+    const base = {
+      id: `${lang}.wortschatz-${stufe}.${pad(i + 1)}`,
+      level,
+      kind: 'wortschatz' as const,
+      term: row[1],
+    };
+    switch (row[0]) {
+      case 'bedeutung': {
+        const [, term, correct, w1, w2] = row;
+        return {
+          ...base,
+          type: 'choice',
+          prompt: `Was bedeutet „${term}"?`,
+          answer: correct,
+          options: rotate([correct, w1, w2], i),
+        };
+      }
+      case 'luecke': {
+        const [, term, prompt, translation] = row;
+        return { ...base, type: 'cloze', prompt, answer: term, translation };
+      }
+      case 'produktion': {
+        const [, term, prompt, answer] = row;
+        return { ...base, term, type: 'translate', prompt, answer };
+      }
+      case 'kollokation': {
+        const [, term, prompt, correct, w1, w2] = row;
+        return {
+          ...base,
+          type: 'choice',
+          prompt,
+          answer: correct,
+          options: rotate([correct, w1, w2], i),
+          hint: `Es geht um „${term}".`,
+        };
+      }
+    }
+  });
 }

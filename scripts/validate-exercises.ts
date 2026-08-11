@@ -11,21 +11,25 @@ import { EXERCISES as IT } from '../src/data/exercises/it';
 import { EXERCISES as ES } from '../src/data/exercises/es';
 import { EXERCISES as FR } from '../src/data/exercises/fr';
 import { EXERCISES as PL } from '../src/data/exercises/pl';
+import { EXERCISES as PT } from '../src/data/exercises/pt';
 import { SEED_LANGUAGES } from '../src/data/seed';
 import type { Exercise } from '../src/types';
 
+// Vollständig halten: Ein hier fehlender Katalog geht ungeprüft live.
 const CATALOGS: { file: string; exercises: Exercise[] }[] = [
   { file: 'src/data/exercises/it.ts', exercises: IT },
   { file: 'src/data/exercises/es.ts', exercises: ES },
   { file: 'src/data/exercises/fr.ts', exercises: FR },
   { file: 'src/data/exercises/pl.ts', exercises: PL },
+  { file: 'src/data/exercises/pt.ts', exercises: PT },
 ];
 
 const KNOWN_SLUGS = new Set(
   SEED_LANGUAGES.flatMap((l) => l.patterns.map((p) => p.slug).filter((s): s is string => !!s)),
 );
 
-const KINDS = new Set(['satz', 'konstruktion', 'verstaendnis']);
+const KINDS = new Set(['satz', 'konstruktion', 'verstaendnis', 'wortschatz']);
+const LEVELS = new Set(['A1', 'A2', 'B1', 'B2']);
 const TYPES = new Set(['cloze', 'transform', 'order', 'build', 'choice', 'translate']);
 
 /** Für den Dublettencheck: Groß-/Kleinschreibung und Whitespace ignorieren. */
@@ -52,15 +56,22 @@ for (const { file, exercises } of CATALOGS) {
     if (!ex.prompt?.trim()) fail(ex, 'prompt fehlt');
     if (!ex.answer?.trim()) fail(ex, 'answer fehlt');
 
-    if (!KNOWN_SLUGS.has(ex.patternSlug)) {
+    // Grammatik hängt am Muster, Wortschatz an der Stufe – nie an beidem und
+    // nie an keinem, sonst weiß die App nicht, wo die Übung hingehört.
+    if (ex.patternSlug && ex.level) fail(ex, 'patternSlug und level gleichzeitig gesetzt');
+    if (!ex.patternSlug && !ex.level) fail(ex, 'weder patternSlug noch level gesetzt');
+    if (ex.patternSlug && !KNOWN_SLUGS.has(ex.patternSlug)) {
       fail(ex, `patternSlug "${ex.patternSlug}" kommt in src/data/seed.ts nicht vor`);
     }
+    if (ex.level && !LEVELS.has(ex.level)) fail(ex, `unbekannte Stufe "${ex.level}"`);
+    if (ex.kind === 'wortschatz' && !ex.level) fail(ex, 'wortschatz braucht level');
+    if (ex.kind !== 'wortschatz' && !ex.patternSlug) fail(ex, `${ex.kind} braucht patternSlug`);
     if (!KINDS.has(ex.kind)) fail(ex, `unbekannte Kategorie "${ex.kind}"`);
     if (!TYPES.has(ex.type)) fail(ex, `unbekannter Typ "${ex.type}"`);
 
     // Prompts nur innerhalb desselben Musters vergleichen – "Non capisco."
     // darf in zwei Mustern vorkommen, aber nicht zweimal im selben.
-    const key = `${ex.patternSlug}|${ex.kind}|${norm(ex.prompt ?? '')}`;
+    const key = `${ex.patternSlug ?? ex.level}|${ex.kind}|${norm(ex.prompt ?? '')}`;
     const twin = seenPrompts.get(key);
     if (twin) fail(ex, `gleiche Aufgabe wie ${twin}`);
     else seenPrompts.set(key, ex.id);
@@ -92,9 +103,10 @@ if (problems.length > 0) {
 const perSlug = new Map<string, Map<string, number>>();
 for (const { exercises } of CATALOGS) {
   for (const ex of exercises) {
-    const byKind = perSlug.get(ex.patternSlug) ?? new Map<string, number>();
+    const gruppe = ex.patternSlug ?? `wortschatz ${ex.level}`;
+    const byKind = perSlug.get(gruppe) ?? new Map<string, number>();
     byKind.set(ex.kind, (byKind.get(ex.kind) ?? 0) + 1);
-    perSlug.set(ex.patternSlug, byKind);
+    perSlug.set(gruppe, byKind);
   }
 }
 for (const [slug, byKind] of perSlug) {

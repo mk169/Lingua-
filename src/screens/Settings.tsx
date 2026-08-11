@@ -10,7 +10,8 @@ import { ttsSupported, sttSupported, speak } from '../lib/speech';
 import { todayISO } from '../lib/date';
 
 export function Settings({ lang }: { lang: Language | null }) {
-  const { state, updateSettings, updateLanguage, deleteLanguage, update } = useStore();
+  const { state, updateSettings, updateLanguage, deleteLanguage, update, clearReports } =
+    useStore();
   const notify = useToast();
   const [showKey, setShowKey] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -279,6 +280,52 @@ export function Settings({ lang }: { lang: Language | null }) {
                 Sprache löschen
               </Button>
             )}
+          </div>
+        </Card>
+      )}
+
+      {/* Gemeldete Übungen */}
+      {state.reports.length > 0 && (
+        <Card>
+          <div className="eyebrow" style={{ marginBottom: 12 }}>
+            Gemeldete Übungen
+          </div>
+          <p className="small muted">
+            Der Übungskatalog ist von Hand geschrieben und nicht muttersprachlich geprüft. Was du
+            hier gemeldet hast, steht noch im Repo – schick die Liste weiter, dann wird sie
+            korrigiert.
+          </p>
+          <div className="stack" style={{ gap: 8, marginTop: 12 }}>
+            {state.reports.slice(0, 20).map((r) => (
+              <div key={r.exerciseId} className="tiny">
+                <span className="mono muted">{r.exerciseId}</span>
+                <div>
+                  {r.prompt.replace(/\n+/g, ' · ')} → <span className="fix">{r.answer}</span>
+                </div>
+              </div>
+            ))}
+            {state.reports.length > 20 && (
+              <span className="tiny muted">… und {state.reports.length - 20} weitere.</span>
+            )}
+          </div>
+          <div className="row" style={{ marginTop: 12 }}>
+            <Button
+              size="sm"
+              onClick={() => {
+                const text = state.reports
+                  .map((r) => `${r.exerciseId}\t${r.prompt.replace(/\n+/g, ' ')}\t${r.answer}`)
+                  .join('\n');
+                navigator.clipboard
+                  .writeText(text)
+                  .then(() => notify(`${state.reports.length} Meldungen kopiert.`))
+                  .catch(() => notify('Kopieren hat nicht geklappt.'));
+              }}
+            >
+              Liste kopieren
+            </Button>
+            <Button size="sm" variant="ghost" onClick={clearReports}>
+              Liste leeren
+            </Button>
           </div>
         </Card>
       )}

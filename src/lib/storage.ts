@@ -14,6 +14,7 @@ export function emptyState(): AppState {
     drills: [],
     exerciseProgress: {},
     assessments: [],
+    reports: [],
     texts: [],
     chats: [],
     journal: [],
