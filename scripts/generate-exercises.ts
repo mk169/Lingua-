@@ -70,9 +70,10 @@ const LANG_BY_CODE: Record<string, string> = {
   es: 'Spanisch',
   fr: 'Französisch',
   pl: 'Polnisch',
+  pt: 'Portugiesisch',
 };
 const langName = LANG_BY_CODE[langArg];
-if (!langName) fail(`--lang "${langArg}" kennt das Skript nicht (it, es, fr, pl).`);
+if (!langName) fail(`--lang "${langArg}" kennt das Skript nicht (it, es, fr, pl, pt).`);
 
 const seed = SEED_LANGUAGES.find((l) => l.name === langName);
 if (!seed) fail(`Für ${langName} gibt es kein Startpaket in src/data/seed.ts.`);

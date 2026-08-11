@@ -64,11 +64,18 @@ genau diesem Wort, mit wechselnder Zeitform und Satzart, optional auf einen Ziel
 gegliedert, mit Formel, Erklärung und Beispielen. Ein Sprint zeigt nur die Muster seiner
 Stufe, nicht das ganze Skelett bis B2.
 
-**Italienisch ist bis A2 vollständig**: 28 Muster vom Aussagesatz über Artikel, Plural,
-Modalverben und Präposition+Artikel bis zu passato prossimo (mit avere und essere),
-imperfetto, Objektpronomen, ne/ci, Imperativ, Komparativ und Relativsatz. Woche 1–2 deckt A1
-ab, Woche 3–4 A2. Spanisch, Französisch und Polnisch haben bisher die vier
-Woche-1/2-Muster.
+**Italienisch ist bis B2 vollständig**: 56 Muster – A1 und A2 vom Aussagesatz über Artikel,
+Plural und Modalverben bis zu passato prossimo, imperfetto und Objektpronomen; B1 mit
+Congiuntivo, Condizionale, realem Bedingungssatz, Passiv und indirekter Rede; B2 mit
+irrealen Bedingungssätzen, Zeitenfolge, passato remoto, pronominalen Verben und
+Diskursmarkern.
+
+**Portugiesisch** ist mit 53 Mustern bis B2 dabei (europäische Variante, pt-PT), inklusive
+der beiden Eigenheiten, die es sonst nirgends gibt: **futuro do conjuntivo** und
+**persönlicher Infinitiv**. Wo Portugal und Brasilien auseinandergehen, sagt das Muster es
+dazu; ein eigenes Muster stellt die vier auffälligsten Unterschiede nebeneinander.
+
+Spanisch, Französisch und Polnisch haben bisher nur ihre vier bis fünf Woche-1/2-Muster.
 
 Zu jedem Muster gibt es Übungen in drei Kategorien: Beispielsätze, Konstruktion (Lücke
 füllen, Umformen, Satz ordnen, Satz bilden) und Verständnis – eine Aufgabe pro Bildschirm,
@@ -160,13 +167,13 @@ npm run dev
 Öffne die App, lege eine Sprache an und trage unter **⚙ Einstellungen** einen Anthropic
 API-Schlüssel ein.
 
-Für **Spanisch, Italienisch, Französisch und Polnisch** ist ein Startpaket hinterlegt – Review und
+Für **Spanisch, Italienisch, Französisch, Polnisch und Portugiesisch** ist ein Startpaket hinterlegt – Review und
 Drills funktionieren damit sofort **ohne** Schlüssel. **Italienisch** enthält den
 vollständigen Kernwortschatz: **1000 Vokabeln nach Frequenz sortiert**
 (`src/data/italian1000.ts`), jede mit Übersetzung, Wortart und Alltagsbeispiel. Das deckt
 das Phase-1-Ziel von 600–1000 Wörtern komplett ab, ohne dass etwas generiert werden muss.
-Spanisch, Französisch und Polnisch starten mit einem kleineren Paket (rund 50 Wörter) und
-werden über den Wortschatz-Generator aufgefüllt.
+Spanisch, Französisch, Polnisch und Portugiesisch starten mit einem kleineren Paket (rund
+50–70 Wörter) und werden über den Wortschatz-Generator aufgefüllt.
 Ebenso eigene Karten, manueller Import und der Alltags-Modus. Der Schlüssel wird gebraucht
 für: Wortschatz-Generierung, Satzgenerierung, Grammatikmuster und Übungen, Reader-Texte,
 Wort-Nachschlag, Konversation und Korrektur.
@@ -202,7 +209,7 @@ src/
     exerciseQueue.ts  Rundenauswahl für Übungen (fällig, wackelig, gemischt)
     storage.ts        localStorage, Export/Import
     date.ts           Datums-Helfer
-  data/seed.ts        Startpakete für Spanisch, Italienisch, Französisch, Polnisch
+  data/seed.ts        Startpakete für Spanisch, Italienisch, Französisch, Polnisch, Portugiesisch
   screens/            Ein Modul pro Datei
 ```
 
@@ -277,7 +284,8 @@ Muster der ersten Sprintwoche haben Material.
 
 | Sprache | Muster mit Übungen | Übungen | offen |
 | --- | --- | --- | --- |
-| Italienisch | 10 von 28 | 1500 | 18 Muster, darunter imperfetto und die Pronomen |
+| Italienisch | 10 von 56 | 1500 | 46 Muster, darunter imperfetto, die Pronomen und ganz B1/B2 |
+| Portugiesisch | 0 von 53 | 0 | das komplette Skelett |
 | Spanisch | Aussagesatz, Verneinung | 300 | Entscheidungsfrage, ser/estar, höfliche Bitte |
 | Französisch | Aussagesatz, Verneinung | 300 | est-ce que, höfliche Bitte |
 | Polnisch | Aussagesatz, Verneinung | 300 | czy-Frage, höfliche Bitte |
