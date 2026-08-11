@@ -177,8 +177,10 @@ Drills funktionieren damit sofort **ohne** Schlüssel. **Italienisch** enthält 
 vollständigen Kernwortschatz: **1000 Vokabeln nach Frequenz sortiert**
 (`src/data/italian1000.ts`), jede mit Übersetzung, Wortart und Alltagsbeispiel. Das deckt
 das Phase-1-Ziel von 600–1000 Wörtern komplett ab, ohne dass etwas generiert werden muss.
-Spanisch, Französisch, Polnisch und Portugiesisch starten mit einem kleineren Paket (rund
-50–70 Wörter) und werden über den Wortschatz-Generator aufgefüllt.
+Spanisch (265), Französisch (268), Polnisch (270) und Portugiesisch (277) haben einen
+A1/A2-Kern nach Themenfeldern – Verben, Essen, Reisen, Wohnen, Menschen, Gesundheit,
+Arbeit, Zeit, Zahlen, Adjektive und Verknüpfungswörter. Das trägt die ersten Sprintwochen;
+darüber hinaus füllt der Wortschatz-Generator auf.
 Ebenso eigene Karten, manueller Import und der Alltags-Modus. Der Schlüssel wird gebraucht
 für: Wortschatz-Generierung, Satzgenerierung, Grammatikmuster und Übungen, Reader-Texte,
 Wort-Nachschlag, Konversation und Korrektur.
