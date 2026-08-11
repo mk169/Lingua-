@@ -5,6 +5,7 @@ import { Bar, Button, Card, SectionTitle, Stat } from '../ui';
 import { getPhase, levelsInSprint, nextLevel, PHASE_META, WEEK_PLAN } from '../lib/phase';
 import { backlogLimit, dueCards, lockedCards, suspendedCards } from '../lib/sm2';
 import { todayISO } from '../lib/date';
+import { HabitsAndContent } from '../components/HabitsAndContent';
 
 /**
  * Das Dashboard passt sich der Phase an:
@@ -36,7 +37,6 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   const weekPatterns = patterns.filter(
     (p) => p.week === phase.week && levelsInSprint(lang.targetLevel).includes(p.level ?? 'A1'),
   );
-  const habits = state.habits.filter((h) => h.languageId === lang.id);
 
   const streak = useMemo(() => {
     const dates = new Set(
@@ -419,28 +419,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
             )}
           </Card>
 
-          {phase.phase >= 3 && habits.length > 0 && (
-            <Card>
-              <SectionTitle
-                title="Lern-Habits"
-                action={
-                  <Button variant="ghost" size="sm" onClick={() => go('daily')}>
-                    Alltag
-                  </Button>
-                }
-              />
-              <div className="stack" style={{ gap: 6 }}>
-                {habits.slice(0, 4).map((h) => (
-                  <div key={h.id} className="row small">
-                    <span style={{ flex: 1 }}>{h.title}</span>
-                    <span className="tiny muted">
-                      {h.done.includes(today) ? '✓ heute' : h.cadence}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          )}
+          <HabitsAndContent lang={lang} />
 
           {phase.phase === 1 && (
             <Card style={{ background: 'var(--accent-soft)', borderColor: 'transparent' }}>
