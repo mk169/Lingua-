@@ -181,6 +181,12 @@ Spanisch (265), Französisch (268), Polnisch (270) und Portugiesisch (277) haben
 A1/A2-Kern nach Themenfeldern – Verben, Essen, Reisen, Wohnen, Menschen, Gesundheit,
 Arbeit, Zeit, Zahlen, Adjektive und Verknüpfungswörter. Das trägt die ersten Sprintwochen;
 darüber hinaus füllt der Wortschatz-Generator auf.
+**Startpakete wachsen mit.** Wörter und Muster werden beim Anlegen einer Sprache in den
+Browser kopiert. Wächst das Paket im Repo nach, gleicht die App das bei jedem Laden ab
+(`src/lib/seedSync.ts`): Fehlende Muster kommen über ihren `slug` dazu, fehlende Wörter über
+den Begriff. Vorhandenes bleibt unangetastet – SRS-Stand, Notizen und „gemeistert“-Haken
+überleben den Abgleich, und nachgelieferte Wörter landen im Pool statt sofort im Deck.
+
 Ebenso eigene Karten, manueller Import und der Alltags-Modus. Der Schlüssel wird gebraucht
 für: Wortschatz-Generierung, Satzgenerierung, Grammatikmuster und Übungen, Reader-Texte,
 Wort-Nachschlag, Konversation und Korrektur.

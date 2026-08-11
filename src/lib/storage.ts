@@ -1,5 +1,6 @@
 import type { AppState, Language } from '../types';
 import { DEFAULT_MODEL } from './llm';
+import { syncSeedContent } from './seedSync';
 
 const KEY = 'lingua.state.v1';
 export const STATE_VERSION = 1;
@@ -54,13 +55,16 @@ export function loadState(): AppState {
     const parsed = JSON.parse(raw) as Partial<AppState>;
     // Defensiv mergen, damit neue Felder alte Stände nicht brechen.
     const base = emptyState();
-    return {
+    const merged: AppState = {
       ...base,
       ...parsed,
       languages: (parsed.languages ?? []).map(withSprintDefaults),
       settings: { ...base.settings, ...(parsed.settings ?? {}) },
       version: STATE_VERSION,
     };
+    // Startpakete wachsen im Repo nach. Ohne diesen Abgleich sähe nur jemand
+    // die neuen Muster und Wörter, der die Sprache neu anlegt.
+    return syncSeedContent(merged);
   } catch {
     return emptyState();
   }
@@ -87,11 +91,11 @@ export function exportState(state: AppState): string {
 export function importState(json: string): AppState {
   const parsed = JSON.parse(json) as Partial<AppState>;
   const base = emptyState();
-  return {
+  return syncSeedContent({
     ...base,
     ...parsed,
     languages: (parsed.languages ?? []).map(withSprintDefaults),
     settings: { ...base.settings, ...(parsed.settings ?? {}) },
     version: STATE_VERSION,
-  };
+  });
 }
