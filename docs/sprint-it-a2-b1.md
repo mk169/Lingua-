@@ -12339,12 +12339,12 @@ Hinweis: Wörtlich "mach es selbst"; unverändert im Plural.
 
 **it.a2b1.v.d18.08 — il giardinaggio** · das Gärtnern
 
-Wortart: Nomen · Genus: m · Plural: i giardinaggi · Aussprache: dschardi-nad-dscho · Schwierigkeit: 3 · Thema: Freizeit, Hobbys und Vereine · Tags: freizeit, nomen
+Wortart: Nomen · Genus: m · Aussprache: dschardi-nad-dscho · Schwierigkeit: 3 · Thema: Freizeit, Hobbys und Vereine · Tags: freizeit, nomen
 
 > Il giardinaggio mi rilassa più di qualsiasi altra cosa.
 > Gärtnern entspannt mich mehr als alles andere.
 
-Hinweis: Unbetontes -io: Plural "giardinaggi", praktisch nie gebraucht.
+Hinweis: Unbetontes -io wie in orologio; im Plural praktisch nie gebraucht.
 
 **it.a2b1.v.d18.09 — la fotografia** · die Fotografie
 
@@ -13127,7 +13127,7 @@ Hinweis: "il secondo tempo" ist die zweite Halbzeit.
 
 **it.a2b1.v.d19.16 — la pallavolo** · das Volleyball
 
-Wortart: Nomen · Genus: f · Plural: le pallavolo · Schwierigkeit: 2 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
+Wortart: Nomen · Genus: f · Schwierigkeit: 2 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
 
 > Gioco a pallavolo dal liceo.
 > Ich spiele seit dem Gymnasium Volleyball.
@@ -13136,7 +13136,7 @@ Hinweis: Von "palla" + "volo"; "giocare a" ohne Artikel.
 
 **it.a2b1.v.d19.17 — la pallacanestro** · das Basketball
 
-Wortart: Nomen · Genus: f · Plural: le pallacanestro · Schwierigkeit: 3 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
+Wortart: Nomen · Genus: f · Schwierigkeit: 3 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
 
 > Mia figlia fa pallacanestro tre volte alla settimana.
 > Meine Tochter spielt dreimal die Woche Basketball.
@@ -13145,7 +13145,7 @@ Hinweis: Umgangssprachlich meist "il basket".
 
 **it.a2b1.v.d19.18 — il tennis** · das Tennis
 
-Wortart: Nomen · Genus: m · Plural: i tennis · Schwierigkeit: 1 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
+Wortart: Nomen · Genus: m · Schwierigkeit: 1 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
 
 > Il tennis è più faticoso di quanto sembri.
 > Tennis ist anstrengender, als es aussieht.
@@ -13172,7 +13172,7 @@ Hinweis: Von "correre"; auch die Fahrt eines Busses.
 
 **it.a2b1.v.d19.21 — il ciclismo** · der Radsport
 
-Wortart: Nomen · Genus: m · Plural: i ciclismi · Aussprache: tschi-klismo · Schwierigkeit: 2 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
+Wortart: Nomen · Genus: m · Aussprache: tschi-klismo · Schwierigkeit: 2 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
 
 > Il ciclismo in Italia è quasi una religione.
 > Radsport ist in Italien fast eine Religion.
@@ -13208,7 +13208,7 @@ Hinweis: Betonung auf dem i: sciàre.
 
 **it.a2b1.v.d19.25 — il nuoto** · das Schwimmen
 
-Wortart: Nomen · Genus: m · Plural: i nuoti · Aussprache: nu-o-to · Schwierigkeit: 2 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
+Wortart: Nomen · Genus: m · Aussprache: nu-o-to · Schwierigkeit: 2 · Thema: Sport, Training und Wettkampf · Tags: sport, nomen
 
 > Il nuoto è lo sport più completo.
 > Schwimmen ist der vollständigste Sport.
@@ -16705,12 +16705,12 @@ Hinweis: Auch "ansioso di" = ungeduldig darauf.
 
 **it.a2b1.v.d24.09 — lo stress** · der Stress
 
-Wortart: Nomen · Genus: m · Plural: gli stress · Aussprache: stres · Schwierigkeit: 2 · Thema: Gefühle, Stimmungen und Charakter · Tags: gefuehle, nomen
+Wortart: Nomen · Genus: m · Aussprache: stres · Schwierigkeit: 2 · Thema: Gefühle, Stimmungen und Charakter · Tags: gefuehle, nomen
 
 > Lo stress mi toglie il sonno.
 > Der Stress raubt mir den Schlaf.
 
-Hinweis: Fremdwort, Artikel "lo" wegen st-; im Plural unverändert.
+Hinweis: Fremdwort, Artikel "lo" wegen st-; nur im Singular gebraucht.
 
 **it.a2b1.v.d24.10 — stressato** · gestresst
 
@@ -19754,7 +19754,7 @@ Hinweis: Betontes -à: im Plural unverändert.
 
 **it.a2b1.v.d28.30 — il benessere** · der Wohlstand; das Wohlbefinden
 
-Wortart: Nomen · Genus: m · Plural: i benesseri · Schwierigkeit: 3 · Thema: Nachrichten, Gesellschaft und Umwelt (Wochenabschluss) · Tags: gesellschaft, nomen
+Wortart: Nomen · Genus: m · Schwierigkeit: 3 · Thema: Nachrichten, Gesellschaft und Umwelt (Wochenabschluss) · Tags: gesellschaft, nomen
 
 > Il benessere non si misura solo in soldi.
 > Wohlstand misst sich nicht nur in Geld.
@@ -19808,7 +19808,7 @@ Hinweis: Auch übertragen: "inquinare le prove".
 
 **it.a2b1.v.d28.36 — il riciclo** · das Recycling
 
-Wortart: Nomen · Genus: m · Plural: i ricicli · Aussprache: ri-tschiklo · Schwierigkeit: 3 · Thema: Nachrichten, Gesellschaft und Umwelt (Wochenabschluss) · Tags: umwelt, nomen
+Wortart: Nomen · Genus: m · Aussprache: ri-tschiklo · Schwierigkeit: 3 · Thema: Nachrichten, Gesellschaft und Umwelt (Wochenabschluss) · Tags: umwelt, nomen
 
 > Il riciclo della plastica è aumentato.
 > Das Plastikrecycling hat zugenommen.
