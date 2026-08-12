@@ -11,6 +11,7 @@ import type {
   AppState,
   Analysis,
   AssessmentResult,
+  ExerciseReport,
   Card,
   ChatMessage,
   ChatSession,
@@ -65,6 +66,9 @@ interface Store {
   markExercise: (exerciseId: string, languageId: string, correct: boolean) => void;
   /** Ausgesetzten Leech wieder in die Wiederholung nehmen. */
   restoreCard: (id: string) => void;
+  /** Eine Katalog-Übung als fehlerhaft melden. */
+  reportExercise: (report: Omit<ExerciseReport, 'createdAt'>) => void;
+  clearReports: () => void;
 
   /** Nächsten 30-Tage-Sprint auf die nächste Stufe starten. */
   startNextSprint: (languageId: string) => void;
@@ -495,6 +499,26 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           ...s,
           assessments: [{ ...result, id: uid('as'), createdAt: Date.now() }, ...s.assessments],
         }));
+      },
+
+      /**
+       * Eine Katalog-Übung als fehlerhaft melden.
+       *
+       * Zweimal dieselbe Übung ergibt einen Eintrag, nicht zwei – sonst
+       * sammelt sich beim Durchklicken eine Liste voller Wiederholungen.
+       */
+      reportExercise(report) {
+        update((s) => ({
+          ...s,
+          reports: [
+            { ...report, createdAt: Date.now() },
+            ...s.reports.filter((r) => r.exerciseId !== report.exerciseId),
+          ],
+        }));
+      },
+
+      clearReports() {
+        update((s) => ({ ...s, reports: [] }));
       },
 
       /** Leech wieder aufnehmen: Ease zurück auf Start, Fälligkeit heute. */

@@ -14,7 +14,7 @@
  */
 
 import type { Exercise } from '../../types';
-import { buildFor, type SatzRow, type KonRow, type VerRow } from './build';
+import { buildFor, buildVocab, type SatzRow, type KonRow, type VerRow, type VokRow } from './build';
 import { GENERATED } from './it.generated';
 import { SPRINT_EXERCISES } from './it.sprint';
 
@@ -1631,6 +1631,75 @@ const intVer: VerRow[] = [
   ['«Quale preferisci, il rosso o il bianco?» «Il rosso, grazie.»', 'Was wird gewählt?', 'Der rote.', 'Der weiße.', 'Beide.'],
 ];
 
+
+// ── Wortschatz A1 ──────────────────────────────────────────────────────────
+// Vier Formate: Bedeutung erkennen, Wort in die Lücke, Satz produzieren,
+// feste Verbindung wählen. Anders als die Karteikarte verlangt das, das Wort
+// zu benutzen statt es nur wiederzuerkennen.
+
+const vokA1: VokRow[] = [
+  ['bedeutung', 'la chiave', 'der Schlüssel', 'die Küche', 'der Kuchen'],
+  ['bedeutung', 'il treno', 'der Zug', 'der Weg', 'der Traum'],
+  ['bedeutung', 'la stazione', 'der Bahnhof', 'die Wohnung', 'die Straße'],
+  ['bedeutung', 'il conto', 'die Rechnung', 'das Konto beim Arzt', 'der Bericht'],
+  ['bedeutung', 'la camera', 'das Zimmer', 'die Kamera', 'die Kammer im Keller'],
+  ['bedeutung', 'il negozio', 'der Laden', 'das Geschäftsessen', 'die Verhandlung'],
+  ['bedeutung', 'la strada', 'die Straße', 'die Stadt', 'der Strand'],
+  ['bedeutung', 'il biglietto', 'die Fahrkarte', 'der Zettel am Baum', 'die Rechnung'],
+  ['bedeutung', 'la fermata', 'die Haltestelle', 'die Farm', 'die Pause'],
+  ['bedeutung', 'il pane', 'das Brot', 'die Pfanne', 'der Teller'],
+  ['bedeutung', 'l\'acqua', 'das Wasser', 'die Luft', 'der Wein'],
+  ['bedeutung', 'la colazione', 'das Frühstück', 'das Abendessen', 'die Verabredung'],
+  ['bedeutung', 'il lavoro', 'die Arbeit', 'der Lohn', 'die Werkstatt'],
+  ['bedeutung', 'la settimana', 'die Woche', 'das Wochenende', 'der Sonntag'],
+  ['bedeutung', 'domani', 'morgen', 'heute Morgen', 'übermorgen'],
+  ['bedeutung', 'adesso', 'jetzt', 'damals', 'gleich nachher'],
+  ['bedeutung', 'sempre', 'immer', 'nie', 'manchmal'],
+  ['bedeutung', 'anche', 'auch', 'aber', 'ohne'],
+  ['bedeutung', 'perché', 'warum, weil', 'wohin', 'wieso nicht'],
+  ['bedeutung', 'quanto', 'wie viel', 'wie oft', 'wie lange'],
+  ['luecke', 'chiave', 'Ho perso la ___ di casa.', 'Ich habe meinen Haustürschlüssel verloren.'],
+  ['luecke', 'treno', 'Il ___ per Roma parte alle otto.', 'Der Zug nach Rom fährt um acht.'],
+  ['luecke', 'stazione', 'Ci vediamo davanti alla ___.', 'Wir treffen uns vor dem Bahnhof.'],
+  ['luecke', 'conto', 'Il ___, per favore.', 'Die Rechnung, bitte.'],
+  ['luecke', 'camera', 'Vorrei una ___ doppia.', 'Ich hätte gern ein Doppelzimmer.'],
+  ['luecke', 'negozio', 'Il ___ apre alle nove.', 'Der Laden öffnet um neun.'],
+  ['luecke', 'biglietto', 'Devo comprare un ___.', 'Ich muss eine Fahrkarte kaufen.'],
+  ['luecke', 'fermata', 'La ___ è qui davanti.', 'Die Haltestelle ist hier vorn.'],
+  ['luecke', 'pane', 'Vorrei del ___ fresco.', 'Ich hätte gern frisches Brot.'],
+  ['luecke', 'acqua', 'Un bicchiere d\'___, per favore.', 'Ein Glas Wasser, bitte.'],
+  ['luecke', 'colazione', 'La ___ è compresa nel prezzo.', 'Das Frühstück ist im Preis enthalten.'],
+  ['luecke', 'lavoro', 'Vado al ___ in bici.', 'Ich fahre mit dem Rad zur Arbeit.'],
+  ['luecke', 'settimana', 'Questa ___ lavoro molto.', 'Diese Woche arbeite ich viel.'],
+  ['luecke', 'domani', '___ ho tempo.', 'Morgen habe ich Zeit.'],
+  ['luecke', 'adesso', '___ non posso.', 'Jetzt kann ich nicht.'],
+  ['luecke', 'sempre', 'Arrivo ___ in ritardo.', 'Ich komme immer zu spät.'],
+  ['luecke', 'anche', 'Vengo ___ io.', 'Ich komme auch mit.'],
+  ['luecke', 'perché', 'Non vengo ___ sono stanco.', 'Ich komme nicht, weil ich müde bin.'],
+  ['luecke', 'quanto', '___ costa?', 'Was kostet das?'],
+  ['luecke', 'tempo', 'Non ho ___.', 'Ich habe keine Zeit.'],
+  ['produktion', 'chiave', 'Ich habe den Schlüssel verloren.', 'Ho perso la chiave.'],
+  ['produktion', 'treno', 'Der Zug hat Verspätung.', 'Il treno è in ritardo.'],
+  ['produktion', 'stazione', 'Wo ist der Bahnhof?', 'Dov\'è la stazione?'],
+  ['produktion', 'conto', 'Die Rechnung, bitte.', 'Il conto, per favore.'],
+  ['produktion', 'camera', 'Ich hätte gern ein Zimmer.', 'Vorrei una camera.'],
+  ['produktion', 'negozio', 'Der Laden ist geschlossen.', 'Il negozio è chiuso.'],
+  ['produktion', 'biglietto', 'Ich brauche eine Fahrkarte.', 'Ho bisogno di un biglietto.'],
+  ['produktion', 'pane', 'Ich kaufe Brot.', 'Compro il pane.'],
+  ['produktion', 'acqua', 'Ein Wasser, bitte.', 'Un\'acqua, per favore.'],
+  ['produktion', 'colazione', 'Wann gibt es Frühstück?', 'A che ora è la colazione?'],
+  ['produktion', 'lavoro', 'Ich gehe zur Arbeit.', 'Vado al lavoro.'],
+  ['produktion', 'domani', 'Morgen habe ich Zeit.', 'Domani ho tempo.'],
+  ['produktion', 'adesso', 'Jetzt kann ich nicht.', 'Adesso non posso.'],
+  ['produktion', 'sempre', 'Ich trinke immer Kaffee.', 'Bevo sempre il caffè.'],
+  ['produktion', 'anche', 'Ich auch.', 'Anch\'io.'],
+  ['produktion', 'quanto', 'Wie viel kostet das?', 'Quanto costa?'],
+  ['kollokation', 'caffè', 'Che cosa manca: un ___ caffè?', 'forte', 'grande', 'alto'],
+  ['kollokation', 'fame', 'Che cosa manca: ho ___.', 'fame', 'fame grande', 'la fame molta'],
+  ['kollokation', 'piedi', 'Che cosa manca: ci vado a ___.', 'piedi', 'gambe', 'passi'],
+  ['kollokation', 'ritardo', 'Che cosa manca: il treno è in ___.', 'ritardo', 'tardi', 'lento'],
+];
+
 export const EXERCISES: Exercise[] = [
   ...build('it-svo', svoSatz, svoKon, svoVer),
   ...build('it-articoli', artSatz, artKon, artVer),
@@ -1642,6 +1711,7 @@ export const EXERCISES: Exercise[] = [
   ...build('it-vorrei-potrebbe', vorSatz, vorKon, vorVer),
   ...build('it-passato-avere', pavSatz, pavKon, pavVer),
   ...build('it-passato-essere', pesSatz, pesKon, pesVer),
+  ...buildVocab('it', 'A1', vokA1),
   ...SPRINT_EXERCISES,
   ...GENERATED,
 ];

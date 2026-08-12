@@ -7,6 +7,7 @@ import { generateVocab, parseUpload, type GeneratedWord } from '../lib/llm';
 import { speak } from '../lib/speech';
 import { todayISO } from '../lib/date';
 import { useTimeOnTask } from '../lib/useTimeOnTask';
+import { VocabExercises } from '../components/VocabExercises';
 
 type Filter = 'aktiv' | 'pool' | 'schwer' | 'ausgesetzt' | 'alle';
 
@@ -139,6 +140,8 @@ export function Vocab({ lang }: { lang: Language }) {
           </div>
         }
       />
+
+      <VocabExercises lang={lang} />
 
       {/* Fortschritt zum Phase-1-Ziel */}
       <Card>
