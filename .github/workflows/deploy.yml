@@ -73,3 +73,38 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+
+  # Ein grüner Deploy heißt nicht, dass er auch live steht.
+  #
+  # Solange in den Repository-Einstellungen unter Pages ein Branch als Quelle
+  # gewählt ist, läuft parallel GitHubs eigener Builder ("pages build and
+  # deployment") und liefert das Repository roh aus – also die Quelldatei
+  # index.html mit ihrem Verweis auf /src/main.tsx, den kein Browser ausführen
+  # kann. Beide Workflows melden Erfolg, die Seite bleibt trotzdem weiß.
+  # Genau das ist passiert und ist tagelang niemandem aufgefallen.
+  #
+  # Dieser Schritt sieht auf der echten Seite nach, statt es zu glauben.
+  verify:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ausgelieferte Seite prüfen
+        run: |
+          url="https://mk169.github.io/Lingua-/"
+          for i in 1 2 3 4 5 6; do
+            html=$(curl -fsSL --max-time 20 "$url" || true)
+            case "$html" in
+              *"/Lingua-/assets/index-"*) echo "✓ Gebaute App wird ausgeliefert."; exit 0 ;;
+            esac
+            echo "Versuch $i: noch nicht die gebaute App, warte 20s …"
+            sleep 20
+          done
+          echo "::error::$url liefert nicht die gebaute App aus."
+          case "$html" in
+            *"/src/main.tsx"*)
+              echo "::error::Es wird der Quelltext des Repositories ausgeliefert."
+              echo "::error::Settings → Pages → Build and deployment → Source auf 'GitHub Actions' stellen."
+              ;;
+          esac
+          printf '%s\n' "$html" | head -c 1500
+          exit 1

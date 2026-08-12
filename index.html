@@ -132,10 +132,18 @@
       })();
     </script>
 
+    <!--
+      Der Verweis auf die Quelldatei ist richtig so: Beim Build ersetzt Vite ihn
+      durch das gebaute Bundle. Steht er auf der veröffentlichten Seite noch
+      hier, wird nicht der Build ausgeliefert, sondern das Repository selbst –
+      dann ist GitHub Pages auf "Deploy from a branch" statt auf "GitHub
+      Actions" gestellt. Der Handler sagt genau das, statt auf die Verbindung
+      zu zeigen.
+    -->
     <script
       type="module"
       src="/src/main.tsx"
-      onerror="window.__linguaBootError &amp;&amp; window.__linguaBootError('Das Programm konnte nicht geladen werden. Meist hilft ein Neuladen; sonst ist die Verbindung unterbrochen.', 'Script konnte nicht geladen werden: ' + this.src)"
+      onerror="window.__linguaBootError &amp;&amp; window.__linguaBootError(/\.tsx?$/.test(this.src) ? 'Es wird der Quelltext ausgeliefert statt der gebauten App. In den Repository-Einstellungen muss unter Pages als Quelle &quot;GitHub Actions&quot; stehen, nicht ein Branch.' : 'Das Programm konnte nicht geladen werden. Meist hilft ein Neuladen; sonst ist die Verbindung unterbrochen.', 'Script konnte nicht geladen werden: ' + this.src)"
     ></script>
   </body>
 </html>
