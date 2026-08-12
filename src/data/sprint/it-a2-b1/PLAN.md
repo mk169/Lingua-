@@ -73,13 +73,36 @@ gesamten Sprint, Tag 30 enthält die Abschlussprüfung.
 
 ## Neue Muster gegenüber `src/data/seed.ts`
 
-Die meisten Slugs existieren dort bereits. Neu und in `seed.ts` nachzutragen:
+Fünf Muster gab es dort noch nicht und sind nachgetragen:
 `it-presente-irregolare`, `it-preposizioni-articolate`, `it-plurale-irregolare`,
-`it-doppia-negazione`, `it-interrogativi-avanzati`.
+`it-doppia-negazione`, `it-interrogativi-avanzati`. Alle übrigen 27 Module
+verweisen auf bereits vorhandene Slugs. `npm run validate:sprint` bricht ab,
+sobald ein Modul auf ein Muster zeigt, das im Startpaket fehlt.
 
 ## Vokabelauswahl
 
 Der Sprint führt Wortschatz **oberhalb** der 1000er-Kernliste
-(`src/data/italian1000.ts`) ein. `npm run validate:sprint` meldet Überschneidungen;
-bewusste Ausnahmen sind nur dort zulässig, wo eine Wendung eine andere Bedeutung
-trägt als das Einzelwort der Kernliste.
+(`src/data/italian1000.ts`) ein: Der Validator meldet aktuell null
+Überschneidungen. Wo ein Wort dieselbe Form wie ein Kernwort hat, aber eine
+andere Bedeutung trägt (`la pesca` = Pfirsich statt Fischerei, `il portiere` =
+Portier statt Torwart), steht der Unterschied im Anwendungshinweis.
+
+## Werkzeuge
+
+| Befehl | Wirkung |
+| --- | --- |
+| `npm run validate:sprint` | Qualitätstor: Vokabelzahl, IDs, Verweise, Aufgabenvielfalt, Schwierigkeitsanstieg |
+| `npm run export:sprint` | schreibt `docs/sprint-it-a2-b1.md` in der Gliederung der Kursvorgabe |
+| `npm run build:sprint-exercises` | erzeugt `src/data/exercises/it.sprint.ts` für den Drills-Screen |
+
+Nach jeder Änderung an einer Tagesdatei laufen alle drei; die erzeugten Dateien
+gehören mit in den Commit.
+
+## Was in der App ankommt
+
+Die 480 maschinell prüfbaren Übungen liegen über `it.sprint.ts` im
+Übungskatalog und erscheinen im Drills-Screen. Nicht angebunden sind die 1350
+Vokabelkarten, die 31 Verständnistexte und die 32 Produktionsaufgaben: Sie
+brauchen eine eigene Sprint-Ansicht, die es in der App noch nicht gibt. Bis
+dahin sind sie über `SPRINT_IT_A2_B1` importierbar und vollständig in
+`docs/sprint-it-a2-b1.md` dokumentiert.

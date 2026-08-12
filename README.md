@@ -251,7 +251,38 @@ npm test          # Unit-Tests der Lernlogik (vitest)
 
 npm run validate:exercises   # Qualitätstor für den Übungskatalog
 npm run generate:exercises   # neue Übungen per Claude erzeugen (braucht Schlüssel)
+
+npm run validate:sprint         # Qualitätstor für den 30-Tage-Sprint
+npm run export:sprint           # docs/sprint-it-a2-b1.md neu schreiben
+npm run build:sprint-exercises  # src/data/exercises/it.sprint.ts neu erzeugen
 ```
+
+---
+
+## Der 30-Tage-Sprint Italienisch A2 → B1
+
+Neben den Startpaketen liegt in `src/data/sprint/` ein vollständig
+ausformulierter Lernweg: 30 Tage, 45 neue Vokabeln pro Tag, ausgelegt auf 40
+Minuten täglich.
+
+| | |
+| --- | --- |
+| Vokabelkarten | 1350, jede mit Beispielsatz, Übersetzung, Anwendungshinweis, Genus, Plural, Tags |
+| Grammatikmodule | 32, vom unregelmäßigen Präsens bis zur indirekten Rede |
+| Übungen | 544 in 18 Aufgabentypen, davon 184 geplante Wiederholungen |
+| Verständnistexte | 31 mit Übersetzung und Lösungen |
+| Schreibaufgaben | 32 mit Beispielantwort und Bewertungskriterien |
+
+Aufgebaut ist er wie der Übungskatalog: Die Tagesdateien notieren ihre Inhalte
+als knappe Tupel, IDs und Querverweise entstehen beim Bauen. Wer einen Tag
+ändert, liest den Bauplan in `src/data/sprint/it-a2-b1/PLAN.md` — dort steht,
+welches Thema und welches Muster an welchem Tag dran ist und wie die
+Wiederholungen greifen.
+
+`docs/sprint-it-a2-b1.md` ist die lesbare Fassung desselben Materials, erzeugt
+aus den Daten. Die 480 maschinell prüfbaren Übungen wandern über
+`it.sprint.ts` in den Übungskatalog und erscheinen im Drills-Screen; die
+Vokabelkarten und Texte warten noch auf eine eigene Sprint-Ansicht.
 
 ---
 

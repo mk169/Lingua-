@@ -16,6 +16,7 @@
 import type { Exercise } from '../../types';
 import { buildFor, type SatzRow, type KonRow, type VerRow } from './build';
 import { GENERATED } from './it.generated';
+import { SPRINT_EXERCISES } from './it.sprint';
 
 const build = (slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]) =>
   buildFor('it', slug, satz, kon, ver);
@@ -1641,5 +1642,6 @@ export const EXERCISES: Exercise[] = [
   ...build('it-vorrei-potrebbe', vorSatz, vorKon, vorVer),
   ...build('it-passato-avere', pavSatz, pavKon, pavVer),
   ...build('it-passato-essere', pesSatz, pesKon, pesVer),
+  ...SPRINT_EXERCISES,
   ...GENERATED,
 ];

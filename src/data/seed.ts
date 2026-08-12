@@ -1136,6 +1136,71 @@ const italian: SeedLanguage = {
       level: 'A1',
     },
     {
+      slug: 'it-presente-irregolare',
+      title: 'Präsens: unregelmäßige Verben und -isc-Verben',
+      formula: 'cap-isc-o · cap-iamo — andare: vado, vai, va, andiamo, andate, vanno',
+      explanation:
+        'Die häufigsten Verben sind nur im Stamm unregelmäßig. Der -isc-Einschub der -ire-Verben erscheint im ganzen Singular und in der 3. Person Plural, verschwindet aber bei "noi" und "voi".',
+      examples: [
+        ['Non capisco il dialetto, ma capiamo il senso.', 'Ich verstehe den Dialekt nicht, aber wir verstehen den Sinn.'],
+        ['Vengo da Bari e vado a Milano ogni mese.', 'Ich komme aus Bari und fahre jeden Monat nach Mailand.'],
+      ],
+      week: 1,
+      level: 'A2',
+    },
+    {
+      slug: 'it-preposizioni-articolate',
+      title: 'Präposition + Artikel: die preposizioni articolate',
+      formula: 'di + il = del · a + lo = allo · da + l’ = dall’ · in + la = nella · su + gli = sugli',
+      explanation:
+        'di, a, da, in und su verschmelzen zwingend mit dem bestimmten Artikel zu einem Wort. con verschmilzt nur fakultativ zu "col"; per, tra und fra nie.',
+      examples: [
+        ['Il regalo è dei nonni, non degli zii.', 'Das Geschenk ist von den Großeltern, nicht von den Onkeln.'],
+        ['Nella nostra famiglia siamo in sei.', 'In unserer Familie sind wir zu sechst.'],
+      ],
+      week: 1,
+      level: 'A2',
+    },
+    {
+      slug: 'it-plurale-irregolare',
+      title: 'Plural: die unregelmäßigen Fälle',
+      formula: 'la città → le città · l’albergo → gli alberghi · l’amico → gli amici · il braccio → le braccia',
+      explanation:
+        'Betontes Endungs-à und Fremdwörter bleiben unverändert. -co/-go schieben ein h ein, außer wenn die Betonung auf der drittletzten Silbe liegt. Eine kleine Gruppe wechselt im Plural das Geschlecht.',
+      examples: [
+        ['In centro ci sono due alberghi e quattro bar.', 'Im Zentrum gibt es zwei Hotels und vier Bars.'],
+        ['Mi fanno male le braccia e le dita.', 'Mir tun die Arme und die Finger weh.'],
+      ],
+      week: 1,
+      level: 'A2',
+    },
+    {
+      slug: 'it-doppia-negazione',
+      title: 'Doppelte Verneinung: non … niente, nessuno, mai, più',
+      formula: 'non + Verb + niente / nessuno / mai / più — aber: Nessuno lava i piatti.',
+      explanation:
+        'Zwei Negationswörter heben sich nicht auf. Folgt das zweite dem Verb, ist "non" Pflicht; geht es voraus, entfällt "non".',
+      examples: [
+        ['Non faccio niente stasera.', 'Ich mache heute Abend nichts.'],
+        ['Nessuno ha sparecchiato la tavola.', 'Niemand hat den Tisch abgeräumt.'],
+      ],
+      week: 1,
+      level: 'A2',
+    },
+    {
+      slug: 'it-interrogativi-avanzati',
+      title: 'Fragewörter: quale, quanto, che und die Präposition vorn',
+      formula: 'Quanto/a/i/e + Nomen · Quale/Quali + Nomen · Con chi …? Di chi …?',
+      explanation:
+        '"quanto" passt sich wie ein Adjektiv an, "quale" nur im Numerus. Die Präposition wandert immer mit dem Fragewort an den Satzanfang; vor "è" heißt es "qual" ohne Apostroph.',
+      examples: [
+        ['Quante uova servono per l’impasto?', 'Wie viele Eier braucht man für den Teig?'],
+        ['Con chi cucini stasera?', 'Mit wem kochst du heute Abend?'],
+      ],
+      week: 1,
+      level: 'A2',
+    },
+    {
       slug: 'it-modali',
       title: 'Modalverben: potere, dovere, volere',
       formula: 'posso / devo / voglio + Infinitiv',

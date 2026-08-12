@@ -10,6 +10,9 @@
     "test": "vitest run",
     "preview": "vite preview",
     "validate:exercises": "tsx scripts/validate-exercises.ts",
+    "validate:sprint": "tsx scripts/validate-sprint.ts",
+    "export:sprint": "tsx scripts/export-sprint.ts",
+    "build:sprint-exercises": "tsx scripts/build-sprint-exercises.ts",
     "generate:exercises": "tsx scripts/generate-exercises.ts",
     "smoke": "node scripts/smoke.mjs"
   },

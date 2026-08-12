@@ -1,0 +1,185 @@
+import { day } from '../build';
+
+export default day({
+  tag: 29,
+  thema: 'Festigung I: Adjektive, Adverbien und Verbanschlüsse',
+  ziel: 'Den Beschreibungswortschatz schärfen, Adverbien regelmäßig bilden – und die Präpositionen lernen, die bestimmte Verben zwingend nach sich ziehen. Dazu gemischte Wiederholung über alle vier Wochen und eine Sammlung der häufigsten Fehler.',
+  zusammenfassung:
+    'Vorletzter Tag. Heute die Wörter, die jeden Text präziser machen: adeguato, provvisorio, notevole, sufficiente – und die Adverbien auf -mente. Grammatisch zwei Module: die Bildung der Adverbien mit ihren Ausnahmen (bene, male, meglio, peggio) und die festen Verbanschlüsse. Ob "cominciare a", "smettere di" oder "riuscire a" – diese Präpositionen lassen sich nicht ableiten, sie müssen als Paar gelernt werden. Die zwölf Wiederholungsaufgaben mischen den gesamten Sprint.',
+  grammatik: [
+    {
+      slug: 'it-verbi-preposizioni',
+      level: 'B1',
+      titel: 'Verben mit fester Präposition',
+      erklaerung:
+        'Vor einem Infinitiv verlangen viele italienische Verben eine feste Präposition, und die stimmt fast nie mit dem Deutschen überein. Drei Gruppen muss man auseinanderhalten. Mit "a" stehen Verben des Beginnens, Gelingens und Lernens: cominciare a, iniziare a, riuscire a, provare a, imparare a, insegnare a, continuare a, aiutare a, abituarsi a. Mit "di" stehen Verben des Beendens, Versuchens und Meinens: finire di, smettere di, cercare di, decidere di, sperare di, credere di, dimenticare di, ricordarsi di, avere bisogno di, avere voglia di. Ohne Präposition stehen die Modalverben sowie sapere, preferire, desiderare und far.',
+      muster:
+        'a: cominciare · riuscire · provare · imparare · continuare · abituarsi — di: finire · smettere · cercare · decidere · sperare · ricordarsi — ohne: potere · volere · dovere · sapere · preferire',
+      beispiele: [
+        ['Ho cominciato a studiare italiano due anni fa.', 'Ich habe vor zwei Jahren angefangen, Italienisch zu lernen.'],
+        ['Non riesco a capire questa clausola.', 'Ich schaffe es nicht, diese Klausel zu verstehen.'],
+        ['Ha smesso di fumare a gennaio.', 'Er hat im Januar mit dem Rauchen aufgehört.'],
+        ['Cerco di parlare più lentamente.', 'Ich versuche, langsamer zu sprechen.'],
+        ['Preferisco tornare a piedi.', 'Ich gehe lieber zu Fuß zurück.'],
+      ],
+      fehler: [
+        'Die Präposition fehlt: "Comincio studiare" statt "Comincio a studiare".',
+        'Verwechslung von a und di: "Cerco a capire" statt "Cerco di capire".',
+        'Präposition nach Modalverben: "Devo di andare" – Modalverben stehen direkt mit dem Infinitiv.',
+        '"pensare a" (an etwas denken) und "pensare di" (vorhaben) werden vertauscht.',
+      ],
+    },
+    {
+      slug: 'it-avverbi',
+      level: 'B1',
+      titel: 'Adverbien auf -mente und ihre Ausnahmen',
+      erklaerung:
+        'Das Adverb wird aus der weiblichen Form des Adjektivs plus -mente gebildet: lenta → lentamente, rapida → rapidamente. Endet das Adjektiv auf -le oder -re, fällt das e weg: facile → facilmente, regolare → regolarmente. Vier häufige Adverbien sind unregelmäßig und dürfen nie durch das Adjektiv ersetzt werden: bene, male, und ihre Steigerungen meglio und peggio. Die Stellung ist meist einfach: Das Adverb steht nach dem konjugierten Verb, in zusammengesetzten Zeiten oft zwischen Hilfsverb und Partizip ("ho già finito", "ha sempre detto").',
+      muster:
+        'Adjektiv (weiblich) + -mente — lenta → lentamente · facile → facilmente · regolare → regolarmente — unregelmäßig: bene · male · meglio · peggio',
+      beispiele: [
+        ['Parla lentamente, per favore.', 'Sprich bitte langsam.'],
+        ['Ho letto attentamente tutte le clausole.', 'Ich habe alle Klauseln aufmerksam gelesen.'],
+        ['Probabilmente arriveranno in ritardo.', 'Wahrscheinlich kommen sie zu spät.'],
+        ['Cucina bene, ma canta male.', 'Er kocht gut, aber singt schlecht.'],
+        ['Da quando fa sport dorme meglio.', 'Seit er Sport treibt, schläft er besser.'],
+      ],
+      fehler: [
+        'Adjektiv statt Adverb nach dem Verb: "parla lenta" statt "parla lentamente".',
+        '"buono" statt "bene": "Sta buono" heißt "er ist brav", nicht "es geht ihm gut".',
+        'Bei -le und -re bleibt das e stehen: "facilemente" statt "facilmente".',
+        '"più bene" und "più male" statt "meglio" und "peggio".',
+      ],
+    },
+  ],
+  vokabeln: [
+    ['adatto', 'geeignet, passend', 'Adjektiv', '', '', 'adatto', '', 'Non è il momento adatto per parlarne.', 'Das ist nicht der geeignete Moment, um darüber zu reden.', 'Zweck mit "a" oder "per": adatto ai bambini.', 2, 'adjektiv,beschreibung'],
+    ['ampio', 'weit, geräumig', 'Adjektiv', '', '', 'ampio', 'am-pio', 'La casa ha un ampio terrazzo.', 'Das Haus hat eine geräumige Terrasse.', 'Formeller als "grande"; auch übertragen: "ampia scelta".', 3, 'adjektiv,beschreibung'],
+    ['scarso', 'knapp, gering', 'Adjektiv', '', '', 'scarso', 'skar-so', 'La partecipazione è stata scarsa.', 'Die Beteiligung war gering.', 'Gegenstück zu "abbondante".', 3, 'adjektiv,beschreibung'],
+    ['numeroso', 'zahlreich', 'Adjektiv', '', '', 'numeroso', '', 'Una famiglia numerosa ha diritto a uno sconto.', 'Eine kinderreiche Familie hat Anspruch auf einen Rabatt.', '"famiglia numerosa" ist ein fester Verwaltungsbegriff.', 3, 'adjektiv,beschreibung'],
+    ['raro', 'selten', 'Adjektiv', '', '', 'raro', '', 'È un caso raro ma non impossibile.', 'Das ist ein seltener, aber nicht unmöglicher Fall.', 'Adverb dazu: raramente.', 2, 'adjektiv,beschreibung'],
+    ['frequente', 'häufig', 'Adjektiv', '', 'frequenti', 'frequente', 'fre-kuente', 'I ritardi sono frequenti su questa tratta.', 'Verspätungen sind auf dieser Strecke häufig.', 'Endet auf -e: gleiche Form für m und f.', 2, 'adjektiv,beschreibung'],
+    ['costante', 'beständig, gleichbleibend', 'Adjektiv', '', 'costanti', 'costante', '', 'Serve un impegno costante, non uno sforzo unico.', 'Es braucht beständigen Einsatz, nicht eine einmalige Anstrengung.', 'Auch als Nomen: "la costante".', 3, 'adjektiv,beschreibung'],
+    ['improvviso', 'plötzlich', 'Adjektiv', '', '', 'improvviso', '', 'Un cambiamento improvviso del tempo.', 'Ein plötzlicher Wetterumschwung.', 'Adverb: improvvisamente; auch "all’improvviso".', 2, 'adjektiv,beschreibung'],
+    ['graduale', 'allmählich, schrittweise', 'Adjektiv', '', 'graduali', 'graduale', '', 'Il ritorno alla normalità sarà graduale.', 'Die Rückkehr zur Normalität wird schrittweise erfolgen.', 'Adverb: gradualmente.', 3, 'adjektiv,beschreibung'],
+    ['definitivo', 'endgültig', 'Adjektiv', '', '', 'definitivo', '', 'Questa è la versione definitiva del contratto.', 'Das ist die endgültige Fassung des Vertrags.', 'Gegenstück zu "provvisorio".', 3, 'adjektiv,beschreibung'],
+    ['provvisorio', 'vorläufig, provisorisch', 'Adjektiv', '', '', 'provvisorio', '', 'È una soluzione provvisoria per tre mesi.', 'Das ist eine vorläufige Lösung für drei Monate.', 'Unbetontes -io: Plural "provvisori".', 3, 'adjektiv,beschreibung'],
+    ['recente', 'kürzlich, jüngst', 'Adjektiv', '', 'recenti', 'recente', 're-tschente', 'Secondo un sondaggio recente il dato è cambiato.', 'Laut einer aktuellen Umfrage hat sich die Zahl geändert.', 'Adverb: recentemente = kürzlich.', 2, 'adjektiv,beschreibung'],
+    ['precedente', 'vorherig', 'Adjektiv', '', 'precedenti', 'precedente', 'pretsche-dente', 'La versione precedente era più chiara.', 'Die vorherige Fassung war klarer.', 'Auch als Nomen: "i precedenti" = die Vorgeschichte.', 2, 'adjektiv,beschreibung'],
+    ['successivo', 'folgend, darauffolgend', 'Adjektiv', '', '', 'successivo', 'suttsche-ssivo', 'Ne parliamo nella seduta successiva.', 'Wir sprechen in der folgenden Sitzung darüber.', 'Gegenstück zu "precedente".', 3, 'adjektiv,beschreibung'],
+    ['notevole', 'beachtlich, erheblich', 'Adjektiv', '', 'notevoli', 'notevole', '', 'C’è stato un notevole aumento dei costi.', 'Es gab einen erheblichen Kostenanstieg.', 'Von "notare"; Adverb "notevolmente".', 3, 'adjektiv,beschreibung'],
+    ['evidente', 'offensichtlich', 'Adjektiv', '', 'evidenti', 'evidente', '', 'Il vantaggio è evidente.', 'Der Vorteil ist offensichtlich.', 'Adverb: evidentemente.', 2, 'adjektiv,beschreibung'],
+    ['discutibile', 'fragwürdig, diskutabel', 'Adjektiv', '', 'discutibili', 'discutibile', '', 'La scelta è discutibile, ma legittima.', 'Die Entscheidung ist fragwürdig, aber zulässig.', 'Von "discutere"; höflicher als "sbagliato".', 3, 'adjektiv,beschreibung'],
+    ['deserto', 'menschenleer', 'Adjektiv', '', '', 'deserto', '', 'Alle sei la piazza era deserta.', 'Um sechs war der Platz menschenleer.', 'Auch als Nomen "il deserto" = die Wüste.', 3, 'adjektiv,beschreibung'],
+    ['silenzioso', 'still, leise', 'Adjektiv', '', '', 'silenzioso', 'silen-tsioso', 'Cerco una camera silenziosa.', 'Ich suche ein ruhiges Zimmer.', 'Gegenstück zu "rumoroso".', 2, 'adjektiv,beschreibung'],
+    ['ripido', 'steil', 'Adjektiv', '', '', 'ripido', 'ri-pido', 'Il sentiero è troppo ripido per i bambini.', 'Der Weg ist zu steil für die Kinder.', 'Betonung vorn: rìpido.', 3, 'adjektiv,beschreibung'],
+    ['morbido', 'weich', 'Adjektiv', '', '', 'morbido', 'mor-bido', 'Il materasso è troppo morbido.', 'Die Matratze ist zu weich.', 'Betonung vorn: mòrbido. Nicht "morbid".', 2, 'adjektiv,beschreibung'],
+    ['duro', 'hart', 'Adjektiv', '', '', 'duro', '', 'Il pane di ieri è duro.', 'Das Brot von gestern ist hart.', 'Auch übertragen: "una vita dura".', 2, 'adjektiv,beschreibung'],
+    ['liscio', 'glatt', 'Adjektiv', '', '', 'liscio', 'li-scho', 'La superficie è liscia e fredda.', 'Die Oberfläche ist glatt und kalt.', '"andare liscio" heißt reibungslos laufen.', 3, 'adjektiv,beschreibung'],
+    ['ruvido', 'rau', 'Adjektiv', '', '', 'ruvido', 'ru-vido', 'Un tessuto ruvido ma resistente.', 'Ein rauer, aber widerstandsfähiger Stoff.', 'Betonung vorn: rùvido.', 3, 'adjektiv,beschreibung'],
+    ['trasparente', 'durchsichtig', 'Adjektiv', '', 'trasparenti', 'trasparente', '', 'Una busta trasparente per i documenti.', 'Eine durchsichtige Hülle für die Dokumente.', 'Auch übertragen: "una gestione trasparente".', 3, 'adjektiv,beschreibung'],
+    ['denso', 'dicht, dickflüssig', 'Adjektiv', '', '', 'denso', '', 'La salsa è troppo densa.', 'Die Soße ist zu dickflüssig.', 'Gegenstück zu "liquido".', 3, 'adjektiv,beschreibung'],
+    ['sottile', 'dünn, fein', 'Adjektiv', '', 'sottili', 'sottile', '', 'Taglia il prosciutto molto sottile.', 'Schneide den Schinken sehr dünn.', 'Auch übertragen: "una differenza sottile".', 3, 'adjektiv,beschreibung'],
+    ['grosso', 'dick, groß', 'Adjektiv', '', '', 'grosso', '', 'Un grosso problema, non un dettaglio.', 'Ein großes Problem, kein Detail.', 'Umgangssprachlicher als "grande", betont die Masse.', 2, 'adjektiv,beschreibung'],
+    ['robusto', 'kräftig, stabil', 'Adjektiv', '', '', 'robusto', '', 'Serve una borsa robusta per il viaggio.', 'Für die Reise braucht man eine stabile Tasche.', 'Für Dinge und Personen.', 3, 'adjektiv,beschreibung'],
+    ['fragile', 'zerbrechlich', 'Adjektiv', '', 'fragili', 'fragile', 'fra-dschile', 'Attenzione, il contenuto è fragile.', 'Vorsicht, der Inhalt ist zerbrechlich.', 'Betonung vorn: fràgile. Auf Paketen der Standardaufdruck.', 2, 'adjektiv,beschreibung'],
+    ['prezioso', 'wertvoll, kostbar', 'Adjektiv', '', '', 'prezioso', 'pre-tsioso', 'Il tuo aiuto è stato prezioso.', 'Deine Hilfe war sehr wertvoll.', 'Für Dinge und für Beiträge.', 2, 'adjektiv,beschreibung'],
+    ['sufficiente', 'ausreichend', 'Adjektiv', '', 'sufficienti', 'sufficiente', 'suffi-tschente', 'Un’ora non è sufficiente per l’esame.', 'Eine Stunde reicht für die Prüfung nicht.', 'In der Schule auch die Note "ausreichend".', 2, 'adjektiv,beschreibung'],
+    ['insufficiente', 'unzureichend', 'Adjektiv', '', 'insufficienti', 'insufficiente', '', 'Le prove sono insufficienti.', 'Die Beweise sind unzureichend.', 'Auch die Schulnote "ungenügend".', 3, 'adjektiv,beschreibung'],
+    ['adeguato', 'angemessen', 'Adjektiv', '', '', 'adeguato', '', 'La retribuzione è adeguata al ruolo.', 'Die Vergütung ist der Position angemessen.', 'Bezug mit "a": adeguato a qualcosa.', 3, 'adjektiv,beschreibung'],
+    ['eccessivo', 'übertrieben, übermäßig', 'Adjektiv', '', '', 'eccessivo', 'ettsche-ssivo', 'Un aumento eccessivo per un solo anno.', 'Ein übermäßiger Anstieg für ein einziges Jahr.', 'Von "eccesso"; Adverb "eccessivamente".', 3, 'adjektiv,beschreibung'],
+    ['difficilmente', 'kaum, schwerlich', 'Adverb', '', '', 'difficile', '', 'Difficilmente arriveranno in orario.', 'Sie werden kaum pünktlich ankommen.', 'Bei -le fällt das e weg: difficile → difficilmente.', 3, 'adverb'],
+    ['facilmente', 'leicht, mühelos', 'Adverb', '', '', 'facile', '', 'Si trova facilmente in farmacia.', 'Das findet man leicht in der Apotheke.', 'Ebenfalls ohne e: facile → facilmente.', 2, 'adverb'],
+    ['probabilmente', 'wahrscheinlich', 'Adverb', '', '', 'probabile', '', 'Probabilmente il volo è in ritardo.', 'Wahrscheinlich hat der Flug Verspätung.', 'Häufigste Alternative zum vermutenden Futur.', 2, 'adverb'],
+    ['certamente', 'sicherlich, gewiss', 'Adverb', '', '', 'certo', '', 'Certamente è più caro, ma dura di più.', 'Sicher ist es teurer, aber es hält länger.', 'Von "certa" plus -mente.', 2, 'adverb'],
+    ['improvvisamente', 'plötzlich', 'Adverb', '', '', 'improvviso', '', 'Improvvisamente ha smesso di piovere.', 'Plötzlich hat es aufgehört zu regnen.', 'Gleichbedeutend mit "all’improvviso".', 3, 'adverb'],
+    ['lentamente', 'langsam', 'Adverb', '', '', 'lento', '', 'Parla più lentamente, per favore.', 'Sprich bitte langsamer.', 'Von "lenta" plus -mente.', 1, 'adverb'],
+    ['rapidamente', 'schnell, rasch', 'Adverb', '', '', 'rapido', '', 'La situazione è cambiata rapidamente.', 'Die Lage hat sich schnell geändert.', 'Formeller als "in fretta".', 2, 'adverb'],
+    ['attentamente', 'aufmerksam', 'Adverb', '', '', 'attento', '', 'Leggi attentamente il foglietto illustrativo.', 'Lies den Beipackzettel aufmerksam.', 'Von "attenta" plus -mente.', 2, 'adverb'],
+    ['chiaramente', 'deutlich, klar', 'Adverb', '', '', 'chiaro', 'kiara-mente', 'Lo ha detto chiaramente due volte.', 'Er hat es zweimal deutlich gesagt.', 'Auch als Satzadverb: "natürlich, klar".', 2, 'adverb'],
+    ['esattamente', 'genau', 'Adverb', '', '', 'esatto', '', 'È esattamente quello che intendevo.', 'Das ist genau, was ich meinte.', 'Auch als bestätigende Antwort: "Esattamente!".', 2, 'adverb'],
+  ],
+  uebungen: [
+    ['lueckentext', 2, 'Setze die richtige Präposition ein, wenn nötig.', 'Ho cominciato ___ studiare italiano due anni fa.', '', 'a', '', '"cominciare" verlangt vor dem Infinitiv immer "a".', '', 'it-verbi-preposizioni'],
+    ['lueckentext', 3, 'Setze die richtige Präposition ein, wenn nötig.', 'Non riesco ___ capire questa clausola.', '', 'a', '', '"riuscire a" gehört zur a-Gruppe.', '', 'it-verbi-preposizioni'],
+    ['lueckentext', 3, 'Setze die richtige Präposition ein, wenn nötig.', 'Ha smesso ___ fumare a gennaio.', '', 'di', '', '"smettere di" gehört zur di-Gruppe – Verben des Aufhörens.', '', 'it-verbi-preposizioni'],
+    ['lueckentext', 3, 'Setze die richtige Präposition ein, wenn nötig.', 'Preferisco ___ tornare a piedi.', '', '—', 'nichts', 'Nach preferire, potere, volere, dovere und sapere steht der Infinitiv ohne Präposition.', '', 'it-verbi-preposizioni'],
+    ['fehler', 3, 'Finde den Fehler und schreibe den Satz richtig.', 'Cerco a capire il foglietto illustrativo.', '', 'Cerco di capire il foglietto illustrativo.', '', '"cercare" verlangt "di", nicht "a".', '43', 'it-verbi-preposizioni'],
+    ['fehler', 3, 'Finde den Fehler und schreibe den Satz richtig.', 'Devo di firmare il contratto entro venerdì.', '', 'Devo firmare il contratto entro venerdì.', '', 'Modalverben stehen ohne Präposition vor dem Infinitiv.', '', 'it-verbi-preposizioni'],
+    ['umformen', 2, 'Bilde das Adverb.', 'lento → …', '', 'lentamente', '', 'Weibliche Form plus -mente: lenta + mente.', '41', 'it-avverbi'],
+    ['umformen', 3, 'Bilde das Adverb.', 'facile → …', '', 'facilmente', '', 'Bei -le fällt das e weg: facile → facil + mente.', '37', 'it-avverbi'],
+    ['fehler', 3, 'Finde den Fehler und schreibe den Satz richtig.', 'Mio fratello cucina buono ma canta male.', '', 'Mio fratello cucina bene ma canta male.', '', 'Nach einem Verb steht das Adverb "bene", nicht das Adjektiv "buono".', '', 'it-avverbi'],
+    ['fehler', 3, 'Finde den Fehler und schreibe den Satz richtig.', 'Da quando fa sport dorme più bene.', '', 'Da quando fa sport dorme meglio.', '', '"più bene" gibt es nicht: der Komparativ von bene ist "meglio".', '', 'it-avverbi'],
+    ['auswahl', 3, 'Welches Adjektiv passt?', 'È una soluzione ___ : dura solo tre mesi.', 'provvisoria | definitiva | adeguata', 'provvisoria', '', '"provvisorio" ist vorläufig, "definitivo" endgültig.', '10,11,34', 'wortschatz-adjektive'],
+    ['eigener-satz', 3, 'Schreibe zwei Sätze über dein Italienischlernen: einer mit "riuscire a", einer mit "smettere di" oder "continuare a".', 'Riesco a … / Continuo a …', '', 'Adesso riesco a leggere un articolo senza dizionario. Continuo a sbagliare le preposizioni, ma sempre meno.', 'Non riesco a capire il dialetto. Ho smesso di tradurre tutto in tedesco.', 'Beide Verben brauchen ihre feste Präposition – "riuscire a", "continuare a", "smettere di".', '', 'it-verbi-preposizioni'],
+  ],
+  wiederholung: [
+    ['verbform', 3, 'Gemischt (Tag 1): Setze die Präsensform ein.', 'Loro non ___ (capire) il dialetto dei nonni.', '', 'capiscono', '', '-isc-Verb in der 3. Person Plural.', '', 'it-presente-irregolare'],
+    ['lueckentext', 2, 'Gemischt (Tag 2): Setze die verschmolzene Form ein.', 'Il regalo è ___ nonni. (di + i)', '', 'dei', '', 'di + i = dei.', '', 'it-preposizioni-articolate'],
+    ['plural', 3, 'Gemischt (Tag 3): Bilde den Plural.', 'l’amico → …', '', 'gli amici', '', 'Betonung auf der drittletzten Silbe: kein h im Plural.', '', 'it-plurale-irregolare'],
+    ['verneinen', 2, 'Gemischt (Tag 4): Verneine den Satz doppelt.', 'Ho ancora qualcosa da dire.', '', 'Non ho più niente da dire.', 'Non ho niente da dire.', '"non … più niente" bleibt eine einzige Verneinung.', '', 'it-doppia-negazione'],
+    ['lueckentext', 3, 'Gemischt (Tag 7): Setze das richtige indirekte Pronomen ein.', 'A Sara ___ ho spiegato tutto ieri.', '', 'le', '', 'Eine Frau als indirektes Objekt: le, nicht gli.', '', 'it-pronomi-indiretti'],
+    ['verbform', 3, 'Gemischt (Tag 9): Setze das Verb ins passato prossimo.', 'Le ragazze ___ (uscire) presto.', '', 'sono uscite', '', 'Bewegungsverb mit essere, weiblicher Plural: uscite.', '', 'it-passato-essere'],
+    ['verbform', 3, 'Gemischt (Tag 12): Setze die passende Vergangenheitsform ein.', 'Mentre ___ (leggere, io), è saltata la luce.', '', 'leggevo', '', 'Nach "mentre" der Hintergrund im imperfetto.', '', 'it-passato-vs-imperfetto'],
+    ['lueckentext', 3, 'Gemischt (Tag 14): Setze die kombinierten Pronomen ein.', 'Il documento? ___ ho mandato ieri. (a lui + il documento)', '', 'Gliel’', 'Glielo', 'gli + lo = glielo, vor "ho" apostrophiert.', '', 'it-pronomi-combinati'],
+    ['verbform', 3, 'Gemischt (Tag 15): Setze das Verb ins futuro semplice.', 'Se ___ (potere, noi), verremo anche noi.', '', 'potremo', '', 'Nach "se" das Futur; potere hat den Stamm potr-.', '', 'it-futuro'],
+    ['verbform', 3, 'Gemischt (Tag 22): Setze das Verb in den congiuntivo presente.', 'Credo che ___ (essere) la soluzione più adeguata.', '', 'sia', '', 'Nach "credo che" steht der congiuntivo.', '34', 'it-congiuntivo-presente'],
+    ['verbform', 3, 'Gemischt (Tag 26): Setze das Verb ins trapassato prossimo.', 'Quando ho chiamato, ___ (uscire, lei) già.', '', 'era già uscita', '', 'Das frühere Ereignis im trapassato, Partizip an das weibliche Subjekt angeglichen.', '', 'it-trapassato'],
+    ['umformen', 3, 'Gemischt (Tag 28): Setze in die indirekte Rede.', '“Arrivo domani.” → Ha detto che ___ .', '', 'sarebbe arrivato il giorno dopo', '', 'Futur wird zum condizionale composto, "domani" zu "il giorno dopo".', '', 'it-discorso-indiretto'],
+  ],
+  verstaendnis: [
+    {
+      text: 'Gli errori che facciamo tutti\n\nDopo quattro settimane vale la pena guardare indietro. Ci sono cinque errori che quasi tutti i tedeschi ripetono, e nessuno di questi è grave: sono solo abitudini da correggere.\n\nIl primo riguarda le preposizioni dei verbi. Si dice “comincio a lavorare” e “smetto di lavorare”, e non c’è nessuna logica da imparare: sono coppie fisse.\n\nIl secondo è l’avverbio. Dopo un verbo serve bene, non buono: “si mangia bene qui”, mai “si mangia buono”.\n\nIl terzo è il congiuntivo. Dopo penso che, spero che e bisogna che l’indicativo è escluso; ma se il soggetto è lo stesso, si usa di più l’infinito: “spero di arrivare in tempo”.\n\nIl quarto è il periodo ipotetico: dopo se non si mette mai il condizionale.\n\nIl quinto è la doppia negazione: “non ho visto nessuno” è corretto, “ho visto nessuno” no.\n\nSe controllate questi cinque punti prima di consegnare un testo, la metà degli errori sparisce.',
+      uebersetzung:
+        'Die Fehler, die wir alle machen\n\nNach vier Wochen lohnt es sich zurückzuschauen. Es gibt fünf Fehler, die fast alle Deutschsprachigen wiederholen, und keiner davon ist schlimm: Es sind nur Gewohnheiten, die man korrigieren muss.\n\nDer erste betrifft die Präpositionen der Verben. Man sagt „comincio a lavorare" und „smetto di lavorare", und es gibt keine Logik zu lernen: Es sind feste Paare.\n\nDer zweite ist das Adverb. Nach einem Verb braucht man bene, nicht buono: „si mangia bene qui", nie „si mangia buono".\n\nDer dritte ist der Konjunktiv. Nach penso che, spero che und bisogna che ist der Indikativ ausgeschlossen; aber wenn das Subjekt dasselbe ist, benutzt man eher den Infinitiv: „spero di arrivare in tempo".\n\nDer vierte ist der Bedingungssatz: Nach se steht nie das condizionale.\n\nDer fünfte ist die doppelte Verneinung: „non ho visto nessuno" ist richtig, „ho visto nessuno" nicht.\n\nWenn ihr diese fünf Punkte prüft, bevor ihr einen Text abgebt, verschwindet die Hälfte der Fehler.',
+      fragen: [
+        ['Perché non c’è una logica da imparare per le preposizioni dei verbi?', 'Perché sono coppie fisse, si imparano insieme al verbo.'],
+        ['Che cosa si usa dopo un verbo: bene o buono?', 'Bene.'],
+        ['Quando si usa l’infinito invece del congiuntivo?', 'Quando il soggetto è lo stesso: "spero di arrivare in tempo".'],
+        ['Che cosa non si mette mai dopo "se"?', 'Il condizionale.'],
+      ],
+      vokabeln: '',
+      grammatik: ['it-verbi-preposizioni', 'it-avverbi', 'it-congiuntivo-presente', 'it-ipotetico-reale', 'it-doppia-negazione'],
+    },
+  ],
+  produktion: [
+    {
+      thema: 'Fehlerkorrektur',
+      anweisung:
+        'Der folgende Text enthält acht Fehler aus dem Sprint. Schreibe ihn korrigiert ab und notiere zu jedem Fehler in einem Halbsatz, worum es ging.\n\n"Cara Anna, ti scrivo perché ho cominciato studiare italiano. Se avrei più tempo, studierei ogni giorno, ma lavoro molto. Penso che è difficile, soprattutto il congiuntivo. Il mio insegnante parla molto lenta e spiega buono. Ieri ho andato in libreria e ho comprato due libri; l’ho pagata con la carta. Ho visto nessuno che conoscevo. Ha detto che verrà domani a spiegarmi le preposizioni."',
+      mindestanforderung:
+        'Alle acht Fehler korrigiert, jeweils mit einer kurzen Begründung auf Deutsch.',
+      grammatik: ['it-verbi-preposizioni', 'it-avverbi', 'it-congiuntivo-presente', 'it-ipotetico-reale', 'it-passato-essere', 'it-pronomi-diretti', 'it-doppia-negazione', 'it-discorso-indiretto'],
+      vokabeln: '',
+      beispiel:
+        'Cara Anna, ti scrivo perché ho cominciato a studiare italiano. Se avessi più tempo, studierei ogni giorno, ma lavoro molto. Penso che sia difficile, soprattutto il congiuntivo. Il mio insegnante parla molto lentamente e spiega bene. Ieri sono andato in libreria e ho comprato due libri; li ho pagati con la carta. Non ho visto nessuno che conoscevo. Ha detto che sarebbe venuto il giorno dopo a spiegarmi le preposizioni.',
+      beispielDeutsch:
+        '1. "cominciato a studiare" – cominciare verlangt "a". 2. "Se avessi" – nach "se" nie das condizionale. 3. "Penso che sia" – nach penso che steht der congiuntivo. 4. "lentamente" – nach dem Verb steht das Adverb. 5. "spiega bene" – nicht "buono". 6. "sono andato" – andare nimmt essere. 7. "li ho pagati" – zwei Bücher, männlicher Plural, Partizip angeglichen. 8. "Non ho visto nessuno" – die doppelte Verneinung braucht "non"; außerdem "sarebbe venuto" statt "verrà" nach einem Einleitungsverb in der Vergangenheit.',
+      kriterien: [
+        'Alle acht Fehler gefunden und korrekt verbessert.',
+        'Jede Korrektur mit einer knappen Regelbegründung versehen.',
+        'Keine neuen Fehler in den korrigierten Sätzen.',
+        'Der Text bleibt inhaltlich unverändert.',
+      ],
+    },
+    {
+      thema: 'Freies Schreiben',
+      anweisung:
+        'Schreibe einen zusammenhängenden Text von mindestens 150 Wörtern über deine vier Wochen mit dem Italienischen: Was fiel leicht, was schwer, was hat sich verändert, was nimmst du dir vor?',
+      mindestanforderung:
+        'Mindestens 150 Wörter, mindestens vier verschiedene Zeiten (Präsens, passato prossimo, imperfetto, futuro oder condizionale) und mindestens drei Adverbien auf -mente.',
+      grammatik: ['it-avverbi', 'it-verbi-preposizioni', 'it-passato-vs-imperfetto', 'it-futuro'],
+      vokabeln: '7,15,32,36,37,38,41,43',
+      beispiel:
+        'Quattro settimane fa ho cominciato a studiare italiano quaranta minuti al giorno. All’inizio pensavo che fosse soprattutto una questione di vocaboli: sbagliavo.\n\nIl vocabolario è la parte facile, perché si impara rapidamente e si dimentica lentamente se lo usi. La grammatica invece richiede un lavoro costante. Le preposizioni dei verbi mi hanno dato problemi per due settimane intere; il congiuntivo l’ho capito solo quando ho smesso di tradurre dal tedesco.\n\nAdesso riesco a leggere un articolo di cronaca senza dizionario e a seguire un dialogo al telefono, anche se il dialetto resta difficile. Difficilmente capisco un film senza sottotitoli, ma tre settimane fa non ci provavo nemmeno.\n\nQuello che è cambiato davvero è l’abitudine: prima studiavo quando avevo voglia, adesso studio a un’ora fissa. Certamente non è ancora sufficiente per il B1 pieno.\n\nNei prossimi tre mesi continuerò con venti minuti al giorno e proverò a scrivere una mail alla settimana a una persona vera. Se troverò un tandem, parlerò anche ad alta voce, perché quella è ancora la parte più debole.',
+      beispielDeutsch:
+        'Vor vier Wochen habe ich angefangen, vierzig Minuten am Tag Italienisch zu lernen. Am Anfang dachte ich, es sei vor allem eine Frage der Vokabeln: Ich habe mich geirrt.\n\nDer Wortschatz ist der leichte Teil, weil man ihn schnell lernt und langsam vergisst, wenn man ihn benutzt. Die Grammatik dagegen verlangt beständige Arbeit. Die Präpositionen der Verben haben mir zwei ganze Wochen Probleme gemacht; den Konjunktiv habe ich erst verstanden, als ich aufgehört habe, aus dem Deutschen zu übersetzen.\n\nJetzt schaffe ich es, einen Zeitungsartikel ohne Wörterbuch zu lesen und einem Telefongespräch zu folgen, auch wenn der Dialekt schwierig bleibt. Einen Film ohne Untertitel verstehe ich kaum, aber vor drei Wochen habe ich es nicht einmal versucht.\n\nWas sich wirklich geändert hat, ist die Gewohnheit: Früher habe ich gelernt, wenn ich Lust hatte, jetzt lerne ich zu einer festen Zeit. Sicher reicht das noch nicht für ein volles B1.\n\nIn den nächsten drei Monaten mache ich mit zwanzig Minuten am Tag weiter und werde versuchen, eine Mail pro Woche an eine echte Person zu schreiben. Wenn ich einen Tandempartner finde, werde ich auch laut sprechen, denn das ist noch der schwächste Teil.',
+      kriterien: [
+        'Mindestens 150 Wörter in zusammenhängenden Absätzen.',
+        'Vier verschiedene Zeiten, jeweils inhaltlich begründet.',
+        'Drei Adverbien auf -mente, korrekt gebildet.',
+        'Mindestens zwei Verben mit fester Präposition (cominciare a, smettere di, riuscire a, provare a).',
+      ],
+    },
+  ],
+});

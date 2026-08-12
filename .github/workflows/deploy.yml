@@ -38,6 +38,12 @@ jobs:
       - name: Übungen prüfen
         run: npm run validate:exercises
 
+      # Der Sprint verspricht exakt 1350 Vokabeln, lückenlose Querverweise und
+      # geplante Wiederholungen. Ein Verweis ins Leere schickt den Lernenden
+      # mitten im Plan ins Nichts – das fällt hier auf, nicht beim Lernen.
+      - name: Sprint prüfen
+        run: npm run validate:sprint
+
       # Lernlogik: Auswertung, Niveau-Einordnung, Habit-Ableitung. Ein Fehler
       # darin bleibt still – ein falsch gerechneter Score sieht aus wie ein
       # Ergebnis, deshalb bricht er hier ab statt live zu gehen.

@@ -1,0 +1,202 @@
+import { day } from '../build';
+
+export default day({
+  tag: 30,
+  thema: 'Festigung II: Redewendungen, Konnektoren und Abschlussprüfung',
+  ziel: 'Den Sprint mit den Wendungen abschließen, die geschriebenes Italienisch flüssig machen, den Aspekt sauber ausdrücken – und in der Abschlussprüfung den gesamten Stoff der dreißig Tage anwenden.',
+  zusammenfassung:
+    'Letzter Tag. Heute die Wendungen, die B1 von A2 unterscheiden: tutto sommato, in fin dei conti, ciò nonostante, valere la pena, rendersi conto, non vedo l’ora. Grammatisch zwei Module: die B1-Konnektoren mit ihren Konjunktivauslösern (a patto che, nel caso in cui) und der Aspekt – wie das Italienische Beginn, Verlauf, Abbruch und unmittelbare Zukunft ausdrückt. Die Abschlussprüfung besteht aus zwölf gemischten Aufgaben, zwei Verständnistexten und zwei Schreibaufgaben über den gesamten Sprint.',
+  grammatik: [
+    {
+      slug: 'it-connettivi-b1',
+      level: 'B1',
+      titel: 'Konnektoren auf B1-Niveau',
+      erklaerung:
+        'Über die Grundkonnektoren hinaus braucht ein B1-Text vier Werkzeuge. Erstens den Einwand mit Gewicht: ciò nonostante, d’altra parte, al contrario, tuttavia. Zweitens die Bestätigung und die Korrektur: infatti bestätigt, in realtà korrigiert, anzi steigert oder kehrt um ("non è caro, anzi è economico"). Drittens die Folge auf gehobenem Register: pertanto, di conseguenza, dunque. Viertens zwei Konjunktionen, die den congiuntivo verlangen: "a patto che" (unter der Bedingung, dass) und "nel caso in cui" (für den Fall, dass). Wer diese vier Gruppen sicher benutzt, schreibt zusammenhängend statt aufzählend.',
+      muster:
+        'Einwand: ciò nonostante · d’altra parte · al contrario — Korrektur: in realtà · anzi — Folge: pertanto · di conseguenza — mit congiuntivo: a patto che · nel caso in cui',
+      beispiele: [
+        ['I dati erano vecchi; ciò nonostante la decisione è stata presa.', 'Die Zahlen waren alt; trotzdem wurde die Entscheidung getroffen.'],
+        ['Non è caro, anzi è il più economico dei tre.', 'Es ist nicht teuer, im Gegenteil, es ist das billigste von den dreien.'],
+        ['Il termine è scaduto, pertanto la domanda è stata respinta.', 'Die Frist ist abgelaufen, folglich wurde der Antrag abgelehnt.'],
+        ['Ti presto la macchina a patto che tu faccia benzina.', 'Ich leihe dir das Auto, unter der Bedingung, dass du tankst.'],
+        ['Nel caso in cui piova, ci vediamo al bar.', 'Für den Fall, dass es regnet, treffen wir uns in der Bar.'],
+      ],
+      fehler: [
+        'Indikativ nach "a patto che" und "nel caso in cui": beide verlangen den congiuntivo.',
+        '"infatti" wird als Gegensatz benutzt: es bestätigt. Der Gegensatz ist "in realtà" oder "invece".',
+        '"anzi" wird als "außerdem" gelesen: es korrigiert oder steigert, es fügt nicht hinzu.',
+        'Zwei Konnektoren derselben Gruppe hintereinander: "ma tuttavia" ist doppelt gemoppelt.',
+      ],
+    },
+    {
+      slug: 'it-aspetto',
+      level: 'B1',
+      titel: 'Aspekt: Beginn, Verlauf, Abbruch, unmittelbare Zukunft',
+      erklaerung:
+        'Das Italienische drückt mit festen Verbgefügen aus, in welcher Phase eine Handlung steckt. Beginn: cominciare a, iniziare a, mettersi a. Verlauf: stare + gerundio, continuare a, andare avanti a. Abbruch und Ende: smettere di, finire di, cessare di. Unmittelbare Zukunft: stare per, essere sul punto di. Dazu kommt eine Besonderheit, die im Deutschen anders funktioniert: Eine Handlung, die in der Vergangenheit begann und noch andauert, steht im Präsens mit "da" – "Studio italiano da due anni", nicht "ho studiato". Fragt man danach, heißt es "Da quanto tempo studi?".',
+      muster:
+        'Beginn: cominciare a / mettersi a — Verlauf: stare + gerundio / continuare a — Ende: smettere di / finire di — bevorstehend: stare per / essere sul punto di — andauernd: Präsens + da',
+      beispiele: [
+        ['Mi sono messo a studiare alle sei.', 'Ich habe mich um sechs ans Lernen gemacht.'],
+        ['Sto ancora leggendo il contratto.', 'Ich lese den Vertrag noch.'],
+        ['Ho smesso di tradurre tutto dal tedesco.', 'Ich habe aufgehört, alles aus dem Deutschen zu übersetzen.'],
+        ['Il corso sta per finire.', 'Der Kurs geht gleich zu Ende.'],
+        ['Studio italiano da due anni.', 'Ich lerne seit zwei Jahren Italienisch.'],
+      ],
+      fehler: [
+        'Vergangenheit für eine andauernde Handlung: "Ho studiato italiano da due anni" statt "Studio italiano da due anni".',
+        '"stare per" mit "di": "sta per di finire" – richtig ist "sta per finire".',
+        'Die Präposition der Phasenverben fehlt: "comincio studiare", "smetto fumare".',
+        'Verlaufsform für Gewohnheiten: "Sto lavorando qui da dieci anni" statt "Lavoro qui da dieci anni".',
+      ],
+    },
+  ],
+  vokabeln: [
+    ['in fin dei conti', 'letzten Endes', 'Phrase', '', '', '', '', 'In fin dei conti è andata bene.', 'Letzten Endes ist es gut gelaufen.', 'Leitet ein abschließendes Urteil ein.', 3, 'redewendung,konnektor'],
+    ['tutto sommato', 'alles in allem', 'Phrase', '', '', '', '', 'Tutto sommato il corso è stato utile.', 'Alles in allem war der Kurs nützlich.', 'Wägt Vor- und Nachteile ab.', 3, 'redewendung,konnektor'],
+    ['a dire il vero', 'ehrlich gesagt', 'Phrase', '', '', '', '', 'A dire il vero non mi è piaciuto.', 'Ehrlich gesagt hat es mir nicht gefallen.', 'Kündigt eine ehrliche, oft unbequeme Meinung an.', 3, 'redewendung,konnektor'],
+    ['per l’appunto', 'genau, eben deshalb', 'Phrase', '', '', '', '', 'Per l’appunto: è quello che dicevo.', 'Genau: Das ist es, was ich gesagt habe.', 'Bestätigt nachdrücklich.', 3, 'redewendung'],
+    ['va da sé', 'es versteht sich von selbst', 'Phrase', '', '', 'andare', '', 'Va da sé che il contratto va letto prima.', 'Es versteht sich von selbst, dass der Vertrag vorher gelesen werden muss.', 'Häufig gefolgt von "che" plus Indikativ.', 3, 'redewendung'],
+    ['non a caso', 'nicht zufällig', 'Phrase', '', '', '', '', 'Non a caso i prezzi sono saliti proprio adesso.', 'Nicht zufällig sind die Preise genau jetzt gestiegen.', 'Deutet eine Absicht oder einen Zusammenhang an.', 3, 'redewendung,konnektor'],
+    ['d’altra parte', 'andererseits', 'Phrase', '', '', '', '', 'D’altra parte nessuno aveva avvisato.', 'Andererseits hatte niemand Bescheid gesagt.', 'Führt eine relativierende Gegenüberlegung ein.', 3, 'redewendung,konnektor'],
+    ['al contrario', 'im Gegenteil', 'Phrase', '', '', '', '', 'Non è complicato, al contrario è banale.', 'Es ist nicht kompliziert, im Gegenteil, es ist banal.', 'Stärker als "invece".', 3, 'redewendung,konnektor'],
+    ['ciò nonostante', 'trotzdem, dessen ungeachtet', 'Phrase', '', '', '', 'tscho', 'I dati erano vecchi; ciò nonostante hanno deciso.', 'Die Zahlen waren alt; trotzdem haben sie entschieden.', 'Schriftsprachlich; im Gespräch eher "lo stesso".', 3, 'redewendung,konnektor'],
+    ['in ogni modo', 'jedenfalls, wie dem auch sei', 'Phrase', '', '', '', '', 'In ogni modo ci vediamo lunedì.', 'Jedenfalls sehen wir uns Montag.', 'Schließt eine Diskussion pragmatisch ab.', 3, 'redewendung,konnektor'],
+    ['per di più', 'obendrein', 'Phrase', '', '', '', '', 'Era tardi e per di più pioveva.', 'Es war spät und obendrein regnete es.', 'Steigert eine schon genannte Belastung.', 3, 'redewendung,konnektor'],
+    ['tra parentesi', 'nebenbei bemerkt', 'Phrase', '', '', '', '', 'Tra parentesi, non ha ancora pagato.', 'Nebenbei bemerkt: Er hat noch nicht bezahlt.', 'Wörtlich "in Klammern".', 3, 'redewendung,konnektor'],
+    ['detto questo', 'abgesehen davon', 'Phrase', '', '', 'dire', '', 'Detto questo, il risultato è buono.', 'Abgesehen davon ist das Ergebnis gut.', 'Grenzt eine Einschränkung ab und leitet zum Fazit.', 3, 'redewendung,konnektor'],
+    ['a patto che', 'unter der Bedingung, dass', 'Phrase', '', '', '', '', 'Ti presto la macchina a patto che tu faccia benzina.', 'Ich leihe dir das Auto, unter der Bedingung, dass du tankst.', 'Verlangt den congiuntivo.', 3, 'redewendung,konnektor'],
+    ['nel caso in cui', 'für den Fall, dass', 'Phrase', '', '', '', '', 'Nel caso in cui piova, ci vediamo al bar.', 'Falls es regnet, treffen wir uns in der Bar.', 'Verlangt ebenfalls den congiuntivo.', 3, 'redewendung,konnektor'],
+    ['tanto vale', 'dann kann man auch gleich', 'Phrase', '', '', 'valere', '', 'Se aspettiamo un’ora, tanto vale andare a piedi.', 'Wenn wir eine Stunde warten, können wir auch gleich zu Fuß gehen.', 'Gefolgt vom Infinitiv.', 3, 'redewendung'],
+    ['meno male', 'zum Glück', 'Phrase', '', '', '', '', 'Meno male che hai chiamato.', 'Zum Glück hast du angerufen.', 'Fast immer mit "che" plus Indikativ.', 2, 'redewendung'],
+    ['guarda caso', 'wie es der Zufall will', 'Phrase', '', '', 'guardare', '', 'Guarda caso è arrivato proprio quando avevamo finito.', 'Wie es der Zufall will, kam er genau, als wir fertig waren.', 'Ironisch, deutet auf keinen echten Zufall.', 3, 'redewendung'],
+    ['mica', 'etwa, doch nicht', 'Adverb', '', '', '', '', 'Non è mica facile.', 'Das ist gar nicht so einfach.', 'Umgangssprachlich; verstärkt die Verneinung.', 3, 'redewendung,adverb'],
+    ['addirittura', 'sogar, gar', 'Adverb', '', '', '', 'addirit-tura', 'Ha addirittura scritto al sindaco.', 'Er hat sogar dem Bürgermeister geschrieben.', 'Drückt Erstaunen über das Ausmaß aus.', 3, 'redewendung,adverb'],
+    ['perfino', 'sogar', 'Adverb', '', '', '', '', 'Sono venuti perfino i vicini.', 'Sogar die Nachbarn sind gekommen.', 'Auch "persino"; beide korrekt.', 3, 'redewendung,adverb'],
+    ['neanche per sogno', 'nicht im Traum', 'Phrase', '', '', '', '', 'Rinunciare? Neanche per sogno.', 'Aufgeben? Nicht im Traum.', 'Sehr entschiedene Ablehnung.', 3, 'redewendung'],
+    ['figurati', 'keine Ursache; stell dir vor', 'Phrase', '', '', 'figurarsi', '', 'Grazie mille! — Figurati.', 'Vielen Dank! — Keine Ursache.', 'Höflich "si figuri"; im Plural "figuratevi".', 2, 'redewendung'],
+    ['ci mancherebbe', 'keine Ursache, selbstverständlich', 'Phrase', '', '', 'mancare', '', 'Posso chiederti un favore? — Ci mancherebbe.', 'Kann ich dich um einen Gefallen bitten? — Selbstverständlich.', 'Wörtlich "das würde noch fehlen".', 3, 'redewendung'],
+    ['non vedo l’ora', 'ich kann es kaum erwarten', 'Phrase', '', '', 'vedere', '', 'Non vedo l’ora di tornare in Italia.', 'Ich kann es kaum erwarten, nach Italien zurückzukehren.', 'Immer mit "di" plus Infinitiv.', 2, 'redewendung'],
+    ['avere a che fare con', 'zu tun haben mit', 'Phrase', '', '', 'avere', '', 'Non voglio avere a che fare con quella ditta.', 'Ich will mit dieser Firma nichts zu tun haben.', 'Feste Wortfolge, unveränderlich.', 3, 'redewendung'],
+    ['rendersi conto', 'sich bewusst werden, merken', 'Phrase', '', '', 'rendersi', '', 'Solo dopo mi sono reso conto dell’errore.', 'Erst danach ist mir der Fehler bewusst geworden.', 'Reflexiv, Objekt mit "di"; Partizip "reso".', 3, 'redewendung'],
+    ['valere la pena', 'sich lohnen', 'Phrase', '', '', 'valere', '', 'Vale la pena leggere tutto il contratto.', 'Es lohnt sich, den ganzen Vertrag zu lesen.', 'Unpersönlich, gefolgt vom Infinitiv.', 2, 'redewendung'],
+    ['andare a finire', 'ausgehen, enden', 'Phrase', '', '', 'andare', '', 'Com’è andata a finire?', 'Wie ist es ausgegangen?', 'Erzählerisch; im passato prossimo mit essere.', 3, 'redewendung'],
+    ['mettercela tutta', 'sein Bestes geben', 'Phrase', '', '', 'mettercela', '', 'Ce l’ho messa tutta, ma non è bastato.', 'Ich habe mein Bestes gegeben, aber es hat nicht gereicht.', 'Feste Pronomen: ce la metto, ce l’ho messa.', 3, 'redewendung'],
+    ['fare il punto', 'Bilanz ziehen', 'Phrase', '', '', 'fare', '', 'Facciamo il punto della situazione.', 'Ziehen wir Bilanz der Lage.', 'Häufig in Besprechungen.', 3, 'redewendung'],
+    ['venire incontro', 'entgegenkommen', 'Phrase', '', '', 'venire', '', 'Il proprietario ci è venuto incontro sul prezzo.', 'Der Eigentümer ist uns beim Preis entgegengekommen.', 'Person indirekt: venire incontro a qualcuno.', 3, 'redewendung'],
+    ['tenere presente', 'im Auge behalten, bedenken', 'Phrase', '', '', 'tenere', '', 'Tieni presente che l’ufficio chiude alle dodici.', 'Bedenke, dass das Büro um zwölf schließt.', 'Häufig als Imperativ mit "che".', 3, 'redewendung'],
+    ['dare per scontato', 'als selbstverständlich ansehen', 'Phrase', '', '', 'dare', '', 'Non dare per scontato che ti rispondano subito.', 'Geh nicht davon aus, dass sie dir sofort antworten.', 'Verlangt oft den congiuntivo im Nebensatz.', 3, 'redewendung'],
+    ['essere in gamba', 'tüchtig sein', 'Phrase', '', '', 'essere', '', 'La nuova collega è davvero in gamba.', 'Die neue Kollegin ist wirklich tüchtig.', 'Wörtlich "im Bein sein"; hohes Lob.', 3, 'redewendung'],
+    ['costare un occhio della testa', 'ein Vermögen kosten', 'Phrase', '', '', 'costare', 'ok-kio', 'Quell’appartamento costa un occhio della testa.', 'Diese Wohnung kostet ein Vermögen.', 'Wörtlich "ein Auge des Kopfes kosten".', 3, 'redewendung'],
+    ['avere la testa altrove', 'mit den Gedanken woanders sein', 'Phrase', '', '', 'avere', '', 'Scusa, oggi ho la testa altrove.', 'Entschuldige, ich bin heute mit den Gedanken woanders.', 'Höfliche Entschuldigung für Unaufmerksamkeit.', 3, 'redewendung'],
+    ['prendere in giro', 'auf den Arm nehmen', 'Phrase', '', '', 'prendere', 'dschiro', 'Mi stai prendendo in giro?', 'Nimmst du mich auf den Arm?', 'Wörtlich "im Kreis herumführen".', 3, 'redewendung'],
+    ['cadere dalle nuvole', 'aus allen Wolken fallen', 'Phrase', '', '', 'cadere', '', 'Quando gliel’ho detto è caduto dalle nuvole.', 'Als ich es ihm gesagt habe, ist er aus allen Wolken gefallen.', 'Meint völlige Ahnungslosigkeit.', 3, 'redewendung'],
+    ['essere al verde', 'pleite sein', 'Phrase', '', '', 'essere', '', 'A fine mese siamo sempre al verde.', 'Am Monatsende sind wir immer pleite.', 'Wörtlich "im Grünen sein".', 3, 'redewendung'],
+    ['a occhio e croce', 'über den Daumen gepeilt', 'Phrase', '', '', '', 'ok-kio e krotsche', 'A occhio e croce saranno duecento persone.', 'Über den Daumen gepeilt sind das zweihundert Leute.', 'Kündigt eine grobe Schätzung an.', 3, 'redewendung'],
+    ['su due piedi', 'aus dem Stegreif, auf die Schnelle', 'Phrase', '', '', '', '', 'Così su due piedi non saprei rispondere.', 'So aus dem Stegreif könnte ich nicht antworten.', 'Wörtlich "auf zwei Füßen".', 3, 'redewendung'],
+    ['di punto in bianco', 'unvermittelt, aus heiterem Himmel', 'Phrase', '', '', '', '', 'Di punto in bianco ha cambiato idea.', 'Aus heiterem Himmel hat er es sich anders überlegt.', 'Stärker als "all’improvviso".', 3, 'redewendung'],
+    ['una volta per tutte', 'ein für alle Mal', 'Phrase', '', '', '', '', 'Chiariamo la cosa una volta per tutte.', 'Klären wir die Sache ein für alle Mal.', 'Kündigt eine endgültige Regelung an.', 3, 'redewendung'],
+    ['per farla breve', 'um es kurz zu machen', 'Phrase', '', '', 'fare', '', 'Per farla breve: non se ne è fatto niente.', 'Um es kurz zu machen: Daraus ist nichts geworden.', 'Leitet die Zusammenfassung einer langen Geschichte ein.', 3, 'redewendung,konnektor'],
+  ],
+  uebungen: [
+    ['verbform', 3, 'Setze das Verb in den congiuntivo presente.', 'Ti presto la macchina a patto che tu ___ (fare) benzina.', '', 'faccia', '', '"a patto che" verlangt den congiuntivo; fare → faccia.', '14', 'it-connettivi-b1'],
+    ['verbform', 3, 'Setze das Verb in den congiuntivo presente.', 'Nel caso in cui ___ (piovere), ci vediamo al bar.', '', 'piova', '', '"nel caso in cui" verlangt ebenfalls den congiuntivo.', '15', 'it-connettivi-b1'],
+    ['lueckentext', 3, 'Ergänze den passenden Konnektor.', 'Non è caro, ___ è il più economico dei tre.', '', 'anzi', '', '"anzi" korrigiert und steigert; "infatti" würde nur bestätigen.', '', 'it-connettivi-b1'],
+    ['lueckentext', 3, 'Ergänze den passenden Konnektor.', 'Il termine è scaduto, ___ la domanda è stata respinta.', '', 'pertanto', 'di conseguenza', '"pertanto" leitet die Folge auf gehobenem Register ein.', '', 'it-connettivi-b1'],
+    ['fehler', 3, 'Finde den Fehler und schreibe den Satz richtig.', 'Ti aiuto a patto che mi dici la verità.', '', 'Ti aiuto a patto che tu mi dica la verità.', '', '"a patto che" verlangt den congiuntivo: dica.', '14', 'it-connettivi-b1'],
+    ['verbform', 3, 'Drücke den Aspekt korrekt aus.', 'Il corso ___ (finire) fra due minuti: preparate le cose.', '', 'sta per finire', '', '"stare per" plus Infinitiv für das unmittelbar Bevorstehende.', '', 'it-aspetto'],
+    ['fehler', 3, 'Finde den Fehler und schreibe den Satz richtig.', 'Ho studiato italiano da due anni.', '', 'Studio italiano da due anni.', '', 'Eine noch andauernde Handlung steht mit "da" im Präsens, nicht in der Vergangenheit.', '', 'it-aspetto'],
+    ['fehler', 3, 'Finde den Fehler und schreibe den Satz richtig.', 'Sto lavorando in questa ditta da dieci anni.', '', 'Lavoro in questa ditta da dieci anni.', '', 'Die Verlaufsform beschreibt nur den Moment, nicht eine zehnjährige Dauer.', '', 'it-aspetto'],
+    ['de-it', 3, 'Übersetze ins Italienische.', 'Es lohnt sich, den ganzen Vertrag zu lesen.', '', 'Vale la pena leggere tutto il contratto.', 'Vale la pena di leggere tutto il contratto.', '"valere la pena" ist unpersönlich und steht mit dem Infinitiv.', '28', 'it-aspetto'],
+    ['it-de', 3, 'Übersetze ins Deutsche.', 'Tutto sommato è andata bene, anche se ce l’abbiamo messa tutta.', '', 'Alles in allem ist es gut gelaufen, auch wenn wir unser Bestes geben mussten.', 'Alles in allem ist es gut ausgegangen, auch wenn wir alles gegeben haben.', '"mettercela tutta" hat feste Pronomen: ce l’abbiamo messa tutta.', '2,30', 'wortschatz-redewendungen'],
+    ['lueckentext', 2, 'Ergänze die passende Wendung.', '___ di tornare in Italia: ho già prenotato il volo.', '', 'Non vedo l’ora', '', '"non vedere l’ora di" heißt "es kaum erwarten können".', '25', 'wortschatz-redewendungen'],
+    ['eigener-satz', 3, 'Schreibe zwei Sätze über den Sprint: einen mit "rendersi conto", einen mit "valere la pena".', 'Mi sono reso conto che … / Vale la pena …', '', 'Mi sono reso conto che il problema non era il vocabolario ma le preposizioni. Vale la pena ripassare ogni settimana invece che solo prima di un esame.', 'Mi sono resa conto di sbagliare sempre gli stessi punti. Vale la pena leggere ogni giorno un articolo breve.', '"rendersi conto" braucht "di" oder "che"; "valere la pena" steht unpersönlich mit dem Infinitiv.', '27,28', 'wortschatz-redewendungen'],
+  ],
+  wiederholung: [
+    ['verbform', 3, 'Abschlussprüfung 1 (Tag 1): Setze die Präsensform ein.', 'Voi ___ (preferire) il primo o il secondo appello?', '', 'preferite', '', '2. Person Plural der -isc-Verben ohne Einschub.', '', 'it-presente-irregolare'],
+    ['lueckentext', 2, 'Abschlussprüfung 2 (Tag 2): Setze die verschmolzene Form ein.', 'Le chiavi sono ___ borsa. (in + la)', '', 'nella', '', 'in + la = nella.', '', 'it-preposizioni-articolate'],
+    ['plural', 3, 'Abschlussprüfung 3 (Tag 3): Bilde den Plural.', 'l’uovo → …', '', 'le uova', '', 'Unregelmäßig: im Plural weiblich auf -a.', '', 'it-plurale-irregolare'],
+    ['verneinen', 3, 'Abschlussprüfung 4 (Tag 4): Verneine den Satz doppelt.', 'Ho visto qualcuno in ufficio.', '', 'Non ho visto nessuno in ufficio.', '', '"non" vor dem Verb, "nessuno" dahinter – zusammen eine Verneinung.', '', 'it-doppia-negazione'],
+    ['lueckentext', 3, 'Abschlussprüfung 5 (Tag 6/7): Setze das richtige Pronomen ein.', 'Alla dottoressa ___ ho già mandato la mail.', '', 'le', '', 'Indirektes Objekt, weiblich: le.', '', 'it-pronomi-indiretti'],
+    ['verbform', 3, 'Abschlussprüfung 6 (Tag 10): Setze das reflexive Verb ins passato prossimo.', 'Loro ___ (fermarsi) al casello.', '', 'si sono fermati', '', 'Reflexiv mit essere und angeglichenem Partizip.', '', 'it-riflessivi'],
+    ['verbform', 3, 'Abschlussprüfung 7 (Tag 12): Setze die passende Vergangenheitsform ein.', 'Mentre ___ (aspettare, noi), ___ (arrivare) la notizia.', '', 'aspettavamo / è arrivata', '', 'Hintergrund im imperfetto, Ereignis im passato prossimo mit essere.', '', 'it-passato-vs-imperfetto'],
+    ['verbform', 3, 'Abschlussprüfung 8 (Tag 17): Setze das Verb ins condizionale.', '___ (potere, Lei) ripetere più lentamente?', '', 'Potrebbe', '', 'Höfliche Bitte: condizionale von potere.', '', 'it-condizionale'],
+    ['verbform', 3, 'Abschlussprüfung 9 (Tag 22/23): Setze das Verb in den congiuntivo presente.', 'Benché ___ (essere) tardi, provo a chiamare.', '', 'sia', '', '"benché" erzwingt den congiuntivo.', '', 'it-congiuntivo-espressioni'],
+    ['verbform', 3, 'Abschlussprüfung 10 (Tag 25): Setze das Verb in die richtige Form des si-Satzes.', 'In quel paese ___ (produrre) ottimi formaggi.', '', 'si producono', '', 'Pluralobjekt: das Verb steht im Plural.', '', 'it-si-impersonale'],
+    ['verbform', 3, 'Abschlussprüfung 11 (Tag 27): Drücke die Pflicht mit "andare" plus Partizip aus.', 'I moduli ___ (consegnare) entro venerdì.', '', 'vanno consegnati', '', '"andare" plus Partizip, angeglichen an "i moduli".', '', 'it-passivo'],
+    ['umformen', 3, 'Abschlussprüfung 12 (Tag 28): Setze in die indirekte Rede.', '“Ho già firmato.” → Ha detto che ___ .', '', 'aveva già firmato', '', 'Passato prossimo wird nach Vergangenheit zum trapassato.', '', 'it-discorso-indiretto'],
+  ],
+  verstaendnis: [
+    {
+      thema: 'Abschlussprüfung: Leseverstehen',
+      text: 'Trenta giorni dopo\n\nQuando ho cominciato questo sprint, davo per scontato che imparare una lingua fosse soprattutto una questione di parole. Mi sono reso conto abbastanza presto che non era così.\n\nLe prime due settimane sono state le più semplici: il vocabolario dell’alloggio, del cibo, dei trasporti si impara facilmente perché si usa ogni giorno. La grammatica, al contrario, chiede tempo. Il passato prossimo l’avevo già studiato anni fa, ciò nonostante continuavo a sbagliare l’ausiliare: dicevo “ho andato” senza accorgermene.\n\nLa terza settimana è stata la svolta. Non tanto per il futuro o il condizionale, quanto per una scoperta banale: quasi tutti i miei errori nascevano dal tedesco. Traducevo mentalmente e poi cercavo la struttura italiana corrispondente. Quando ho smesso di farlo, per di più, ho cominciato a parlare più velocemente.\n\nLa quarta settimana, con il congiuntivo, è stata la più dura. A dire il vero non lo padroneggio ancora; ma adesso so almeno dove serve, e questo vale già molto.\n\nTutto sommato, in fin dei conti, un mese non basta per il B1 pieno. Ma vale la pena: fra i due estremi — studiare male per un anno o bene per un mese — non ho dubbi. Nel caso in cui dovessi ricominciare, cambierei una cosa sola: parlerei ad alta voce fin dal primo giorno.',
+      uebersetzung:
+        'Dreißig Tage später\n\nAls ich diesen Sprint angefangen habe, habe ich als selbstverständlich angenommen, dass eine Sprache zu lernen vor allem eine Frage der Wörter sei. Ich habe ziemlich schnell gemerkt, dass es nicht so war.\n\nDie ersten beiden Wochen waren die einfachsten: Den Wortschatz zu Wohnung, Essen und Verkehr lernt man leicht, weil man ihn jeden Tag benutzt. Die Grammatik dagegen braucht Zeit. Das passato prossimo hatte ich vor Jahren schon gelernt, trotzdem habe ich immer wieder das Hilfsverb falsch gemacht: Ich sagte „ho andato", ohne es zu merken.\n\nDie dritte Woche war der Wendepunkt. Nicht so sehr wegen des Futurs oder des Konditionals, sondern wegen einer banalen Entdeckung: Fast alle meine Fehler entstanden aus dem Deutschen. Ich übersetzte im Kopf und suchte dann die entsprechende italienische Struktur. Als ich damit aufgehört habe, habe ich obendrein angefangen, schneller zu sprechen.\n\nDie vierte Woche mit dem Konjunktiv war die härteste. Ehrlich gesagt beherrsche ich ihn noch nicht; aber jetzt weiß ich wenigstens, wo er nötig ist, und das ist schon viel wert.\n\nAlles in allem, letzten Endes, reicht ein Monat nicht für ein volles B1. Aber es lohnt sich: Zwischen den beiden Extremen — ein Jahr schlecht lernen oder einen Monat gut — habe ich keine Zweifel. Falls ich noch einmal anfangen müsste, würde ich nur eines ändern: Ich würde vom ersten Tag an laut sprechen.',
+      fragen: [
+        ['Che cosa dava per scontato all’inizio?', 'Che imparare una lingua fosse soprattutto una questione di parole.'],
+        ['Perché il vocabolario delle prime settimane era facile?', 'Perché si usa ogni giorno.'],
+        ['Qual è stata la scoperta della terza settimana?', 'Che quasi tutti i suoi errori nascevano dalla traduzione mentale dal tedesco.'],
+        ['Che cosa cambierebbe se ricominciasse?', 'Parlerebbe ad alta voce fin dal primo giorno.'],
+        ['Il mese è bastato per il B1 pieno?', 'No, ma secondo l’autore vale comunque la pena.'],
+      ],
+      vokabeln: '2,3,8,9,11,27,28,34',
+      grammatik: ['it-connettivi-b1', 'it-aspetto', 'it-passato-vs-imperfetto', 'it-trapassato', 'it-condizionale'],
+    },
+    {
+      thema: 'Abschlussprüfung: Hörverstehen als Dialog',
+      text: 'Al telefono con l’agenzia\n\n— Agenzia Rossi, buongiorno.\n— Buongiorno, chiamo per l’appartamento in via Foscolo. È ancora libero?\n— Sì, ma le dico subito che il proprietario chiede due mensilità di caparra. Tenga presente che le spese condominiali sono a parte.\n— Quanto sono, a occhio e croce?\n— Ottanta euro al mese, riscaldamento incluso.\n— E si può visitare questa settimana?\n— Domani pomeriggio, a patto che confermi entro stasera. Nel caso in cui non riuscisse, il primo appuntamento libero è lunedì.\n— Domani va benissimo. Un’ultima cosa: il contratto è a quattro anni?\n— Tre più due. Se decide di andarsene prima, la disdetta va mandata sei mesi prima, per raccomandata o PEC.\n— Capito. Allora a domani alle quattro.\n— Perfetto. Le mando la conferma per mail: se non arriva entro un’ora, mi richiami.',
+      uebersetzung:
+        'Am Telefon mit der Agentur\n\n— Agentur Rossi, guten Tag.\n— Guten Tag, ich rufe wegen der Wohnung in der Via Foscolo an. Ist sie noch frei?\n— Ja, aber ich sage Ihnen gleich, dass der Eigentümer zwei Monatsmieten Kaution verlangt. Bedenken Sie, dass die Nebenkosten extra sind.\n— Wie hoch sind die, über den Daumen gepeilt?\n— Achtzig Euro im Monat, Heizung inklusive.\n— Und kann man sie diese Woche besichtigen?\n— Morgen Nachmittag, unter der Bedingung, dass Sie bis heute Abend bestätigen. Falls Sie es nicht schaffen, ist der erste freie Termin am Montag.\n— Morgen passt sehr gut. Eine letzte Sache: Läuft der Vertrag über vier Jahre?\n— Drei plus zwei. Wenn Sie beschließen, vorher auszuziehen, muss die Kündigung sechs Monate vorher geschickt werden, per Einschreiben oder zertifizierter E-Mail.\n— Verstanden. Dann bis morgen um vier.\n— Perfekt. Ich schicke Ihnen die Bestätigung per Mail: Wenn sie nicht innerhalb einer Stunde ankommt, rufen Sie mich zurück.',
+      fragen: [
+        ['Quanto chiede di caparra il proprietario?', 'Due mensilità.'],
+        ['Quanto sono le spese condominiali e che cosa comprendono?', 'Ottanta euro al mese, riscaldamento incluso.'],
+        ['A quale condizione è possibile la visita di domani?', 'A patto che confermi entro stasera.'],
+        ['Come va mandata la disdetta e con quanto anticipo?', 'Per raccomandata o PEC, sei mesi prima.'],
+        ['Che cosa deve fare se la mail di conferma non arriva?', 'Richiamare l’agenzia entro un’ora.'],
+      ],
+      vokabeln: '14,15,33,41',
+      grammatik: ['it-connettivi-b1', 'it-passivo', 'it-ipotetico-reale'],
+    },
+  ],
+  produktion: [
+    {
+      thema: 'Abschlussprüfung: Schreibaufgabe A (formell)',
+      anweisung:
+        'Schreibe eine formelle E-Mail von mindestens 120 Wörtern an eine italienische Sprachschule: Du willst dich für einen Intensivkurs anmelden. Nenne dein aktuelles Niveau und deine Vorkenntnisse, frage nach Terminen, Preis und Unterkunft und bitte um eine Bestätigung.',
+      mindestanforderung:
+        'Mindestens 120 Wörter, formelle Anrede und Schluss, mindestens zwei höfliche Bitten im condizionale, ein congiuntivo und zwei Konnektoren.',
+      grammatik: ['it-condizionale', 'it-congiuntivo-presente', 'it-connettivi-b1', 'it-aspetto'],
+      vokabeln: '14,15,25,28,33',
+      beispiel:
+        'Gentile segreteria,\n\nmi chiamo Jonas Weber e vi scrivo per informazioni su un corso intensivo di italiano.\n\nStudio italiano da due anni e ho appena concluso un percorso di livello A2 con un buon risultato; a dire il vero però mi manca la pratica orale. Penso che un corso intensivo di due settimane sia la soluzione giusta prima dell’esame B1.\n\nVorrei sapere quando cominciano i corsi di settembre e quante ore al giorno sono previste. Potreste inoltre indicarmi il prezzo comprensivo di materiale e se offrite una sistemazione in famiglia? Nel caso in cui la famiglia non fosse disponibile, va bene anche un appartamento condiviso.\n\nTenete presente che posso arrivare solo il sabato pomeriggio. Vi sarei grato se mi confermaste la disponibilità entro la fine del mese.\n\nVi ringrazio e vi saluto cordialmente,\nJonas Weber',
+      beispielDeutsch:
+        'Sehr geehrtes Sekretariat,\n\nich heiße Jonas Weber und schreibe Ihnen wegen Informationen zu einem Italienisch-Intensivkurs.\n\nIch lerne seit zwei Jahren Italienisch und habe gerade einen A2-Kurs mit gutem Ergebnis abgeschlossen; ehrlich gesagt fehlt mir aber die mündliche Praxis. Ich glaube, ein zweiwöchiger Intensivkurs ist die richtige Lösung vor der B1-Prüfung.\n\nIch würde gern wissen, wann die Septemberkurse beginnen und wie viele Stunden pro Tag vorgesehen sind. Könnten Sie mir außerdem den Preis inklusive Material nennen und ob Sie eine Unterbringung in einer Gastfamilie anbieten? Falls die Familie nicht verfügbar sein sollte, ist auch eine WG in Ordnung.\n\nBedenken Sie bitte, dass ich erst am Samstagnachmittag anreisen kann. Ich wäre Ihnen dankbar, wenn Sie mir die Verfügbarkeit bis Ende des Monats bestätigen könnten.\n\nIch danke Ihnen und grüße Sie herzlich,\nJonas Weber',
+      kriterien: [
+        'Mindestens 120 Wörter, formeller Aufbau mit Anrede, Anliegen, Fragen und Gruß.',
+        'Zwei höfliche Bitten im condizionale (vorrei, potreste, vi sarei grato).',
+        'Ein congiuntivo nach einem korrekten Auslöser.',
+        'Alle vier gefragten Punkte (Niveau, Termine, Preis, Unterkunft) sind enthalten.',
+      ],
+    },
+    {
+      thema: 'Abschlussprüfung: Schreibaufgabe B (erzählend und argumentativ)',
+      anweisung:
+        'Schreibe einen Text von mindestens 180 Wörtern in zwei Teilen. Teil 1: Erzähle ein Erlebnis aus einer Reise oder aus dem Alltag, bei dem etwas schiefgegangen ist – mit dem Wechsel zwischen imperfetto, passato prossimo und trapassato. Teil 2: Nimm Stellung zu der Frage, ob es sich lohnt, eine Sprache in einem Sprint zu lernen, und nenne Vor- und Nachteile.',
+      mindestanforderung:
+        'Mindestens 180 Wörter, im Erzählteil drei Vergangenheitszeiten, im Argumentationsteil mindestens drei Konnektoren, ein si-Satz und ein congiuntivo.',
+      grammatik: ['it-passato-vs-imperfetto', 'it-trapassato', 'it-si-impersonale', 'it-congiuntivo-presente', 'it-connettivi-b1'],
+      vokabeln: '2,7,9,11,13,27,28',
+      beispiel:
+        'L’estate scorsa dovevo prendere il traghetto per la Sardegna alle otto di sera. Avevo comprato il biglietto in aprile e avevo perfino stampato tutto, ciò nonostante sono arrivato al porto senza il documento del veicolo: l’avevo lasciato nell’altra macchina.\n\nFaceva un caldo terribile e la fila era lunghissima. Mentre aspettavo, ho chiamato mia sorella, che ha fotografato il libretto e me l’ha mandato. All’imbarco l’addetto ha guardato lo schermo, ha alzato le spalle e ci ha fatto passare. Meno male.\n\nDetto questo, veniamo alla domanda. Un mese non basta per imparare una lingua, questo va da sé. D’altra parte in trenta giorni si costruisce un’abitudine, e l’abitudine è tutto: si studia ogni giorno alla stessa ora, si ripassa, si sbaglia e si corregge. Penso che il vantaggio principale sia proprio questo.\n\nLo svantaggio è altrettanto chiaro: quello che si impara in fretta si dimentica in fretta, a meno che non si continui. Per di più uno sprint lascia poco spazio al parlato, che è la parte più lenta.\n\nIn conclusione: vale la pena, a patto che il mese sia un inizio e non una fine.',
+      beispielDeutsch:
+        'Letzten Sommer musste ich um acht Uhr abends die Fähre nach Sardinien nehmen. Ich hatte das Ticket im April gekauft und sogar alles ausgedruckt, trotzdem bin ich ohne den Fahrzeugschein am Hafen angekommen: Ich hatte ihn im anderen Auto gelassen.\n\nEs war furchtbar heiß und die Schlange war sehr lang. Während ich wartete, habe ich meine Schwester angerufen, die den Schein fotografiert und mir geschickt hat. Beim Einchecken hat der Mitarbeiter auf den Bildschirm geschaut, mit den Schultern gezuckt und uns durchgelassen. Zum Glück.\n\nAbgesehen davon, kommen wir zur Frage. Ein Monat reicht nicht, um eine Sprache zu lernen, das versteht sich von selbst. Andererseits baut man in dreißig Tagen eine Gewohnheit auf, und die Gewohnheit ist alles: Man lernt jeden Tag zur selben Zeit, wiederholt, macht Fehler und korrigiert sie. Ich glaube, genau das ist der Hauptvorteil.\n\nDer Nachteil ist ebenso klar: Was man schnell lernt, vergisst man schnell, es sei denn, man macht weiter. Obendrein lässt ein Sprint wenig Raum fürs Sprechen, das der langsamste Teil ist.\n\nAbschließend: Es lohnt sich, unter der Bedingung, dass der Monat ein Anfang und kein Ende ist.',
+      kriterien: [
+        'Mindestens 180 Wörter, klar in Erzähl- und Argumentationsteil gegliedert.',
+        'Im Erzählteil imperfetto, passato prossimo und trapassato je mindestens einmal, inhaltlich begründet.',
+        'Im Argumentationsteil drei Konnektoren, ein si-Satz und ein congiuntivo.',
+        'Vor- und Nachteile werden beide genannt und die Schlussfolgerung ergibt sich aus ihnen.',
+      ],
+    },
+  ],
+});
