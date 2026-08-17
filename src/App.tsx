@@ -2,10 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { StoreProvider, useLanguage, useStore } from './store';
 import { ToastProvider } from './ui';
 import type { View } from './types-view';
-import { LanguagePicker } from './screens/LanguagePicker';
+import { Overview } from './screens/Overview';
 import { Dashboard } from './screens/Dashboard';
 import { Review } from './screens/Review';
-import { Drills } from './screens/Drills';
+import { Exercises } from './screens/Exercises';
+import { Grammar } from './screens/Grammar';
 import { Reader } from './screens/Reader';
 import { Conversation } from './screens/Conversation';
 import { Writing } from './screens/Writing';
@@ -26,9 +27,9 @@ interface TabDef {
 
 const TABS: TabDef[] = [
   { id: 'dashboard', label: 'Dashboard', phase: 1 },
-  { id: 'review', label: 'Review', phase: 1 },
-  { id: 'drills', label: 'Drills', phase: 1 },
   { id: 'vocab', label: 'Vokabeln', phase: 1 },
+  { id: 'exercises', label: 'Übungen', phase: 1 },
+  { id: 'grammar', label: 'Grammatik', phase: 1 },
   { id: 'reader', label: 'Reader', phase: 2 },
   { id: 'chat', label: 'Konversation', phase: 3 },
   { id: 'writing', label: 'Schreiben', phase: 3 },
@@ -50,7 +51,7 @@ function Workspace() {
     [state.cards, lang],
   );
 
-  if (!lang) return <LanguagePicker />;
+  if (!lang) return <Overview />;
 
   const currentPhase = phase?.phase ?? 1;
   const locked = (tab: TabDef) => tab.phase > currentPhase;
@@ -104,7 +105,7 @@ function Workspace() {
                 }
               >
                 {tab.label}
-                {tab.id === 'review' && due > 0 && <span className="tab-badge">{due}</span>}
+                {tab.id === 'vocab' && due > 0 && <span className="tab-badge">{due}</span>}
                 {isLocked && <span className="tab-lock">🔒</span>}
               </button>
             );
@@ -114,9 +115,12 @@ function Workspace() {
 
       <main className="main">
         {view === 'dashboard' && <Dashboard lang={lang} go={setView} />}
+        {/* Das Review ist kein eigener Reiter mehr – es gehört zu den Vokabeln
+            und wird von dort und vom Dashboard aus gestartet. */}
         {view === 'review' && <Review lang={lang} go={setView} />}
-        {view === 'drills' && <Drills lang={lang} />}
-        {view === 'vocab' && <Vocab lang={lang} />}
+        {view === 'exercises' && <Exercises lang={lang} go={setView} />}
+        {view === 'grammar' && <Grammar lang={lang} />}
+        {view === 'vocab' && <Vocab lang={lang} go={setView} />}
         {view === 'reader' && <Reader lang={lang} />}
         {view === 'chat' && <Conversation lang={lang} />}
         {view === 'writing' && <Writing lang={lang} />}

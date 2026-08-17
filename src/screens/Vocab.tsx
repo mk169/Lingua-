@@ -1,18 +1,19 @@
 import { useMemo, useState } from 'react';
 import { useStore } from '../store';
-import type { Language } from '../types-view';
+import type { Language, View } from '../types-view';
 import type { Card as CardType } from '../types';
 import { Bar, Button, Card, Empty, Field, Modal, SectionTitle, useAsyncAction, useToast } from '../ui';
 import { generateVocab, parseUpload, type GeneratedWord } from '../lib/llm';
 import { speak } from '../lib/speech';
 import { todayISO } from '../lib/date';
+import { dueCards } from '../lib/sm2';
 import { useTimeOnTask } from '../lib/useTimeOnTask';
 import { VocabExercises } from '../components/VocabExercises';
 
 type Filter = 'aktiv' | 'pool' | 'schwer' | 'ausgesetzt' | 'alle';
 
 /** Vokabelverwaltung: Deck ansehen, eigenes Material hochladen, Nachschub erzeugen. */
-export function Vocab({ lang }: { lang: Language }) {
+export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }) {
   const { state, addCards, deleteCard, updateCard, unlockNow, restoreCard } = useStore();
   useTimeOnTask(lang.id);
   const notify = useToast();
@@ -34,6 +35,7 @@ export function Vocab({ lang }: { lang: Language }) {
   const active = cards.filter((c) => c.unlockedAt !== null);
   const pool = cards.filter((c) => c.unlockedAt === null);
   const leeches = cards.filter((c) => c.suspended);
+  const due = useMemo(() => dueCards(state.cards, lang.id).length, [state.cards, lang.id]);
 
   const searching = query.trim().length > 0;
 
@@ -140,6 +142,29 @@ export function Vocab({ lang }: { lang: Language }) {
           </div>
         }
       />
+
+      {/* Das Karteikarten-Review ist kein eigener Reiter mehr, sondern die
+          Hauptaufgabe dieser Seite – der Einstieg dazu steht deshalb oben. */}
+      <Card>
+        <div className="row">
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontWeight: 600 }}>Karteikarten wiederholen</div>
+            <p className="tiny muted" style={{ margin: 0 }}>
+              {due > 0
+                ? `${due} Karten sind heute fällig.`
+                : 'Heute ist nichts fällig – morgen wartet die nächste Runde.'}
+            </p>
+          </div>
+          <Button
+            size="sm"
+            variant={due > 0 ? 'primary' : 'ghost'}
+            disabled={due === 0}
+            onClick={() => go('review')}
+          >
+            {due > 0 ? 'Starten' : 'Fertig'}
+          </Button>
+        </div>
+      </Card>
 
       <VocabExercises lang={lang} />
 

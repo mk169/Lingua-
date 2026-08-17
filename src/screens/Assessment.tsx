@@ -168,15 +168,15 @@ export function Assessment({ lang, go }: { lang: Language; go: (view: View) => v
     if (preview.length < MIN_QUESTIONS) {
       return (
         <div className="stack">
-          <SectionTitle title="Standortbestimmung" />
+          <SectionTitle title="Test" />
           <Card>
             <Empty
               icon="◔"
               title="Noch zu wenig Material"
               hint={`Für einen aussagekräftigen Test braucht es mindestens ${MIN_QUESTIONS} Fragen; aus deinem Deck und dem Übungskatalog kommen aktuell ${preview.length} zusammen. Lerne ein paar Tage weiter oder ergänze Vokabeln – dann lohnt sich der Test.`}
               action={
-                <Button variant="primary" onClick={() => go('review')}>
-                  Zum Review
+                <Button variant="primary" onClick={() => go('vocab')}>
+                  Zu den Vokabeln
                 </Button>
               }
             />
@@ -191,7 +191,7 @@ export function Assessment({ lang, go }: { lang: Language; go: (view: View) => v
 
     return (
       <div className="stack">
-        <SectionTitle title="Standortbestimmung" hint={`Tag ${phase.day}`} />
+        <SectionTitle title="Test" hint={`Tag ${phase.day}`} />
         <Card>
           <div className="stack">
             <p className="small muted" style={{ margin: 0 }}>

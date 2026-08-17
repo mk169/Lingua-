@@ -950,3 +950,96 @@ select {
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+/* ── Einrichtungsassistent ─────────────────────────────────────────────── */
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 16px;
+}
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 13px;
+  cursor: pointer;
+}
+.step:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+.step[data-state='current'] {
+  border-color: var(--accent);
+  color: var(--ink);
+  font-weight: 550;
+}
+.step[data-state='done'] {
+  color: var(--ink-2);
+}
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--line);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.step[data-state='current'] .step-num {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Auswahlzeile mit Erklärung – Niveau, Optionen mit Konsequenz. */
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.12s;
+}
+.choice:hover {
+  border-color: var(--line-strong);
+}
+.choice[data-active='true'] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* ── Gewohnheiten ──────────────────────────────────────────────────────── */
+.habit-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Grammatik-Karteikarte: dieselbe Fläche wie im Review, aber anklickbar. */
+.flashcard-btn {
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  align-items: center;
+}
+/* Die Rückseite trägt Fließtext und Beispiele – zentriert wäre sie unruhig. */
+.flashcard-back {
+  width: 100%;
+  text-align: left;
+}

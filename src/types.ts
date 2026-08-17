@@ -19,6 +19,14 @@ export interface Language {
   createdAt: number;
   startDate: string; // ISO-Datum, Tag 1 des LAUFENDEN Sprints
   /**
+   * Selbst eingeschätztes Niveau beim Anlegen der Sprache.
+   *
+   * Es bleibt unverändert stehen, auch wenn Sprints weiterlaufen – es ist der
+   * Ausgangspunkt, nicht der Stand. Später soll ein Einstufungstest diesen Wert
+   * setzen; bis dahin wählt man ihn im Einrichtungsassistenten selbst.
+   */
+  startLevel: CefrLevel;
+  /**
    * Stufe, auf die der laufende Sprint hinarbeitet.
    * Sprint 1 zielt auf A2 und deckt dabei A1 und A2 ab; jeder weitere Sprint
    * nimmt sich genau die nächste Stufe vor.

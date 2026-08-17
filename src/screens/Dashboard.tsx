@@ -5,12 +5,15 @@ import { Bar, Button, Card, SectionTitle, Stat } from '../ui';
 import { getPhase, levelsInSprint, nextLevel, PHASE_META, WEEK_PLAN } from '../lib/phase';
 import { backlogLimit, dueCards, lockedCards, suspendedCards } from '../lib/sm2';
 import { todayISO } from '../lib/date';
-import { HabitsAndContent } from '../components/HabitsAndContent';
+import { HabitList } from '../components/HabitList';
+import { ContentList } from '../components/ContentList';
 
 /**
- * Das Dashboard passt sich der Phase an:
- * Phase 1 = Fokus-Modus (nur Review + Lesen), Phase 2 ergänzt den Reader,
- * Phase 3 schaltet Konversation, Schreiben und den Alltags-Modus frei.
+ * Das Dashboard einer Sprache – in dieser Reihenfolge:
+ * Status, dann die Gewohnheiten zum Abhaken, dann der Test.
+ *
+ * Die Gewohnheiten sind dieselben Einträge wie in der Gesamtübersicht; hier
+ * werden sie gepflegt, dort quer über alle Sprachen abgehakt.
  */
 export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => void }) {
   const { state, unlockDaily, startNextSprint } = useStore();
@@ -37,6 +40,9 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   const weekPatterns = patterns.filter(
     (p) => p.week === phase.week && levelsInSprint(lang.targetLevel).includes(p.level ?? 'A1'),
   );
+
+  const habits = state.habits.filter((h) => h.languageId === lang.id);
+  const habitsDone = habits.filter((h) => h.done.includes(today)).length;
 
   const streak = useMemo(() => {
     const dates = new Set(
@@ -74,6 +80,8 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   const sprintDone = phase.day > 30;
   const upcoming = nextLevel(lang.targetLevel);
   const minutes = log?.minutes ?? 0;
+  // Ab Tag 28 ist der Test der Sprint-Abschluss, davor ein Angebot.
+  const testDue = phase.day >= 28 && lastAssessment?.day !== phase.day;
 
   return (
     <div className="stack">
@@ -116,26 +124,6 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
         </Card>
       )}
 
-      {/* Standortbestimmung: ab Tag 28 der Sprint-Abschluss, davor ein
-          unaufdringliches Angebot. Kein Nav-Tab – die Leiste soll schmal bleiben. */}
-      {phase.day >= 28 && lastAssessment?.day !== phase.day && (
-        <Card className="card-accent">
-          <div className="row" style={{ alignItems: 'flex-start' }}>
-            <span style={{ fontSize: 20 }}>◎</span>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 600 }}>Tag 30 — Standortbestimmung</div>
-              <p className="small muted" style={{ margin: '4px 0 0' }}>
-                Zwanzig Fragen aus deinem Deck und den Übungen, rund zehn Minuten. Danach
-                weißt du, wo du stehst – und welche Gewohnheiten als Nächstes tragen.
-              </p>
-            </div>
-            <Button variant="primary" size="sm" onClick={() => go('assessment')}>
-              Starten
-            </Button>
-          </div>
-        </Card>
-      )}
-
       {suspended.length > 0 && (
         <Card>
           <div className="row" style={{ alignItems: 'flex-start' }}>
@@ -156,7 +144,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
         </Card>
       )}
 
-      {/* Kopf: Phase & Sprint-Fortschritt */}
+      {/* ── Status: Phase & Sprint-Fortschritt ── */}
       <Card>
         <div className="row row-wrap" style={{ marginBottom: 14 }}>
           <div>
@@ -214,23 +202,6 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
         <Stat value={streak} label="Tage Streak" />
       </div>
 
-      {/* Dauerhafter, unaufdringlicher Einstieg – der Test ist jederzeit möglich. */}
-      <Card>
-        <div className="row">
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontWeight: 600 }}>Standortbestimmung</div>
-            <p className="tiny muted" style={{ margin: 0 }}>
-              {lastAssessment
-                ? `Zuletzt an Tag ${lastAssessment.day}: ${lastAssessment.level} · ${lastAssessment.totalPct} % richtig`
-                : 'Jederzeit möglich – zwanzig Fragen aus deinem eigenen Material.'}
-            </p>
-          </div>
-          <Button size="sm" variant="ghost" onClick={() => go('assessment')}>
-            {lastAssessment ? 'Erneut testen' : 'Testen'}
-          </Button>
-        </div>
-      </Card>
-
       <div className="grid-2">
         <div className="stack">
           {/* Heutige Session */}
@@ -241,7 +212,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
             />
             <div className="stack">
               <Task
-                label="SRS-Review"
+                label="Vokabeln wiederholen"
                 detail={
                   due.length > 0
                     ? `${due.length} Karten fällig`
@@ -261,7 +232,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
                 }
               />
               <Task
-                label="Skeleton-Drills"
+                label="Übungen"
                 detail={
                   weekPatterns.length > 0
                     ? `${weekPatterns.length} Muster in Woche ${phase.week}`
@@ -270,8 +241,23 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
                 minutes={12}
                 done={(log?.drills ?? 0) >= 5}
                 action={
-                  <Button size="sm" onClick={() => go('drills')}>
+                  <Button size="sm" onClick={() => go('exercises')}>
                     Üben
+                  </Button>
+                }
+              />
+              <Task
+                label="Grammatik-Karteikarten"
+                detail={
+                  patterns.length > 0
+                    ? `${patterns.filter((p) => p.mastered).length}/${patterns.length} sitzen`
+                    : 'Noch kein Skelett angelegt'
+                }
+                minutes={8}
+                done={patterns.length > 0 && patterns.every((p) => p.mastered)}
+                action={
+                  <Button size="sm" onClick={() => go('grammar')}>
+                    Ansehen
                   </Button>
                 }
               />
@@ -352,7 +338,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
                 ) : (
                   <p className="small muted" style={{ margin: 0 }}>
                     Für {lang.targetLevel} gibt es in dieser Woche noch keine Muster im
-                    Startpaket. Unter Drills lassen sie sich erzeugen.
+                    Startpaket. Unter Grammatik lassen sie sich erzeugen.
                   </p>
                 )}
               </>
@@ -394,7 +380,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
             <SectionTitle
               title="Sprachskelett"
               action={
-                <Button variant="ghost" size="sm" onClick={() => go('drills')}>
+                <Button variant="ghost" size="sm" onClick={() => go('grammar')}>
                   Alle
                 </Button>
               }
@@ -405,11 +391,11 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
               <div className="stack" style={{ gap: 8 }}>
                 {patterns.slice(0, 4).map((p) => (
                   <div key={p.id} className="row">
-                    <span className={p.mastered ? 'small' : 'small'} style={{ flex: 1 }}>
+                    <span className="small" style={{ flex: 1 }}>
                       {p.mastered && <span style={{ color: 'var(--ok)' }}>✓ </span>}
                       {p.title}
                     </span>
-                    <span className="tiny muted mono">W{p.week}</span>
+                    <span className="tiny muted mono">{p.level ?? 'A1'}</span>
                   </div>
                 ))}
                 <div className="tiny muted">
@@ -419,8 +405,6 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
             )}
           </Card>
 
-          <HabitsAndContent lang={lang} />
-
           {phase.phase === 1 && (
             <Card style={{ background: 'var(--accent-soft)', borderColor: 'transparent' }}>
               <div className="eyebrow" style={{ color: 'var(--accent-ink)' }}>
@@ -428,7 +412,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
               </div>
               <p className="small" style={{ marginTop: 6, color: 'var(--accent-ink)' }}>
                 In den ersten 14 Tagen bleiben Reader, Konversation und Alltags-Modus bewusst
-                zu. Nur Review und Drills – das Skelett zuerst.
+                zu. Nur Vokabeln, Übungen und Grammatik – das Skelett zuerst.
               </p>
               <p className="tiny" style={{ color: 'var(--accent-ink)', opacity: 0.8 }}>
                 Noch {Math.max(0, 15 - phase.day)} Tage bis der Reader aufgeht.
@@ -437,6 +421,46 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
           )}
         </div>
       </div>
+
+      {/* ── Gewohnheiten: dieselben Einträge wie in der Gesamtübersicht ── */}
+      <Card>
+        <SectionTitle
+          title="Gewohnheiten heute"
+          hint={habits.length > 0 ? `${habitsDone}/${habits.length} erledigt` : undefined}
+        />
+        <HabitList languageId={lang.id} />
+      </Card>
+
+      {/* ── Test ── */}
+      <Card className={testDue ? 'card-accent' : undefined}>
+        <div className="row" style={{ alignItems: 'flex-start' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontWeight: 600 }}>
+              {testDue ? `Tag ${phase.day} — Test` : 'Test'}
+            </div>
+            <p className="tiny muted" style={{ margin: '4px 0 0' }}>
+              {testDue
+                ? 'Zwanzig Fragen aus deinem Deck und den Übungen, rund zehn Minuten. Danach weißt du, wo du stehst – und welche Gewohnheiten als Nächstes tragen.'
+                : lastAssessment
+                  ? `Zuletzt an Tag ${lastAssessment.day}: ${lastAssessment.level} · ${lastAssessment.totalPct} % richtig`
+                  : 'Jederzeit möglich – zwanzig Fragen aus deinem eigenen Material.'}
+            </p>
+          </div>
+          <Button
+            size="sm"
+            variant={testDue ? 'primary' : 'ghost'}
+            onClick={() => go('assessment')}
+          >
+            {testDue ? 'Starten' : lastAssessment ? 'Erneut testen' : 'Testen'}
+          </Button>
+        </div>
+      </Card>
+
+      {/* ── Zusätzliche Inhalte ── */}
+      <Card>
+        <SectionTitle title="Inhalte" hint="Podcasts, Serien, Bücher" />
+        <ContentList lang={lang} />
+      </Card>
     </div>
   );
 }

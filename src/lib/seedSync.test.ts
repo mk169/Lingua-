@@ -14,6 +14,7 @@ function language(name: string): Language {
     emoji: '🇮🇹',
     createdAt: 0,
     startDate: '2026-08-01',
+    startLevel: 'A1',
     targetLevel: 'A2',
     sprint: 1,
     sprintHistory: [],

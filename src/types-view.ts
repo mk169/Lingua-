@@ -1,7 +1,8 @@
 export type View =
   | 'dashboard'
   | 'review'
-  | 'drills'
+  | 'exercises'
+  | 'grammar'
   | 'reader'
   | 'chat'
   | 'writing'
