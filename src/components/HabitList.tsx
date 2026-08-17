@@ -5,6 +5,7 @@ import { Button } from '../ui';
 import { todayISO } from '../lib/date';
 import { HABIT_TEMPLATES } from '../lib/assessment';
 import { CADENCES } from '../lib/labels';
+import { habitStatus, isOnToday } from '../lib/habits';
 
 /**
  * Die Gewohnheiten-Checkliste – eine Komponente für beide Orte.
@@ -35,6 +36,9 @@ export function HabitList({
   const [editId, setEditId] = useState<string | null>(null);
 
   const habits = state.habits.filter((h) => !languageId || h.languageId === languageId);
+  // Was heute ansteht, steht oben; was sein Wochensoll hat, wandert nach unten.
+  const onToday = habits.filter((h) => isOnToday(h, today));
+  const fulfilled = habits.filter((h) => !isOnToday(h, today));
   const langName = (id: string) => state.languages.find((l) => l.id === id)?.name ?? '';
   const langEmoji = (id: string) => state.languages.find((l) => l.id === id)?.emoji ?? '';
 
@@ -66,7 +70,7 @@ export function HabitList({
       )}
 
       <div className="stack" style={{ gap: 4 }}>
-        {habits.map((h) =>
+        {onToday.map((h) =>
           editId === h.id ? (
             <HabitEditor
               key={h.id}
@@ -82,21 +86,29 @@ export function HabitList({
               onCancel={() => setEditId(null)}
             />
           ) : (
-            <div key={h.id} className="habit-row">
-              <label className="row small" style={{ cursor: 'pointer', flex: 1, minWidth: 0 }}>
-                <input
-                  type="checkbox"
-                  checked={h.done.includes(today)}
-                  onChange={() => toggleHabit(h.id)}
-                />
-                <span
-                  style={{
-                    flex: 1,
-                    minWidth: 0,
-                    opacity: h.done.includes(today) ? 0.55 : 1,
-                    textDecoration: h.done.includes(today) ? 'line-through' : 'none',
-                  }}
-                >
+            <HabitRow
+              key={h.id}
+              habit={h}
+              today={today}
+              compact={compact}
+              label={showLanguage ? `${langEmoji(h.languageId)} ${langName(h.languageId)}` : null}
+              onToggle={() => toggleHabit(h.id)}
+              onEdit={editable ? () => setEditId(h.id) : null}
+            />
+          ),
+        )}
+      </div>
+
+      {/* Wochensoll erfüllt: sichtbar, aber ruhig – und nicht als offen gezählt. */}
+      {fulfilled.length > 0 && (
+        <div className="stack" style={{ gap: 4 }}>
+          <div className="tiny muted">Diese Woche erledigt</div>
+          {fulfilled.map((h) => {
+            const s = habitStatus(h, today);
+            return (
+              <div key={h.id} className="habit-row" style={{ opacity: 0.6 }}>
+                <span className="small" style={{ flex: 1, minWidth: 0 }}>
+                  <span style={{ color: 'var(--ok)' }}>✓ </span>
                   {showLanguage && (
                     <span className="tiny muted" style={{ marginRight: 6 }}>
                       {langEmoji(h.languageId)} {langName(h.languageId)}
@@ -104,26 +116,24 @@ export function HabitList({
                   )}
                   {h.title}
                 </span>
-              </label>
-              {!compact && (
-                <span className="tiny muted">
-                  {h.cadence} · {h.minutes}′
+                <span className="tiny muted mono">
+                  {s.done}/{s.target}
                 </span>
-              )}
-              {editable && (
-                <button
-                  className="btn btn-ghost btn-sm"
-                  onClick={() => setEditId(h.id)}
-                  title="Bearbeiten"
-                  aria-label="Gewohnheit bearbeiten"
-                >
-                  ✎
-                </button>
-              )}
-            </div>
-          ),
-        )}
-      </div>
+                {editable && (
+                  <button
+                    className="btn btn-ghost btn-sm"
+                    onClick={() => setEditId(h.id)}
+                    title="Bearbeiten"
+                    aria-label="Gewohnheit bearbeiten"
+                  >
+                    ✎
+                  </button>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {editable && languageId && (
         <>
@@ -175,6 +185,70 @@ export function HabitList({
             </Button>
           )}
         </>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Eine Zeile in der Heute-Liste.
+ *
+ * Rechts steht der Wochenstand statt des Takts: „2/3 diese Woche" sagt, wo man
+ * ist – „3x/Woche" sagte nur, was man sich vorgenommen hatte.
+ */
+function HabitRow({
+  habit,
+  today,
+  compact,
+  label,
+  onToggle,
+  onEdit,
+}: {
+  habit: Habit;
+  today: string;
+  compact: boolean;
+  label: string | null;
+  onToggle: () => void;
+  onEdit: (() => void) | null;
+}) {
+  const s = habitStatus(habit, today);
+  const done = s.status === 'done';
+
+  return (
+    <div className="habit-row">
+      <label className="row small" style={{ cursor: 'pointer', flex: 1, minWidth: 0 }}>
+        <input type="checkbox" checked={done} onChange={onToggle} />
+        <span
+          style={{
+            flex: 1,
+            minWidth: 0,
+            opacity: done ? 0.55 : 1,
+            textDecoration: done ? 'line-through' : 'none',
+          }}
+        >
+          {label && (
+            <span className="tiny muted" style={{ marginRight: 6 }}>
+              {label}
+            </span>
+          )}
+          {habit.title}
+        </span>
+      </label>
+      {s.mustToday && <span className="pill pill-accent tiny">heute nötig</span>}
+      {!compact && (
+        <span className="tiny muted mono" title={`${habit.cadence} · ${habit.minutes} Min`}>
+          {s.done}/{s.target}
+        </span>
+      )}
+      {onEdit && (
+        <button
+          className="btn btn-ghost btn-sm"
+          onClick={onEdit}
+          title="Bearbeiten"
+          aria-label="Gewohnheit bearbeiten"
+        >
+          ✎
+        </button>
       )}
     </div>
   );

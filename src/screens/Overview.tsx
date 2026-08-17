@@ -5,6 +5,7 @@ import { getPhase } from '../lib/phase';
 import { dueCards } from '../lib/sm2';
 import { todayISO } from '../lib/date';
 import { HabitList } from '../components/HabitList';
+import { todayCount } from '../lib/habits';
 import { NewLanguage } from './NewLanguage';
 
 /**
@@ -27,7 +28,9 @@ export function Overview() {
     [languages, state.cards, today],
   );
 
-  const habitsToday = state.habits.filter((h) => h.done.includes(today)).length;
+  // Nur was heute wirklich ansteht – eine Wochengewohnheit, die schon erledigt
+  // ist, gehört nicht in den Nenner.
+  const habits = useMemo(() => todayCount(state.habits, today), [state.habits, today]);
 
   // Streak über alle Sprachen: Ein Tag zählt, sobald irgendwo gelernt wurde.
   const streak = useMemo(() => {
@@ -65,7 +68,7 @@ export function Overview() {
         <div className="stats" style={{ marginTop: 18 }}>
           <Stat value={languages.length} label="aktive Sprachen" />
           <Stat value={dueTotal} label="heute fällig" />
-          <Stat value={`${habitsToday}/${state.habits.length}`} label="Gewohnheiten heute" />
+          <Stat value={`${habits.done}/${habits.total}`} label="Gewohnheiten heute" />
           <Stat value={streak} label="Tage Streak" />
         </div>
       )}
@@ -102,9 +105,7 @@ export function Overview() {
           <SectionTitle
             title="Heute abhaken"
             hint={
-              state.habits.length > 0
-                ? `${habitsToday}/${state.habits.length} erledigt`
-                : undefined
+              habits.total > 0 ? `${habits.done}/${habits.total} erledigt` : undefined
             }
           />
           {state.habits.length === 0 ? (

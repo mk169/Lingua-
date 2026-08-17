@@ -27,9 +27,9 @@ import type {
   Settings,
 } from './types';
 import { loadState, saveState } from './lib/storage';
-import { LEECH_LIMIT, backlogLimit, dueCards, freshSrs, schedule } from './lib/sm2';
+import { LEECH_LIMIT, backlogLimit, dueCards, freshSrs, poolRank, schedule } from './lib/sm2';
 import { todayISO } from './lib/date';
-import { nextLevel, targetForStart } from './lib/phase';
+import { LEVEL_START_RANK, nextLevel, targetForStart } from './lib/phase';
 import { uid } from './lib/id';
 import type { GeneratedWord, GeneratedPattern, GeneratedDrill } from './lib/llm';
 import { findSeed, type SeedLanguage } from './data/seed';
@@ -176,9 +176,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       update((s) => {
         const count = pick(s, languageId);
         if (count <= 0) return s;
+        // Das Startniveau bestimmt, wo im Frequenzband das Deck einsteigt.
+        // Was darunter liegt, kommt zuletzt – siehe `poolRank`.
+        const lang = s.languages.find((l) => l.id === languageId);
+        const startRank = LEVEL_START_RANK[lang?.startLevel ?? 'A1'];
         const pool = s.cards
           .filter((c) => c.languageId === languageId && c.unlockedAt === null)
-          .sort((a, b) => a.order - b.order)
+          .sort((a, b) => poolRank(a, startRank) - poolRank(b, startRank))
           .slice(0, count);
         unlocked = pool.length;
         if (pool.length === 0) return s;

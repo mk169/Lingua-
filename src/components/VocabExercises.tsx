@@ -5,7 +5,7 @@ import type { Exercise } from '../types';
 import { Button, Card } from '../ui';
 import { loadExercises } from '../data/exercises';
 import { buildRound, countStatus } from '../lib/exerciseQueue';
-import { levelsInSprint } from '../lib/phase';
+import { levelsFromTo } from '../lib/phase';
 import { ExerciseSession } from './ExerciseSession';
 
 /**
@@ -33,7 +33,12 @@ export function VocabExercises({ lang }: { lang: Language }) {
     };
   }, [lang.name]);
 
-  const levels = useMemo(() => new Set(levelsInSprint(lang.targetLevel)), [lang.targetLevel]);
+  // Vom Einstiegsniveau bis zum Sprintziel: Wer auf B1 startet, hat die
+  // B1-Wortschatzübungen nie gemacht – nur B2 zu zeigen wäre eine Lücke.
+  const levels = useMemo(
+    () => new Set(levelsFromTo(lang.startLevel, lang.targetLevel)),
+    [lang.startLevel, lang.targetLevel],
+  );
 
   const exercises = useMemo(
     () => catalog.filter((e) => e.kind === 'wortschatz' && e.level && levels.has(e.level)),

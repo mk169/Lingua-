@@ -4,8 +4,9 @@ import type { Language } from '../types-view';
 import type { Cadence, ContentItem, ContentType } from '../types';
 import { Bar, Button, Card, Empty, Field, Modal, SectionTitle } from '../ui';
 import { todayISO } from '../lib/date';
-// Eine Quelle für Vorlagen und die Vorschläge aus der Standortbestimmung.
+// Eine Quelle für Vorlagen und die Vorschläge aus dem Test.
 import { HABIT_TEMPLATES } from '../lib/assessment';
+import { habitStatus, todayCount } from '../lib/habits';
 
 const TYPE_LABEL: Record<ContentType, string> = {
   buch: '📕 Buch',
@@ -48,7 +49,9 @@ export function Daily({ lang }: { lang: Language }) {
     return days;
   }, [state.logs, lang.id]);
 
-  const doneToday = habits.filter((h) => h.done.includes(today)).length;
+  // Dieselbe Rechnung wie im Dashboard und in der Übersicht – zwei Zahlen für
+  // dieselbe Gewohnheit wären schlimmer als gar keine.
+  const habitsToday = todayCount(habits, today);
 
   function submitHabit(title = habitTitle, cadence = habitCadence, minutes = habitMinutes) {
     if (!title.trim()) return;
@@ -93,9 +96,9 @@ export function Daily({ lang }: { lang: Language }) {
           <span className="spacer" />
           <div style={{ textAlign: 'right' }}>
             <div className="mono" style={{ fontSize: 24 }}>
-              {doneToday}/{habits.length || 0}
+              {habitsToday.done}/{habitsToday.total}
             </div>
-            <div className="tiny muted">Habits heute</div>
+            <div className="tiny muted">heute anstehend</div>
           </div>
         </div>
 
@@ -155,11 +158,8 @@ export function Daily({ lang }: { lang: Language }) {
           ) : (
             <div className="stack" style={{ gap: 8 }}>
               {habits.map((h) => {
-                const done = h.done.includes(today);
-                const last7 = h.done.filter((d) => {
-                  const diff = (new Date(today).getTime() - new Date(d).getTime()) / 86_400_000;
-                  return diff >= 0 && diff < 7;
-                }).length;
+                const s = habitStatus(h, today);
+                const done = s.status === 'done';
                 return (
                   <div key={h.id} className="row">
                     <button
@@ -172,10 +172,12 @@ export function Daily({ lang }: { lang: Language }) {
                     </button>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <div className="small" style={{ fontWeight: 550 }}>
+                        {s.status === 'fulfilled' && <span style={{ color: 'var(--ok)' }}>✓ </span>}
                         {h.title}
                       </div>
                       <div className="tiny muted">
-                        {h.cadence} · {h.minutes} Min · {last7}× in 7 Tagen
+                        {h.cadence} · {h.minutes} Min · {s.done}/{s.target} diese Woche
+                        {s.mustToday && ' · heute nötig'}
                       </div>
                     </div>
                     <button className="btn btn-ghost btn-sm" onClick={() => deleteHabit(h.id)}>

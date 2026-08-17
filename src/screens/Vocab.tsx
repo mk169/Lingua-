@@ -6,15 +6,17 @@ import { Bar, Button, Card, Empty, Field, Modal, SectionTitle, useAsyncAction, u
 import { generateVocab, parseUpload, type GeneratedWord } from '../lib/llm';
 import { speak } from '../lib/speech';
 import { todayISO } from '../lib/date';
-import { dueCards } from '../lib/sm2';
+import { dueCards, isDeferred, poolRank } from '../lib/sm2';
+import { LEVEL_START_RANK } from '../lib/phase';
 import { useTimeOnTask } from '../lib/useTimeOnTask';
 import { VocabExercises } from '../components/VocabExercises';
 
-type Filter = 'aktiv' | 'pool' | 'schwer' | 'ausgesetzt' | 'alle';
+type Filter = 'aktiv' | 'pool' | 'zurückgestellt' | 'schwer' | 'ausgesetzt' | 'alle';
 
 /** Vokabelverwaltung: Deck ansehen, eigenes Material hochladen, Nachschub erzeugen. */
 export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }) {
-  const { state, addCards, deleteCard, updateCard, unlockNow, restoreCard } = useStore();
+  const { state, addCards, deleteCard, updateCard, unlockNow, restoreCard, updateLanguage } =
+    useStore();
   useTimeOnTask(lang.id);
   const notify = useToast();
   const { busy, run } = useAsyncAction();
@@ -37,6 +39,13 @@ export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }
   const leeches = cards.filter((c) => c.suspended);
   const due = useMemo(() => dueCards(state.cards, lang.id).length, [state.cards, lang.id]);
 
+  // Startniveau: Was unter dem Frequenzband liegt, mit dem dieses Deck einsteigt,
+  // wartet hinten im Pool statt vorne.
+  const startRank = LEVEL_START_RANK[lang.startLevel];
+  const deferred = pool.filter((c) => isDeferred(c, startRank));
+  // Das Ziel zählt ab dem Startband – wie im Dashboard.
+  const goal = startRank + 1000;
+
   const searching = query.trim().length > 0;
 
   const visible = useMemo(() => {
@@ -48,23 +57,30 @@ export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }
         ? active
         : filter === 'pool'
           ? pool
-          : filter === 'schwer'
-            ? active.filter((c) => !c.suspended && (c.srs.lapses >= 2 || c.srs.ease < 2.1))
-            : filter === 'ausgesetzt'
-              ? leeches
-              : cards;
+          : filter === 'zurückgestellt'
+            ? deferred
+            : filter === 'schwer'
+              ? active.filter((c) => !c.suspended && (c.srs.lapses >= 2 || c.srs.ease < 2.1))
+              : filter === 'ausgesetzt'
+                ? leeches
+                : cards;
     if (searching) {
       const q = query.trim().toLowerCase();
       list = list.filter(
         (c) => c.term.toLowerCase().includes(q) || c.translation.toLowerCase().includes(q),
       );
     }
-    return [...list].sort((a, b) => a.order - b.order).slice(0, 300);
-  }, [filter, active, pool, leeches, cards, query, searching]);
+    // Dieselbe Reihenfolge, in der auch freigeschaltet wird.
+    return [...list]
+      .sort((a, b) => poolRank(a, startRank) - poolRank(b, startRank))
+      .slice(0, 300);
+  }, [filter, active, pool, deferred, leeches, cards, query, searching, startRank]);
 
   async function generateMore(count: number) {
     const existing = cards.map((c) => c.term);
-    const band = Math.floor(cards.length / 100);
+    // Bei höherem Einstieg beginnt der Nachschub nicht wieder bei den
+    // allerhäufigsten Wörtern, sondern im Band des Startniveaus.
+    const band = Math.floor(Math.max(cards.length, startRank) / 100);
     const words = await run(() =>
       generateVocab(state.settings, lang, count, existing, band),
     );
@@ -166,6 +182,35 @@ export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }
         </div>
       </Card>
 
+      {/* Ohne diesen Hinweis sähe ein B1-Deck aus, als fehle der Grundwortschatz. */}
+      {deferred.length > 0 && (
+        <Card>
+          <div className="row" style={{ alignItems: 'flex-start' }}>
+            <span style={{ fontSize: 20 }}>↧</span>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 600 }}>
+                {deferred.length} Wörter zurückgestellt
+              </div>
+              <p className="small muted" style={{ margin: '4px 0 0' }}>
+                Du bist auf {lang.startLevel} eingestiegen, deshalb beginnt das Deck weiter
+                hinten im Frequenzband. Die häufigsten Wörter sind nicht weg – sie warten im
+                Pool und kommen zuletzt dran. Einzelne ziehst du unter „Zurückgestellt“ mit ↑
+                sofort vor.
+              </p>
+            </div>
+            <Button
+              size="sm"
+              onClick={() => {
+                updateLanguage(lang.id, { startLevel: 'A1' });
+                notify('Startniveau auf A1 – der Grundwortschatz kommt wieder zuerst.');
+              }}
+            >
+              Doch von vorn
+            </Button>
+          </div>
+        </Card>
+      )}
+
       <VocabExercises lang={lang} />
 
       {/* Fortschritt zum Phase-1-Ziel */}
@@ -175,14 +220,14 @@ export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }
             <span className="mono" style={{ fontSize: 26 }}>
               {active.length}
             </span>
-            <span className="muted small"> / 1000 Wörter aktiv</span>
+            <span className="muted small"> / {goal} Wörter aktiv</span>
           </div>
           <span className="spacer" />
           <span className="pill mono">
             {newToday}/{lang.dailyNewWords} heute freigeschaltet
           </span>
         </div>
-        <Bar value={active.length} max={1000} />
+        <Bar value={active.length} max={goal} />
         <div className="row" style={{ marginTop: 12 }}>
           <p className="tiny muted" style={{ flex: 1, margin: 0 }}>
             Neue Wörter werden jeden Tag automatisch aus dem Pool freigeschaltet. Läuft der Pool
@@ -205,7 +250,16 @@ export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }
 
       {/* Filter */}
       <div className="row row-wrap">
-        {(['aktiv', 'pool', 'schwer', 'ausgesetzt', 'alle'] as Filter[]).map((f) => (
+        {(
+          [
+            'aktiv',
+            'pool',
+            ...(deferred.length > 0 ? (['zurückgestellt'] as const) : []),
+            'schwer',
+            'ausgesetzt',
+            'alle',
+          ] as Filter[]
+        ).map((f) => (
           <button
             key={f}
             className={`pill ${!searching && filter === f ? 'pill-accent' : ''}`}
@@ -218,6 +272,7 @@ export function Vocab({ lang, go }: { lang: Language; go: (view: View) => void }
           >
             {f === 'aktiv' && `Aktiv ${active.length}`}
             {f === 'pool' && `Pool ${pool.length}`}
+            {f === 'zurückgestellt' && `Zurückgestellt ${deferred.length}`}
             {f === 'schwer' && 'Schwierige'}
             {f === 'ausgesetzt' && `Ausgesetzt ${leeches.length}`}
             {f === 'alle' && `Alle ${cards.length}`}
