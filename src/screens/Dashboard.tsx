@@ -2,11 +2,19 @@ import { useEffect, useMemo } from 'react';
 import { useStore } from '../store';
 import type { Language, View } from '../types-view';
 import { Bar, Button, Card, SectionTitle, Stat } from '../ui';
-import { getPhase, levelsInSprint, nextLevel, PHASE_META, WEEK_PLAN } from '../lib/phase';
+import {
+  getPhase,
+  levelsInSprint,
+  LEVEL_START_RANK,
+  nextLevel,
+  PHASE_META,
+  WEEK_PLAN,
+} from '../lib/phase';
 import { backlogLimit, dueCards, lockedCards, suspendedCards } from '../lib/sm2';
 import { todayISO } from '../lib/date';
 import { HabitList } from '../components/HabitList';
 import { ContentList } from '../components/ContentList';
+import { todayCount } from '../lib/habits';
 
 /**
  * Das Dashboard einer Sprache – in dieser Reihenfolge:
@@ -42,7 +50,8 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   );
 
   const habits = state.habits.filter((h) => h.languageId === lang.id);
-  const habitsDone = habits.filter((h) => h.done.includes(today)).length;
+  // Nur was heute ansteht – siehe `lib/habits.ts`, der Takt entscheidet.
+  const habitsToday = todayCount(habits, today);
 
   const streak = useMemo(() => {
     const dates = new Set(
@@ -66,6 +75,9 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
   }, [state.logs, lang.id, today]);
 
   const dailyTarget = lang.dailyNewWords;
+  // Bei höherem Einstieg zählt das Ziel ab dem Startband – sonst sähe die
+  // Leiste am ersten Tag schon halb voll aus.
+  const vocabGoal = LEVEL_START_RANK[lang.startLevel] + 1000;
   const newToday = cards.filter(
     (c) => c.unlockedAt !== null && todayISO(new Date(c.unlockedAt)) === today,
   ).length;
@@ -354,11 +366,11 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
               <span className="mono" style={{ fontSize: 22 }}>
                 {active.length}
               </span>
-              <span className="small muted">/ 1000 Ziel</span>
+              <span className="small muted">/ {vocabGoal} Ziel</span>
               <span className="spacer" />
               <span className="tiny muted">{pool.length} im Pool</span>
             </div>
-            <Bar value={active.length} max={1000} />
+            <Bar value={active.length} max={vocabGoal} />
             <p className="tiny muted" style={{ marginTop: 10 }}>
               Ziel Phase 1: die 600–1000 wichtigsten Wörter in 14 Tagen, {dailyTarget} neue pro
               Tag.
@@ -426,7 +438,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
       <Card>
         <SectionTitle
           title="Gewohnheiten heute"
-          hint={habits.length > 0 ? `${habitsDone}/${habits.length} erledigt` : undefined}
+          hint={habitsToday.total > 0 ? `${habitsToday.done}/${habitsToday.total} erledigt` : undefined}
         />
         <HabitList languageId={lang.id} />
       </Card>

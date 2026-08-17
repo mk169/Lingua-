@@ -112,11 +112,36 @@ export function dueCards(cards: Card[], languageId: string, today = todayISO()):
     });
 }
 
-/** Karten, die noch im Pool liegen und freigeschaltet werden können. */
-export function lockedCards(cards: Card[], languageId: string): Card[] {
+/**
+ * Abstand, mit dem zurückgestellte Karten hinter den Rest rutschen.
+ * Größer als jedes realistische Deck, damit die Bandgrenze nie überlappt.
+ */
+const BEHIND = 1_000_000;
+
+/**
+ * Sortierschlüssel im Pool: Was unter dem Startband liegt, kommt zuletzt.
+ *
+ * Wer auf B1 einsteigt, soll nicht zwei Wochen lang „ich", „du", „sein" lernen.
+ * Zurückgestellt heißt aber nicht gelöscht – die Karten bleiben im Deck, in
+ * ihrer eigenen Frequenzreihenfolge, und lassen sich jederzeit vorziehen.
+ */
+export function poolRank(card: Card, startRank: number): number {
+  return card.order >= startRank ? card.order : card.order + BEHIND;
+}
+
+/** Liegt diese Karte unter dem Startband, ist also zurückgestellt? */
+export function isDeferred(card: Card, startRank: number): boolean {
+  return card.order < startRank;
+}
+
+/**
+ * Karten, die noch im Pool liegen und freigeschaltet werden können.
+ * Ohne `startRank` gilt die reine Frequenzreihenfolge.
+ */
+export function lockedCards(cards: Card[], languageId: string, startRank = 0): Card[] {
   return cards
     .filter((c) => c.languageId === languageId && c.unlockedAt === null)
-    .sort((a, b) => a.order - b.order);
+    .sort((a, b) => poolRank(a, startRank) - poolRank(b, startRank));
 }
 
 /** Ausgesetzte Karten – im Vokabelmodul sichtbar und reaktivierbar. */

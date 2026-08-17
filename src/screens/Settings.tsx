@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useStore } from '../store';
 import type { Language } from '../types-view';
-import type { Phase, ReviewMode } from '../types';
+import type { CefrLevel, Phase, ReviewMode } from '../types';
 import { Button, Card, Field, SectionTitle, useToast } from '../ui';
 import { exportState, importState } from '../lib/storage';
 import { DEFAULT_MODEL } from '../lib/llm';
-import { getPhase, PHASE_META } from '../lib/phase';
+import { getPhase, LEVEL_LABEL, LEVEL_LADDER, PHASE_META } from '../lib/phase';
 import { ttsSupported, sttSupported, speak } from '../lib/speech';
 import { todayISO } from '../lib/date';
 
@@ -225,6 +225,25 @@ export function Settings({ lang }: { lang: Language | null }) {
                 />
               </Field>
             </div>
+
+            <Field
+              label="Startniveau"
+              hint="Bestimmt, wo das Vokabeldeck im Frequenzband einsteigt und welche Stufe der erste Sprint anpeilt. Es verschiebt nur die Reihenfolge im Pool – gelöscht wird nichts, zurückgestellte Wörter stehen unter Vokabeln."
+            >
+              <select
+                className="select"
+                value={lang.startLevel}
+                onChange={(e) =>
+                  updateLanguage(lang.id, { startLevel: e.target.value as CefrLevel })
+                }
+              >
+                {LEVEL_LADDER.map((level) => (
+                  <option key={level} value={level}>
+                    {LEVEL_LABEL[level]}
+                  </option>
+                ))}
+              </select>
+            </Field>
 
             <Field
               label="Phase"

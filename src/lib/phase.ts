@@ -32,6 +32,38 @@ export function targetForStart(startLevel: CefrLevel): CefrLevel {
   return nextLevel(startLevel) ?? startLevel;
 }
 
+/**
+ * Ab welchem Frequenzrang ein Deck bei diesem Startniveau einsteigt.
+ *
+ * Startpakete sind nach Frequenz sortiert (`Card.order`), und Frequenz ist der
+ * beste verfügbare Anhaltspunkt für Niveau – gemessen ist hier nichts. Die
+ * Grenzen sind Schätzungen am 1000-Wörter-Startpaket: Wer auf B1 einsteigt,
+ * kann die 700 häufigsten Wörter mit einiger Wahrscheinlichkeit schon.
+ *
+ * Sie entscheiden nur über die *Reihenfolge* im Pool. Keine Karte verschwindet,
+ * und keine gilt deshalb als gelernt – das wäre eine Behauptung über den
+ * Nutzer, für die es keine Grundlage gibt.
+ */
+export const LEVEL_START_RANK: Record<CefrLevel, number> = {
+  A1: 0,
+  A2: 300,
+  B1: 700,
+  B2: 1200,
+};
+
+/**
+ * Alle Stufen von `start` bis `target`, beide einschließlich.
+ *
+ * Für Wortschatzübungen: Wer auf B1 einsteigt und auf B2 zuläuft, hat die
+ * B1-Übungen nie gemacht – `levelsInSprint` allein ließe nur B2 übrig.
+ */
+export function levelsFromTo(start: CefrLevel, target: CefrLevel): CefrLevel[] {
+  const from = LEVEL_LADDER.indexOf(start);
+  const to = LEVEL_LADDER.indexOf(target);
+  if (from < 0 || to < 0 || to < from) return levelsInSprint(target);
+  return LEVEL_LADDER.slice(from, to + 1);
+}
+
 export const LEVEL_LABEL: Record<CefrLevel, string> = {
   A1: 'A1 · Anfänger',
   A2: 'A2 · Grundlagen',
