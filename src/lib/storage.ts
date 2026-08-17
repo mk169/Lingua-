@@ -45,6 +45,9 @@ function withSprintDefaults(lang: Language): Language {
     targetLevel: lang.targetLevel ?? 'A2',
     sprint: lang.sprint ?? 1,
     sprintHistory: lang.sprintHistory ?? [],
+    // Vor dem Einrichtungsassistenten gab es kein Startniveau. Wer schon
+    // lernt, hat bei null angefangen – alles andere wäre geraten.
+    startLevel: lang.startLevel ?? 'A1',
   };
 }
 

@@ -141,8 +141,8 @@ export function Review({ lang, go }: { lang: Language; go: (view: View) => void 
           action={
             <div className="row" style={{ justifyContent: 'center' }}>
               <Button onClick={() => go('dashboard')}>Zum Dashboard</Button>
-              <Button variant="primary" onClick={() => go('drills')}>
-                Drills üben
+              <Button variant="primary" onClick={() => go('exercises')}>
+                Übungen
               </Button>
             </div>
           }

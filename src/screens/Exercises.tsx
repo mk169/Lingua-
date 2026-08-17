@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useStore } from '../store';
-import type { Language } from '../types-view';
+import type { Language, View } from '../types-view';
 import type { Drill, Exercise, ExerciseKind, GrammarPattern } from '../types';
 import { Button, Card, Empty, SectionTitle, useAsyncAction } from '../ui';
 import { getPhase, levelsInSprint } from '../lib/phase';
-import { generateDrills, generatePatterns } from '../lib/llm';
-import { speak } from '../lib/speech';
+import { generateDrills } from '../lib/llm';
 import { loadExercises } from '../data/exercises';
 import { ExerciseSession } from '../components/ExerciseSession';
 import { buildRound, countStatus } from '../lib/exerciseQueue';
@@ -32,9 +31,15 @@ function drillToExercise(d: Drill, slug: string): Exercise {
   };
 }
 
-/** Skeleton-Drills: Kerngrammatik in Minimalmustern, interaktiv geübt. */
-export function Drills({ lang }: { lang: Language }) {
-  const { state, addPatterns, addDrills, updatePattern, solveDrill, markExercise } = useStore();
+/**
+ * Übungen – alles, was in einer Session abgefragt wird.
+ *
+ * Die Muster selbst stehen unter Grammatik: dort werden sie gelernt, hier
+ * angewendet. Diese Seite zeigt deshalb keine Erklärungen und keine
+ * Beispielsätze, nur Aufgabenstapel und ihren Stand.
+ */
+export function Exercises({ lang, go }: { lang: Language; go: (view: View) => void }) {
+  const { state, addDrills, solveDrill, markExercise } = useStore();
   const { busy, run } = useAsyncAction();
   const phase = getPhase(lang);
   const [openId, setOpenId] = useState<string | null>(null);
@@ -55,9 +60,8 @@ export function Drills({ lang }: { lang: Language }) {
     };
   }, [lang.name]);
 
-  // Ein Sprint zeigt nur die Muster seiner Stufe. Der erste holt A1 und A2
-  // zusammen ab, jeder weitere genau die nächste Stufe – sonst stünde das
-  // ganze Skelett bis B2 vom ersten Tag an in der Liste.
+  // Ein Sprint übt nur die Muster seiner Stufe. Der erste holt A1 und A2
+  // zusammen ab, jeder weitere genau die nächste Stufe.
   const sprintLevels = useMemo(() => new Set(levelsInSprint(lang.targetLevel)), [lang.targetLevel]);
 
   const patterns = useMemo(
@@ -65,7 +69,6 @@ export function Drills({ lang }: { lang: Language }) {
       state.patterns
         .filter((p) => p.languageId === lang.id && sprintLevels.has(p.level ?? 'A1'))
         // Reihenfolge aus dem Startpaket: Verneinung erst nach dem Aussagesatz.
-        // Ältere Stände ohne `order` fallen auf die Anlagereihenfolge zurück.
         .sort(
           (a, b) =>
             a.week - b.week || (a.order ?? 0) - (b.order ?? 0) || a.createdAt - b.createdAt,
@@ -90,15 +93,6 @@ export function Drills({ lang }: { lang: Language }) {
       .filter((d) => d.patternId === pattern.id)
       .map((d) => drillToExercise(d, pattern.slug ?? pattern.id));
     return [...fromRepo, ...own];
-  }
-
-  async function makePatterns(week: 1 | 2 | 3 | 4) {
-    const existing = patterns.map((p) => p.title);
-    const generated = await run(
-      () => generatePatterns(state.settings, lang, week, existing, 6),
-      { success: 'Neue Muster ergänzt.' },
-    );
-    if (generated) addPatterns(lang.id, generated, week);
   }
 
   const onSolved = (id: string, correct: boolean) => {
@@ -149,11 +143,11 @@ export function Drills({ lang }: { lang: Language }) {
       <Card>
         <Empty
           icon="⌗"
-          title="Noch kein Sprachskelett"
-          hint="Die Kerngrammatik als Minimalmuster: Satzstellung, Fragewörter, Verneinung, Zeitformen. Lass die passenden Muster für diese Woche erzeugen."
+          title="Noch keine Übungen"
+          hint="Übungen hängen an den Grammatikmustern deines Sprachskeletts. Lege sie zuerst unter Grammatik an."
           action={
-            <Button variant="primary" loading={busy} onClick={() => makePatterns(phase.week)}>
-              Muster für Woche {phase.week} erzeugen
+            <Button variant="primary" onClick={() => go('grammar')}>
+              Zur Grammatik
             </Button>
           }
         />
@@ -174,16 +168,11 @@ export function Drills({ lang }: { lang: Language }) {
   return (
     <div className="stack">
       <SectionTitle
-        title="Skeleton-Drills"
+        title="Übungen"
         hint={
           overall.due > 0
             ? `${overall.due} Übungen fällig · ${overall.solved}/${overall.total} gelöst`
             : `${overall.solved}/${overall.total} gelöst · nichts fällig`
-        }
-        action={
-          <Button size="sm" loading={busy} onClick={() => makePatterns(phase.week)}>
-            + Woche {phase.week}
-          </Button>
         }
       />
 
@@ -214,13 +203,11 @@ export function Drills({ lang }: { lang: Language }) {
               {week === phase.week && ' · aktuell'}
             </div>
             {list.map((p) => (
-              <PatternCard
+              <PatternExercises
                 key={p.id}
                 pattern={p}
-                lang={lang}
                 open={openId === p.id}
                 onToggle={() => setOpenId(openId === p.id ? null : p.id)}
-                onMastered={() => updatePattern(p.id, { mastered: !p.mastered })}
                 counts={KINDS.map(({ kind }) => ({
                   kind,
                   ...countStatus(exercisesFor(p, kind), state.exerciseProgress),
@@ -242,22 +229,18 @@ export function Drills({ lang }: { lang: Language }) {
   );
 }
 
-function PatternCard({
+function PatternExercises({
   pattern,
-  lang,
   open,
   onToggle,
-  onMastered,
   counts,
   onStart,
   onGenerateDrills,
   busy,
 }: {
   pattern: GrammarPattern;
-  lang: Language;
   open: boolean;
   onToggle: () => void;
-  onMastered: () => void;
   counts: { kind: ExerciseKind; total: number; solved: number; due: number; fresh: number }[];
   onStart: (kind: ExerciseKind) => void;
   onGenerateDrills: () => Promise<void>;
@@ -283,10 +266,7 @@ function PatternCard({
         }}
       >
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontWeight: 600 }}>
-            {pattern.mastered && <span style={{ color: 'var(--ok)' }}>✓ </span>}
-            {pattern.title}
-          </div>
+          <div style={{ fontWeight: 600 }}>{pattern.title}</div>
           <div className="tiny muted mono">{pattern.formula}</div>
         </div>
         {pattern.level && pattern.level !== 'A1' && (
@@ -304,28 +284,6 @@ function PatternCard({
       {open && (
         <div style={{ padding: '0 18px 18px' }} className="stack fade-in">
           <hr className="divider" />
-          <p className="small muted">{pattern.explanation}</p>
-
-          <div className="stack" style={{ gap: 8 }}>
-            {pattern.examples.map((ex, i) => (
-              <div key={i} className="row" style={{ alignItems: 'flex-start' }}>
-                <button
-                  className="btn btn-ghost btn-sm"
-                  onClick={() => speak(ex.target, lang.code)}
-                  aria-label="Vorlesen"
-                >
-                  ♪
-                </button>
-                <div>
-                  <div className="target-text">{ex.target}</div>
-                  <div className="tiny muted">{ex.native}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <hr className="divider" />
-
           {total === 0 ? (
             <div className="stack">
               <p className="tiny muted">
@@ -368,10 +326,6 @@ function PatternCard({
               </Button>
             </div>
           )}
-
-          <Button size="sm" variant={pattern.mastered ? 'ghost' : 'default'} onClick={onMastered}>
-            {pattern.mastered ? 'Als offen markieren' : 'Sitzt – als sicher markieren'}
-          </Button>
         </div>
       )}
     </Card>

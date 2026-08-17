@@ -20,6 +20,32 @@ export function levelsInSprint(targetLevel: CefrLevel): CefrLevel[] {
   return targetLevel === 'A2' ? ['A1', 'A2'] : [targetLevel];
 }
 
+/**
+ * Zielstufe des ersten Sprints, ausgehend vom selbst gewählten Startniveau.
+ *
+ * Wer bei null anfängt, läuft auf A2 zu – der erste Sprint holt A1 und A2
+ * zusammen ab. Alle anderen nehmen sich genau die nächste Stufe vor. Auf B2
+ * gibt es nichts Höheres mehr, dort bleibt das Ziel stehen.
+ */
+export function targetForStart(startLevel: CefrLevel): CefrLevel {
+  if (startLevel === 'A1') return 'A2';
+  return nextLevel(startLevel) ?? startLevel;
+}
+
+export const LEVEL_LABEL: Record<CefrLevel, string> = {
+  A1: 'A1 · Anfänger',
+  A2: 'A2 · Grundlagen',
+  B1: 'B1 · Fortgeschritten',
+  B2: 'B2 · Selbstständig',
+};
+
+export const LEVEL_HINT: Record<CefrLevel, string> = {
+  A1: 'Ich fange bei null an.',
+  A2: 'Einzelne Wörter und einfache Sätze sitzen.',
+  B1: 'Alltagsgespräche gehen, mit Lücken.',
+  B2: 'Ich komme zurecht, will aber sicherer werden.',
+};
+
 export interface PhaseInfo {
   phase: Phase;
   /** Tag im Sprint, 1-basiert. Kann > 30 sein. */
@@ -34,7 +60,8 @@ export interface PhaseInfo {
 export const PHASE_META: Record<Phase, { title: string; focus: string; range: string }> = {
   1: {
     title: 'Fundament',
-    focus: 'Die wichtigsten 600–1000 Wörter und das Grammatik-Skelett. Nur Review und Lesen.',
+    focus:
+      'Die wichtigsten 600–1000 Wörter und das Grammatik-Skelett. Nur Vokabeln, Übungen und Grammatik.',
     range: 'Tag 1–14',
   },
   2: {
@@ -90,7 +117,7 @@ export function getPhase(lang: Language, today: string = todayISO()): PhaseInfo 
   const phase = lang.phaseOverride ?? natural;
   const week = (Math.min(4, Math.ceil(Math.min(day, 28) / 7)) || 1) as 1 | 2 | 3 | 4;
 
-  const modules = ['review', 'drills'];
+  const modules = ['review', 'vocab', 'exercises', 'grammar'];
   if (phase >= 2) modules.push('reader');
   if (phase >= 3) modules.push('chat', 'writing', 'daily');
 

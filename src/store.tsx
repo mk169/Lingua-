@@ -11,6 +11,7 @@ import type {
   AppState,
   Analysis,
   AssessmentResult,
+  CefrLevel,
   ExerciseReport,
   Card,
   ChatMessage,
@@ -28,7 +29,7 @@ import type {
 import { loadState, saveState } from './lib/storage';
 import { LEECH_LIMIT, backlogLimit, dueCards, freshSrs, schedule } from './lib/sm2';
 import { todayISO } from './lib/date';
-import { nextLevel } from './lib/phase';
+import { nextLevel, targetForStart } from './lib/phase';
 import { uid } from './lib/id';
 import type { GeneratedWord, GeneratedPattern, GeneratedDrill } from './lib/llm';
 import { findSeed, type SeedLanguage } from './data/seed';
@@ -44,6 +45,12 @@ interface Store {
     code: string;
     emoji: string;
     seed?: SeedLanguage;
+    /** Selbst eingeschätztes Einstiegsniveau. Ohne Angabe: A1. */
+    startLevel?: CefrLevel;
+    /** Gewohnheiten aus dem Einrichtungsassistenten. */
+    habits?: Omit<Habit, 'id' | 'languageId' | 'createdAt' | 'done'>[];
+    /** Podcasts, Serien, Bücher – ebenfalls aus dem Assistenten. */
+    content?: Pick<ContentItem, 'type' | 'title' | 'url'>[];
   }) => Language;
   updateLanguage: (id: string, patch: Partial<Language>) => void;
   deleteLanguage: (id: string) => void;
@@ -95,6 +102,7 @@ interface Store {
   updateContent: (id: string, patch: Partial<ContentItem>) => void;
   deleteContent: (id: string) => void;
   addHabit: (habit: Omit<Habit, 'id' | 'createdAt' | 'done'>) => void;
+  updateHabit: (id: string, patch: Partial<Omit<Habit, 'id' | 'languageId'>>) => void;
   toggleHabit: (id: string, date?: string) => void;
   deleteHabit: (id: string) => void;
 
@@ -218,7 +226,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       state,
       update,
 
-      addLanguage({ name, nativeName, code, emoji, seed }) {
+      addLanguage({ name, nativeName, code, emoji, seed, startLevel = 'A1', habits, content }) {
         const lang: Language = {
           id: uid('lang'),
           name,
@@ -227,8 +235,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           emoji,
           createdAt: Date.now(),
           startDate: todayISO(),
-          // Der erste Sprint holt A1 und A2 zusammen ab.
-          targetLevel: 'A2',
+          startLevel,
+          // Ab A1 holt der erste Sprint A1 und A2 zusammen ab; wer höher
+          // einsteigt, nimmt sich direkt die nächste Stufe vor.
+          targetLevel: targetForStart(startLevel),
           sprint: 1,
           sprintHistory: [],
           slot: 'focus',
@@ -277,11 +287,29 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             : [];
           // Nur eine Fokus-Sprache gleichzeitig.
           const languages = s.languages.map((l) => ({ ...l, slot: 'maintenance' as const }));
+          const newHabits: Habit[] = (habits ?? []).map((h) => ({
+            ...h,
+            id: uid('h'),
+            languageId: lang.id,
+            done: [],
+            createdAt: Date.now(),
+          }));
+          const newContent: ContentItem[] = (content ?? []).map((c) => ({
+            ...c,
+            id: uid('c'),
+            languageId: lang.id,
+            status: 'geplant' as const,
+            progress: 0,
+            notes: '',
+            createdAt: Date.now(),
+          }));
           return {
             ...s,
             languages: [...languages, lang],
             cards: [...s.cards, ...cards],
             patterns: [...s.patterns, ...patterns],
+            habits: [...s.habits, ...newHabits],
+            content: [...newContent, ...s.content],
             activeLanguageId: lang.id,
           };
         });
@@ -642,6 +670,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         update((s) => ({
           ...s,
           habits: [...s.habits, { ...habit, id: uid('h'), createdAt: Date.now(), done: [] }],
+        }));
+      },
+
+      updateHabit(id, patch) {
+        update((s) => ({
+          ...s,
+          habits: s.habits.map((h) => (h.id === id ? { ...h, ...patch } : h)),
         }));
       },
 

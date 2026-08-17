@@ -89,12 +89,19 @@ async function run(name, engine) {
       problems.push(`ErrorBoundary hat gegriffen: ${await page.locator('.crash pre').innerText()}`);
     }
 
+    // Einrichtungsassistent: Sprache → Niveau → Inhalte → Gewohnheiten.
     await page.getByRole('button', { name: /\+/ }).first().click();
     await page.waitForTimeout(300);
     await page.getByText('🇮🇹 Italienisch').first().click();
+    await page.waitForTimeout(600);
+    await page.getByRole('button', { name: 'Weiter' }).first().click();
+    await page.waitForTimeout(300);
+    await page.getByRole('button', { name: 'Weiter' }).first().click();
+    await page.waitForTimeout(300);
+    await page.getByRole('button', { name: /anlegen$/ }).first().click();
     await page.waitForTimeout(1500);
 
-    for (const tab of ['Dashboard', 'Review', 'Drills', 'Vokabeln']) {
+    for (const tab of ['Dashboard', 'Vokabeln', 'Übungen', 'Grammatik']) {
       await page.getByRole('button', { name: new RegExp(`^${tab}`) }).first().click();
       await page.waitForTimeout(700);
       if (await page.locator('.crash').count()) {
