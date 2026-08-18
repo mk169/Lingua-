@@ -18,6 +18,7 @@ import { buildFor, buildVocab, type SatzRow, type KonRow, type VerRow, type VokR
 import { GENERATED } from './it.generated';
 import { EXERCISES_A1 } from './it.a1';
 import { EXERCISES_A2 } from './it.a2';
+import { EXERCISES_B1 } from './it.b1';
 
 const build = (slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]) =>
   buildFor('it', slug, satz, kon, ver);
@@ -1715,5 +1716,6 @@ export const EXERCISES: Exercise[] = [
   ...buildVocab('it', 'A1', vokA1),
   ...EXERCISES_A1,
   ...EXERCISES_A2,
+  ...EXERCISES_B1,
   ...GENERATED,
 ];
