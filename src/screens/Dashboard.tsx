@@ -7,7 +7,6 @@ import {
   levelsInSprint,
   LEVEL_START_RANK,
   nextLevel,
-  PHASE_META,
   WEEK_PLAN,
 } from '../lib/phase';
 import { backlogLimit, dueCards, lockedCards, suspendedCards } from '../lib/sm2';
@@ -161,7 +160,7 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
         <div className="row row-wrap" style={{ marginBottom: 14 }}>
           <div>
             <div className="eyebrow">
-              Phase {phase.phase} · {PHASE_META[phase.phase].range}
+              Phase {phase.phase} · {phase.range}
             </div>
             <h1 style={{ marginTop: 4 }}>{phase.title}</h1>
           </div>
@@ -372,8 +371,12 @@ export function Dashboard({ lang, go }: { lang: Language; go: (view: View) => vo
             </div>
             <Bar value={active.length} max={vocabGoal} />
             <p className="tiny muted" style={{ marginTop: 10 }}>
-              Ziel Phase 1: die 600–1000 wichtigsten Wörter in 14 Tagen, {dailyTarget} neue pro
-              Tag.
+              {/* Die 14 Tage gelten nur, solange die Phase auch wirklich läuft.
+                  Wer mit Vorkenntnissen einsteigt, startet höher – dann wäre
+                  "Ziel Phase 1" schlicht falsch. */}
+              {phase.phase === 1
+                ? `Ziel Phase 1: die 600–1000 wichtigsten Wörter in 14 Tagen, ${dailyTarget} neue pro Tag.`
+                : `Ziel: ${vocabGoal} aktive Wörter, ${dailyTarget} neue pro Tag.`}
             </p>
             {pool.length < dailyTarget * 2 && (
               <Button

@@ -78,6 +78,9 @@ export const LEVEL_HINT: Record<CefrLevel, string> = {
   B2: 'Ich komme zurecht, will aber sicherer werden.',
 };
 
+/** Woher die aktuelle Phase kommt – bestimmt, was in der Anzeige daneben steht. */
+export type PhaseSource = 'tag' | 'niveau' | 'manuell';
+
 export interface PhaseInfo {
   phase: Phase;
   /** Tag im Sprint, 1-basiert. Kann > 30 sein. */
@@ -87,6 +90,14 @@ export interface PhaseInfo {
   focus: string;
   /** Freigeschaltete Module in dieser Phase. */
   modules: string[];
+  source: PhaseSource;
+  /**
+   * Begründung für die Anzeige, z.B. "Tag 1–14" oder "Einstieg B1".
+   * Gehört hierher und nicht in die Screens: Sonst stünde bei einem
+   * B1-Einstieg am ersten Tag "ab Tag 31" – richtig für die Phase, falsch
+   * für die Person.
+   */
+  range: string;
 }
 
 export const PHASE_META: Record<Phase, { title: string; focus: string; range: string }> = {
@@ -143,11 +154,39 @@ export const WEEK_PLAN: Record<1 | 2 | 3 | 4, { title: string; goals: string[] }
   },
 };
 
+/**
+ * Phase, in der eine Sprache mit diesem Vorwissen frühestens einsteigt.
+ *
+ * Die Reduktion in Phase 1 – nur Wortschatz und Grammatik, kein Lesen, kein
+ * Sprechen – ist für echte Anfänger gedacht: Sie schützt vor Überforderung und
+ * hält die ersten zwei Wochen frei fürs Fundament. Wer mit A2 einsteigt, liest
+ * schon einfache Texte; wer mit B1 einsteigt, führt schon Gespräche. Für die
+ * ist dieselbe Sperre keine Hilfe, sondern eine Wand vor Material, das sie
+ * benutzen könnten.
+ */
+const PHASE_FLOOR: Record<CefrLevel, Phase> = {
+  A1: 1,
+  A2: 2,
+  B1: 3,
+  B2: 3,
+};
+
 export function getPhase(lang: Language, today: string = todayISO()): PhaseInfo {
   const day = Math.max(1, daysBetween(lang.startDate, today) + 1);
   const natural: Phase = day <= 14 ? 1 : day <= 30 ? 2 : 3;
-  const phase = lang.phaseOverride ?? natural;
+  const startLevel = lang.startLevel ?? 'A1';
+  const floor = PHASE_FLOOR[startLevel];
+  // Die Tage laufen weiter: Wer bei A2 einsteigt, erreicht Phase 3 trotzdem an
+  // Tag 31 – das Startniveau hebt nur den Boden an, es überspringt nichts.
+  const earned = Math.max(natural, floor) as Phase;
+  const phase = lang.phaseOverride ?? earned;
   const week = (Math.min(4, Math.ceil(Math.min(day, 28) / 7)) || 1) as 1 | 2 | 3 | 4;
+
+  const source: PhaseSource = lang.phaseOverride
+    ? 'manuell'
+    : floor > natural
+      ? 'niveau'
+      : 'tag';
 
   const modules = ['review', 'vocab', 'exercises', 'grammar'];
   if (phase >= 2) modules.push('reader');
@@ -160,6 +199,13 @@ export function getPhase(lang: Language, today: string = todayISO()): PhaseInfo 
     title: PHASE_META[phase].title,
     focus: PHASE_META[phase].focus,
     modules,
+    source,
+    range:
+      source === 'niveau'
+        ? `Einstieg ${startLevel}`
+        : source === 'manuell'
+          ? 'manuell gesetzt'
+          : PHASE_META[phase].range,
   };
 }
 

@@ -5,7 +5,7 @@ import type { CefrLevel, Phase, ReviewMode } from '../types';
 import { Button, Card, Field, SectionTitle, useToast } from '../ui';
 import { exportState, importState } from '../lib/storage';
 import { DEFAULT_MODEL } from '../lib/llm';
-import { getPhase, LEVEL_LABEL, LEVEL_LADDER, PHASE_META } from '../lib/phase';
+import { getPhase, LEVEL_LABEL, LEVEL_LADDER } from '../lib/phase';
 import { ttsSupported, sttSupported, speak } from '../lib/speech';
 import { todayISO } from '../lib/date';
 
@@ -247,7 +247,7 @@ export function Settings({ lang }: { lang: Language | null }) {
 
             <Field
               label="Phase"
-              hint={`Aktuell Tag ${phase.day} → Phase ${phase.phase} (${PHASE_META[phase.phase].range}). Überschreiben schaltet Module vorzeitig frei.`}
+              hint={`Aktuell Tag ${phase.day} → Phase ${phase.phase} (${phase.range}). Überschreiben schaltet Module vorzeitig frei.`}
             >
               <select
                 className="select"

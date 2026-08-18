@@ -27,6 +27,10 @@ interface TabDef {
 
 const TABS: TabDef[] = [
   { id: 'dashboard', label: 'Dashboard', phase: 1 },
+  // Review steht direkt hinter dem Dashboard: Es ist das Einzige, was jeden Tag
+  // passieren muss. Über zwei Umwege erreichbar zu sein kostet bei täglicher
+  // Nutzung mehr, als ein neunter Reiter an Platz nimmt.
+  { id: 'review', label: 'Review', phase: 1 },
   { id: 'vocab', label: 'Vokabeln', phase: 1 },
   { id: 'exercises', label: 'Übungen', phase: 1 },
   { id: 'grammar', label: 'Grammatik', phase: 1 },
@@ -105,7 +109,7 @@ function Workspace() {
                 }
               >
                 {tab.label}
-                {tab.id === 'vocab' && due > 0 && <span className="tab-badge">{due}</span>}
+                {tab.id === 'review' && due > 0 && <span className="tab-badge">{due}</span>}
                 {isLocked && <span className="tab-lock">🔒</span>}
               </button>
             );
@@ -115,8 +119,6 @@ function Workspace() {
 
       <main className="main">
         {view === 'dashboard' && <Dashboard lang={lang} go={setView} />}
-        {/* Das Review ist kein eigener Reiter mehr – es gehört zu den Vokabeln
-            und wird von dort und vom Dashboard aus gestartet. */}
         {view === 'review' && <Review lang={lang} go={setView} />}
         {view === 'exercises' && <Exercises lang={lang} go={setView} />}
         {view === 'grammar' && <Grammar lang={lang} />}
