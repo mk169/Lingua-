@@ -284,7 +284,8 @@ Node-Client, nicht den Browser-Client der App.
 **Der Diff-Review ist Teil des Verfahrens, keine Formalität.** Eine generierte Übung mit
 falscher Lösung würde jeder Nutzer mitlernen. Deshalb läuft `validate:exercises` auch in
 der CI vor dem Build: fehlende Lösungen, doppelte Aufgaben, Multiple-Choice ohne richtige
-Antwort oder ein Muster-Slug, den es im Startpaket gar nicht gibt, brechen das Deployment ab.
+Antwort, ein Muster-Slug, den es im Startpaket gar nicht gibt, oder eine Ordnungsaufgabe,
+deren Teile nicht genau die Lösung ergeben, brechen das Deployment ab.
 
 Handgeschriebenes Material gehört in `src/data/exercises/<lang>.ts`, generiertes in die
 danebenliegende `<lang>.generated.ts`, die das Skript überschreibt. Beide werden

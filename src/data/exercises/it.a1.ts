@@ -262,7 +262,7 @@ const modKon: KonRow[] = [
   ['order', 'una / vogliamo / gita / fare', 'Vogliamo fare una gita.', 'Modalverb vor dem Infinitiv.'],
   ['order', 'presto / vogliono / partire', 'Vogliono partire presto.', 'Das Adverb steht am Ende.'],
   ['order', 'più / posso / tardi / richiamare', 'Posso richiamare più tardi.', 'Zeitangabe ans Ende.'],
-  ['order', 'la / dobbiamo / a / restare / casa', 'Dobbiamo restare a casa.', '"a casa" ohne Artikel – "la" bleibt übrig.'],
+  ['order', 'dobbiamo / a / restare / casa', 'Dobbiamo restare a casa.', '"a casa" steht ohne Artikel.'],
   ['order', 'l’ / deve / esame / Anna / ripetere', 'Anna deve ripetere l’esame.', 'Subjekt, Modalverb, Infinitiv, Objekt.'],
   ['order', 'con / potete / carta / pagare / la', 'Potete pagare con la carta.', 'Die Präposition bleibt bei ihrem Nomen.'],
   ['build', 'Ich kann nicht kommen.', 'Non posso venire.', '"non" vor dem Modalverb.'],

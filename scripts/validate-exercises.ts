@@ -37,6 +37,21 @@ function norm(s: string): string {
   return s.toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
+/**
+ * Wörter einer Order-Aufgabe, vergleichbar sortiert. Satzzeichen fallen weg,
+ * das Apostroph bleibt als eigenes Zeichen stehen: "l’autobus" wird sonst je
+ * nach Zeile mal als ein, mal als zwei Teile gezählt.
+ */
+function tokens(s: string): string[] {
+  return s
+    .toLowerCase()
+    .replace(/[.,!?;:«»"]/g, ' ')
+    .replace(/’/g, '’ ')
+    .split(/\s+/)
+    .filter(Boolean)
+    .sort();
+}
+
 const problems: string[] = [];
 
 for (const { file, exercises } of CATALOGS) {
@@ -87,7 +102,19 @@ for (const { file, exercises } of CATALOGS) {
     }
 
     if (ex.type === 'cloze' && !ex.prompt.includes('___')) fail(ex, 'cloze ohne Lücke (___)');
-    if (ex.type === 'order' && !ex.prompt.includes(' / ')) fail(ex, 'order ohne " / " zwischen den Teilen');
+    if (ex.type === 'order') {
+      if (!ex.prompt.includes(' / ')) fail(ex, 'order ohne " / " zwischen den Teilen');
+      // Aus den vorgegebenen Teilen muss sich genau die Lösung legen lassen.
+      // Ein überzähliges oder fehlendes Wort macht die Aufgabe unlösbar, fällt
+      // aber beim Lesen kaum auf – im Diff sieht man nur zwei ähnliche Zeilen.
+      else {
+        const teile = tokens(ex.prompt.split(' / ').join(' '));
+        const loesung = tokens(ex.answer);
+        if (teile.join('|') !== loesung.join('|')) {
+          fail(ex, `Teile ergeben nicht die Lösung (${teile.join(' ')} ≠ ${loesung.join(' ')})`);
+        }
+      }
+    }
   }
 }
 
