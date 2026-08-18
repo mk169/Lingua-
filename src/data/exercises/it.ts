@@ -20,6 +20,7 @@ import { EXERCISES_A1 } from './it.a1';
 import { EXERCISES_A2 } from './it.a2';
 import { EXERCISES_B1 } from './it.b1';
 import { EXERCISES_B2 } from './it.b2';
+import { EXERCISES_WORTSCHATZ } from './it.wortschatz';
 
 const build = (slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]) =>
   buildFor('it', slug, satz, kon, ver);
@@ -1719,5 +1720,6 @@ export const EXERCISES: Exercise[] = [
   ...EXERCISES_A2,
   ...EXERCISES_B1,
   ...EXERCISES_B2,
+  ...EXERCISES_WORTSCHATZ,
   ...GENERATED,
 ];

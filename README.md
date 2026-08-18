@@ -291,22 +291,28 @@ danebenliegende `<lang>.generated.ts`, die das Skript überschreibt. Beide werde
 zusammengeführt und über einen dynamischen `import()` erst auf dem Drills-Screen geladen —
 der Katalog landet so in einem eigenen Chunk und nicht im Hauptbundle.
 
-Aktuell im Repo: **2400 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
-50 Verständnisübungen pro Muster. **Woche 1 für Italienisch ist vollständig** – alle sieben
-Muster der ersten Sprintwoche haben Material.
+Aktuell im Repo: **9540 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
+50 Verständnisübungen pro Muster, dazu 60 Wortschatzübungen pro Stufe.
+**Italienisch ist vollständig** – alle 56 Muster von A1 bis B2 haben Material, und der
+Wortschatz ist für A1, A2, B1 und B2 abgedeckt.
 
 | Sprache | Muster mit Übungen | Übungen | offen |
 | --- | --- | --- | --- |
-| Italienisch | 10 von 56 | 1500 | 46 Muster, darunter imperfetto, die Pronomen und ganz B1/B2 |
+| Italienisch | 56 von 56 | 8640 | — |
 | Spanisch | 2 von 55 | 300 | 53 Muster ab der Entscheidungsfrage |
 | Französisch | 2 von 56 | 300 | 54 Muster ab „est-ce que“ |
 | Polnisch | 2 von 56 | 300 | 54 Muster ab der czy-Frage |
 | Portugiesisch | 0 von 53 | 0 | das komplette Skelett |
 
-Das **Skelett steht damit für alle fünf Sprachen bis B2** — die Übungen dazu sind der
-Rückstand: 265 der 276 Muster haben noch kein Material. Die Slugs liegen bereits, es fehlt
-nur der Inhalt, von Hand oder aus einem Lauf des Generators. Der Reihe nach kommen zuerst
-die A1/A2-Muster, weil dort der erste Sprint jeder Sprache läuft.
+Das **Skelett steht für alle fünf Sprachen bis B2**; bei den übrigen vier ist der Inhalt
+noch der Rückstand: 214 der 276 Muster haben kein Material. Die Slugs liegen bereits, es
+fehlt nur der Inhalt, von Hand oder aus einem Lauf des Generators. Der Reihe nach kommen
+zuerst die A1/A2-Muster, weil dort der erste Sprint jeder Sprache läuft.
+
+Der italienische Katalog ist auf mehrere Dateien verteilt, weil 8640 Übungen in einer
+einzigen `it.ts` im Diff nicht mehr zu prüfen wären: `it.ts` trägt Woche 1 und führt
+`it.a1.ts`, `it.a2.ts`, `it.b1.ts`, `it.b2.ts` und `it.wortschatz.ts` zusammen. Nach außen
+bleibt `it.ts` der einzige Einstieg, der Chunk lädt weiterhin erst auf dem Drills-Screen.
 
 ---
 
