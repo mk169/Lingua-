@@ -17,6 +17,7 @@ import type { Exercise } from '../../types';
 import { buildFor, buildVocab, type SatzRow, type KonRow, type VerRow, type VokRow } from './build';
 import { GENERATED } from './it.generated';
 import { EXERCISES_A1 } from './it.a1';
+import { EXERCISES_A2 } from './it.a2';
 
 const build = (slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]) =>
   buildFor('it', slug, satz, kon, ver);
@@ -1713,5 +1714,6 @@ export const EXERCISES: Exercise[] = [
   ...build('it-passato-essere', pesSatz, pesKon, pesVer),
   ...buildVocab('it', 'A1', vokA1),
   ...EXERCISES_A1,
+  ...EXERCISES_A2,
   ...GENERATED,
 ];
