@@ -5,7 +5,7 @@ import type { Exercise } from '../types';
 import { Button, Card } from '../ui';
 import { loadExercises } from '../data/exercises';
 import { buildRound, countStatus } from '../lib/exerciseQueue';
-import { levelsFromTo } from '../lib/phase';
+import { levelsCovered, levelsFromTo } from '../lib/phase';
 import { ExerciseSession } from './ExerciseSession';
 
 /**
@@ -23,22 +23,28 @@ export function VocabExercises({ lang }: { lang: Language }) {
   const [catalog, setCatalog] = useState<Exercise[]>([]);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    let alive = true;
-    loadExercises(lang.name).then((list) => {
-      if (alive) setCatalog(list);
-    });
-    return () => {
-      alive = false;
-    };
-  }, [lang.name]);
-
   // Vom Einstiegsniveau bis zum Sprintziel: Wer auf B1 startet, hat die
   // B1-Wortschatzübungen nie gemacht – nur B2 zu zeigen wäre eine Lücke.
   const levels = useMemo(
     () => new Set(levelsFromTo(lang.startLevel, lang.targetLevel)),
     [lang.startLevel, lang.targetLevel],
   );
+  // Geladen wird etwas großzügiger als gezeigt: `levelsCovered` nimmt beim
+  // A2-Einstieg auch A1 dazu, sonst fehlte dem ersten Sprint sein Material.
+  const stufen = useMemo(
+    () => levelsCovered(lang.startLevel, lang.targetLevel),
+    [lang.startLevel, lang.targetLevel],
+  );
+
+  useEffect(() => {
+    let alive = true;
+    loadExercises(lang.name, stufen).then((list) => {
+      if (alive) setCatalog(list);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [lang.name, stufen]);
 
   const exercises = useMemo(
     () => catalog.filter((e) => e.kind === 'wortschatz' && e.level && levels.has(e.level)),

@@ -3,7 +3,7 @@ import { useStore } from '../store';
 import type { Language, View } from '../types-view';
 import type { AssessmentArea } from '../types';
 import { Bar, Button, Card, Empty, SectionTitle, useToast } from '../ui';
-import { getPhase } from '../lib/phase';
+import { getPhase, levelsCovered } from '../lib/phase';
 import { todayISO } from '../lib/date';
 import { similarity, speak } from '../lib/speech';
 import { loadExercises } from '../data/exercises';
@@ -56,13 +56,19 @@ export function Assessment({ lang, go }: { lang: Language; go: (view: View) => v
   const [thinking, setThinking] = useState(false);
   const [added, setAdded] = useState<Set<string>>(new Set());
 
+  // Nur die Stufen des Lerners: Ein A1-Test darf sich nicht aus B2-Übungen
+  // bedienen, bloß weil der Katalog sie hergibt.
+  const stufen = useMemo(
+    () => levelsCovered(lang.startLevel, lang.targetLevel),
+    [lang.startLevel, lang.targetLevel],
+  );
   useEffect(() => {
     let alive = true;
-    loadExercises(lang.name).then((list) => alive && setCatalog(list));
+    loadExercises(lang.name, stufen).then((list) => alive && setCatalog(list));
     return () => {
       alive = false;
     };
-  }, [lang.name]);
+  }, [lang.name, stufen]);
 
   const cards = useMemo(
     () => state.cards.filter((c) => c.languageId === lang.id),

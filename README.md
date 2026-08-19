@@ -310,10 +310,16 @@ noch der Rückstand: 214 der 276 Muster haben kein Material. Die Slugs liegen be
 fehlt nur der Inhalt, von Hand oder aus einem Lauf des Generators. Der Reihe nach kommen
 zuerst die A1/A2-Muster, weil dort der erste Sprint jeder Sprache läuft.
 
-Der italienische Katalog ist auf mehrere Dateien verteilt, weil 8640 Übungen in einer
-einzigen `it.ts` im Diff nicht mehr zu prüfen wären: `it.ts` trägt Woche 1 und führt
-`it.a1.ts`, `it.a2.ts`, `it.b1.ts`, `it.b2.ts` und `it.wortschatz.ts` zusammen. Nach außen
-bleibt `it.ts` der einzige Einstieg, der Chunk lädt weiterhin erst auf dem Drills-Screen.
+Der italienische Katalog liegt in **einem Modul pro Stufe** — `it.ts` (erste Sprintwoche
+und Wortschatz A1), `it.a1.ts` (zweite Woche), `it.a2.ts`, `it.b1.ts`, `it.b2.ts`. Das hat
+zwei Gründe: 8640 Übungen in einer einzigen Datei wären im Diff nicht mehr zu prüfen, und
+`loadExercises(sprache, stufen)` lädt so nur die Module, die der Sprint wirklich braucht.
+Ein Anfänger holt sich A1 und A2 (~120 kB gzip) statt des ganzen Katalogs bis B2 (~240 kB);
+ein B1-Sprint lädt B1 allein. Welche Stufen das sind, sagt `levelsCovered` in `phase.ts` —
+Spanne vom Einstieg bis zum Ziel, plus die Stufen, die der laufende Sprint mit abdeckt.
+
+Der Validator prüft die Module trotzdem als **einen** Katalog: Doppelte IDs und doppelte
+Aufgaben sollen auch dann auffallen, wenn sie über zwei Dateien verteilt sind.
 
 ---
 

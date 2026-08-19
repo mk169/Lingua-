@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getPhase, LEVEL_LADDER, levelsInSprint, nextLevel } from './phase';
+import { getPhase, LEVEL_LADDER, levelsCovered, levelsInSprint, nextLevel } from './phase';
 import type { CefrLevel, Language } from '../types';
 
 describe('Sprint-Leiter', () => {
@@ -25,6 +25,25 @@ describe('Sprint-Leiter', () => {
   it('deckt mit den Sprints jede Stufe der Leiter genau einmal ab', () => {
     const covered = ['A2', 'B1', 'B2'].flatMap((l) => levelsInSprint(l as never));
     expect([...covered].sort()).toEqual([...LEVEL_LADDER].sort());
+  });
+});
+
+describe('Stufen mit Material', () => {
+  it('nimmt beim A2-Einstieg auch A1 dazu, weil der erste Sprint es abdeckt', () => {
+    expect(levelsCovered('A2', 'A2')).toEqual(['A1', 'A2']);
+  });
+
+  it('behält beim Einstieg mitten in der Leiter die übersprungene Stufe nicht', () => {
+    expect(levelsCovered('B1', 'B2')).toEqual(['B1', 'B2']);
+  });
+
+  it('deckt vom Nullpunkt aus die ganze Spanne ab', () => {
+    expect(levelsCovered('A1', 'B2')).toEqual(['A1', 'A2', 'B1', 'B2']);
+  });
+
+  it('bleibt in der Reihenfolge der Leiter, egal wie die Quellen sortiert sind', () => {
+    expect(levelsCovered('A1', 'A2')).toEqual(['A1', 'A2']);
+    expect(levelsCovered('B2', 'B2')).toEqual(['B2']);
   });
 });
 

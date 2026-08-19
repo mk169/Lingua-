@@ -7,7 +7,11 @@
  *   npm run validate:exercises
  */
 
-import { EXERCISES as IT } from '../src/data/exercises/it';
+import { EXERCISES as IT_A1_SETTIMANA1 } from '../src/data/exercises/it';
+import { EXERCISES_A1 as IT_A1 } from '../src/data/exercises/it.a1';
+import { EXERCISES_A2 as IT_A2 } from '../src/data/exercises/it.a2';
+import { EXERCISES_B1 as IT_B1 } from '../src/data/exercises/it.b1';
+import { EXERCISES_B2 as IT_B2 } from '../src/data/exercises/it.b2';
 import { EXERCISES as ES } from '../src/data/exercises/es';
 import { EXERCISES as FR } from '../src/data/exercises/fr';
 import { EXERCISES as PL } from '../src/data/exercises/pl';
@@ -16,8 +20,13 @@ import { SEED_LANGUAGES } from '../src/data/seed';
 import type { Exercise } from '../src/types';
 
 // Vollständig halten: Ein hier fehlender Katalog geht ungeprüft live.
+// Italienisch liegt in einem Modul pro Stufe, wird hier aber als ein Katalog
+// geprüft: Doppelte IDs und doppelte Aufgaben sollen auch dann auffallen,
+// wenn sie über zwei Dateien verteilt sind.
+const IT: Exercise[] = [...IT_A1_SETTIMANA1, ...IT_A1, ...IT_A2, ...IT_B1, ...IT_B2];
+
 const CATALOGS: { file: string; exercises: Exercise[] }[] = [
-  { file: 'src/data/exercises/it.ts', exercises: IT },
+  { file: 'src/data/exercises/it*.ts', exercises: IT },
   { file: 'src/data/exercises/es.ts', exercises: ES },
   { file: 'src/data/exercises/fr.ts', exercises: FR },
   { file: 'src/data/exercises/pl.ts', exercises: PL },

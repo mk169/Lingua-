@@ -3,7 +3,7 @@ import { useStore } from '../store';
 import type { Language, View } from '../types-view';
 import type { Drill, Exercise, ExerciseKind, GrammarPattern } from '../types';
 import { Button, Card, Empty, SectionTitle, useAsyncAction } from '../ui';
-import { getPhase, levelsInSprint } from '../lib/phase';
+import { getPhase, levelsCovered, levelsInSprint } from '../lib/phase';
 import { generateDrills } from '../lib/llm';
 import { loadExercises } from '../data/exercises';
 import { ExerciseSession } from '../components/ExerciseSession';
@@ -49,16 +49,21 @@ export function Exercises({ lang, go }: { lang: Language; go: (view: View) => vo
   );
   useTimeOnTask(lang.id);
 
-  // Der Katalog kommt erst hier dazu, nicht im Hauptbundle.
+  // Der Katalog kommt erst hier dazu, nicht im Hauptbundle – und nur die
+  // Stufen, für die dieser Sprint überhaupt Muster zeigt.
+  const stufen = useMemo(
+    () => levelsCovered(lang.startLevel, lang.targetLevel),
+    [lang.startLevel, lang.targetLevel],
+  );
   useEffect(() => {
     let alive = true;
-    loadExercises(lang.name).then((list) => {
+    loadExercises(lang.name, stufen).then((list) => {
       if (alive) setCatalog(list);
     });
     return () => {
       alive = false;
     };
-  }, [lang.name]);
+  }, [lang.name, stufen]);
 
   // Ein Sprint übt nur die Muster seiner Stufe. Der erste holt A1 und A2
   // zusammen ab, jeder weitere genau die nächste Stufe.

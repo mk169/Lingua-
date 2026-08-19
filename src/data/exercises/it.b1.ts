@@ -11,7 +11,7 @@
  */
 
 import type { Exercise } from '../../types';
-import { buildFor, type SatzRow, type KonRow, type VerRow } from './build';
+import { buildFor, buildVocab, type SatzRow, type KonRow, type VerRow, type VokRow } from './build';
 
 const build = (slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]) =>
   buildFor('it', slug, satz, kon, ver);
@@ -2431,6 +2431,71 @@ const aspVer: VerRow[] = [
   ['Ha continuato ad aspettare per due ore.', 'Wie lange wurde gewartet?', 'Zwei Stunden.', 'Zehn Minuten.', 'Den ganzen Tag.'],
 ];
 
+// ── Wortschatz B1 ─────────────────────────────────────────────────────────
+
+const vokB1: VokRow[] = [
+  ['bedeutung', 'la scadenza', 'die Frist', 'die Treppe', 'der Ablauf eines Films'],
+  ['bedeutung', 'il preventivo', 'der Kostenvoranschlag', 'die Vorbeugung', 'die Vorbereitung'],
+  ['bedeutung', 'l’assunzione', 'die Einstellung eines Mitarbeiters', 'die Annahme einer Sendung', 'die Vermutung'],
+  ['bedeutung', 'il fatturato', 'der Umsatz', 'die Rechnung', 'der Gewinn'],
+  ['bedeutung', 'la bozza', 'der Entwurf', 'die Schachtel', 'die Skizze eines Malers'],
+  ['bedeutung', 'l’imprevisto', 'der unvorhergesehene Zwischenfall', 'die Vorhersage', 'die Voraussetzung'],
+  ['bedeutung', 'la sede', 'der Firmensitz', 'der Sitzplatz', 'die Sitzung'],
+  ['bedeutung', 'il trasferimento', 'die Versetzung', 'die Überweisung von Geld', 'die Übertragung im Radio'],
+  ['bedeutung', 'la delusione', 'die Enttäuschung', 'die Täuschung durch andere', 'die Verzögerung'],
+  ['bedeutung', 'l’impegno', 'die Verpflichtung', 'der Einsatz beim Spiel', 'die Verlobung'],
+  ['bedeutung', 'la sfida', 'die Herausforderung', 'die Feier', 'das Vertrauen'],
+  ['bedeutung', 'il sondaggio', 'die Umfrage', 'der Klang', 'die Bohrung'],
+  ['bedeutung', 'il rimborso', 'die Erstattung', 'der Rabatt', 'der Zuschlag'],
+  ['bedeutung', 'la testimonianza', 'die Aussage vor Gericht', 'das Testament', 'der Beweis'],
+  ['bedeutung', 'la carenza', 'der Mangel', 'die Fürsorge', 'die Vorsicht'],
+  ['bedeutung', 'lo svantaggio', 'der Nachteil', 'der Vorteil', 'die Ungerechtigkeit'],
+  ['bedeutung', 'il tirocinio', 'das Praktikum', 'die Ausbildung insgesamt', 'die Probezeit im Vertrag'],
+  ['bedeutung', 'la convivenza', 'das Zusammenleben', 'die Einladung', 'die Übereinkunft'],
+  ['bedeutung', 'l’aggiornamento', 'die Aktualisierung', 'die Verabredung', 'die Ergänzung eines Textes'],
+  ['bedeutung', 'la fiducia', 'das Vertrauen', 'die Zuversicht auf Erfolg', 'die Treue'],
+  ['luecke', 'scadenza', 'La ___ per l’iscrizione è il 30 giugno.', 'Die Anmeldefrist ist der 30. Juni.'],
+  ['luecke', 'preventivo', 'Ci hanno mandato il ___ per i lavori.', 'Sie haben uns den Kostenvoranschlag für die Arbeiten geschickt.'],
+  ['luecke', 'assunzione', 'L’___ è prevista per settembre.', 'Die Einstellung ist für September vorgesehen.'],
+  ['luecke', 'fatturato', 'Il ___ è cresciuto del dieci per cento.', 'Der Umsatz ist um zehn Prozent gewachsen.'],
+  ['luecke', 'bozza', 'Ti mando una ___ del contratto.', 'Ich schicke dir einen Vertragsentwurf.'],
+  ['luecke', 'imprevisto', 'Ho avuto un ___ e sono arrivato tardi.', 'Mir ist etwas dazwischengekommen, deshalb bin ich spät.'],
+  ['luecke', 'sede', 'La ___ centrale è a Milano.', 'Der Hauptsitz ist in Mailand.'],
+  ['luecke', 'trasferimento', 'Ha chiesto il ___ a un’altra filiale.', 'Er hat die Versetzung in eine andere Filiale beantragt.'],
+  ['luecke', 'delusione', 'Che ___ , speravo in un risultato migliore.', 'Was für eine Enttäuschung, ich hatte auf ein besseres Ergebnis gehofft.'],
+  ['luecke', 'impegno', 'Ho un ___ e non posso venire.', 'Ich habe einen Termin und kann nicht kommen.'],
+  ['luecke', 'sfida', 'Questo progetto è una vera ___ .', 'Dieses Projekt ist eine echte Herausforderung.'],
+  ['luecke', 'sondaggio', 'Secondo un ___ , la maggioranza è contraria.', 'Laut einer Umfrage ist die Mehrheit dagegen.'],
+  ['luecke', 'rimborso', 'Ho chiesto il ___ del biglietto.', 'Ich habe die Erstattung des Tickets beantragt.'],
+  ['luecke', 'carenza', 'C’è una ___ di personale qualificato.', 'Es fehlt an qualifiziertem Personal.'],
+  ['luecke', 'svantaggio', 'L’unico ___ è la distanza.', 'Der einzige Nachteil ist die Entfernung.'],
+  ['luecke', 'tirocinio', 'Faccio un ___ di sei mesi in azienda.', 'Ich mache ein sechsmonatiges Praktikum in der Firma.'],
+  ['luecke', 'aggiornamento', 'È uscito un ___ del programma.', 'Es ist ein Update des Programms erschienen.'],
+  ['luecke', 'fiducia', 'Ho ___ in te.', 'Ich vertraue dir.'],
+  ['luecke', 'convivenza', 'La ___ con i coinquilini funziona bene.', 'Das Zusammenleben mit den Mitbewohnern klappt gut.'],
+  ['luecke', 'testimonianza', 'La sua ___ è stata decisiva.', 'Seine Aussage war entscheidend.'],
+  ['produktion', 'scadenza', 'Die Frist läuft morgen ab.', 'La scadenza è domani.'],
+  ['produktion', 'preventivo', 'Können Sie mir einen Kostenvoranschlag machen?', 'Mi può fare un preventivo?'],
+  ['produktion', 'fatturato', 'Der Umsatz ist gesunken.', 'Il fatturato è calato.'],
+  ['produktion', 'bozza', 'Das ist nur ein Entwurf.', 'È solo una bozza.'],
+  ['produktion', 'imprevisto', 'Es ist etwas dazwischengekommen.', 'È successo un imprevisto.'],
+  ['produktion', 'sede', 'Der Sitz der Firma ist in Rom.', 'La sede dell’azienda è a Roma.'],
+  ['produktion', 'delusione', 'Das Ergebnis war eine Enttäuschung.', 'Il risultato è stato una delusione.'],
+  ['produktion', 'impegno', 'Danke für deinen Einsatz.', 'Grazie per il tuo impegno.'],
+  ['produktion', 'sfida', 'Ich nehme die Herausforderung an.', 'Accetto la sfida.'],
+  ['produktion', 'rimborso', 'Ich möchte eine Erstattung.', 'Vorrei un rimborso.'],
+  ['produktion', 'svantaggio', 'Das hat auch Nachteile.', 'Questo ha anche degli svantaggi.'],
+  ['produktion', 'tirocinio', 'Ich suche ein Praktikum.', 'Cerco un tirocinio.'],
+  ['produktion', 'fiducia', 'Ich habe das Vertrauen verloren.', 'Ho perso la fiducia.'],
+  ['produktion', 'aggiornamento', 'Das Programm braucht ein Update.', 'Il programma ha bisogno di un aggiornamento.'],
+  ['produktion', 'sondaggio', 'Die Umfrage zeigt etwas anderes.', 'Il sondaggio dice un’altra cosa.'],
+  ['produktion', 'carenza', 'Es fehlt an Personal.', 'C’è una carenza di personale.'],
+  ['kollokation', 'scadenza', 'Was passt: ___ la scadenza (die Frist einhalten)?', 'rispettare', 'tenere', 'seguire'],
+  ['kollokation', 'fiducia', 'Was passt: ___ fiducia in qualcuno (jemandem vertrauen)?', 'avere', 'fare', 'dare'],
+  ['kollokation', 'sfida', 'Was passt: ___ una sfida (eine Herausforderung annehmen)?', 'accettare', 'prendere', 'ricevere'],
+  ['kollokation', 'impegno', 'Was passt: ___ con impegno (mit Einsatz arbeiten)?', 'lavorare', 'stare', 'andare'],
+];
+
 export const EXERCISES_B1: Exercise[] = [
   ...build('it-condizionale', cndSatz, cndKon, cndVer),
   ...build('it-congiuntivo-presente', cngSatz, cngKon, cngVer),
@@ -2447,4 +2512,5 @@ export const EXERCISES_B1: Exercise[] = [
   ...build('it-relative-cui', cuiSatz, cuiKon, cuiVer),
   ...build('it-connettivi-b1', conbSatz, conbKon, conbVer),
   ...build('it-aspetto', aspSatz, aspKon, aspVer),
+  ...buildVocab('it', 'B1', vokB1),
 ];

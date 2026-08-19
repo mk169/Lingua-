@@ -10,7 +10,7 @@
  */
 
 import type { Exercise } from '../../types';
-import { buildFor, type SatzRow, type KonRow, type VerRow } from './build';
+import { buildFor, buildVocab, type SatzRow, type KonRow, type VerRow, type VokRow } from './build';
 
 const build = (slug: string, satz: SatzRow[], kon: KonRow[], ver: VerRow[]) =>
   buildFor('it', slug, satz, kon, ver);
@@ -2108,6 +2108,71 @@ const nomVer: VerRow[] = [
   ['Apertura dell’inchiesta sui fondi mancanti.', 'Worum geht die Untersuchung?', 'Um fehlende Gelder.', 'Um einen Unfall.', 'Um eine Wahl.'],
 ];
 
+// ── Wortschatz B2 ─────────────────────────────────────────────────────────
+
+const vokB2: VokRow[] = [
+  ['bedeutung', 'il provvedimento', 'die Maßnahme', 'die Vorsorge', 'die Verfügbarkeit'],
+  ['bedeutung', 'la normativa', 'die Regelung', 'die Norm im Sinne von Durchschnitt', 'die Formalität'],
+  ['bedeutung', 'l’inchiesta', 'die Untersuchung', 'die Anfrage', 'die Umfrage im Marketing'],
+  ['bedeutung', 'il divario', 'die Kluft', 'die Verschiedenheit der Meinungen', 'die Abweichung im Text'],
+  ['bedeutung', 'la ripresa', 'der Aufschwung', 'die Wiederholung', 'die Rückkehr'],
+  ['bedeutung', 'l’ambito', 'der Bereich', 'der Ehrgeiz', 'die Umgebung'],
+  ['bedeutung', 'il fabbisogno', 'der Bedarf', 'die Fabrik', 'die Nachfrage am Markt'],
+  ['bedeutung', 'la scelta di campo', 'die klare Positionierung', 'die Wahl des Spielfelds', 'der Wechsel des Berufs'],
+  ['bedeutung', 'l’esito', 'das Ergebnis', 'der Ausgang eines Gebäudes', 'die Absicht'],
+  ['bedeutung', 'la tutela', 'der Schutz', 'die Vormundschaft im Familienrecht', 'die Aufsicht bei Prüfungen'],
+  ['bedeutung', 'il vincolo', 'die Auflage', 'die Verbindung zwischen Menschen', 'der Sieg'],
+  ['bedeutung', 'la lacuna', 'die Lücke im Wissen', 'der See', 'die Klage'],
+  ['bedeutung', 'l’incremento', 'die Zunahme', 'die Beschleunigung', 'die Steigerung der Preise allein'],
+  ['bedeutung', 'la deroga', 'die Ausnahmeregelung', 'die Ableitung', 'die Abschaffung'],
+  ['bedeutung', 'il riscontro', 'die Rückmeldung', 'der Zusammenstoß', 'der Vergleich zweier Texte'],
+  ['bedeutung', 'l’adempimento', 'die Erfüllung einer Pflicht', 'die Ergänzung', 'die Anpassung'],
+  ['bedeutung', 'la stesura', 'die Abfassung eines Textes', 'die Ausdehnung', 'die Streuung'],
+  ['bedeutung', 'il presupposto', 'die Voraussetzung', 'die Vermutung', 'der Vorschlag'],
+  ['bedeutung', 'l’assetto', 'die Struktur', 'die Anlage von Geld', 'die Zusicherung'],
+  ['bedeutung', 'la controparte', 'die Gegenseite', 'die Gegenleistung', 'der Gegenvorschlag'],
+  ['luecke', 'provvedimento', 'Il governo ha adottato un nuovo ___ .', 'Die Regierung hat eine neue Maßnahme beschlossen.'],
+  ['luecke', 'normativa', 'La ___ europea è cambiata.', 'Die europäische Regelung hat sich geändert.'],
+  ['luecke', 'inchiesta', 'È stata aperta un’___ sui fondi.', 'Es wurde eine Untersuchung zu den Geldern eröffnet.'],
+  ['luecke', 'divario', 'Il ___ tra Nord e Sud resta forte.', 'Die Kluft zwischen Nord und Süd bleibt groß.'],
+  ['luecke', 'ripresa', 'Si attende una ___ dell’economia.', 'Man erwartet einen Aufschwung der Wirtschaft.'],
+  ['luecke', 'ambito', 'Lavora in ___ sanitario.', 'Er arbeitet im Gesundheitsbereich.'],
+  ['luecke', 'fabbisogno', 'Il ___ energetico è aumentato.', 'Der Energiebedarf ist gestiegen.'],
+  ['luecke', 'esito', 'L’___ della trattativa è positivo.', 'Das Ergebnis der Verhandlung ist positiv.'],
+  ['luecke', 'tutela', 'Si tratta della ___ dei consumatori.', 'Es geht um den Verbraucherschutz.'],
+  ['luecke', 'vincolo', 'Il contratto prevede un ___ di tre anni.', 'Der Vertrag sieht eine Bindung von drei Jahren vor.'],
+  ['luecke', 'lacuna', 'Il testo presenta qualche ___ .', 'Der Text weist einige Lücken auf.'],
+  ['luecke', 'incremento', 'Si registra un ___ delle iscrizioni.', 'Man verzeichnet eine Zunahme der Anmeldungen.'],
+  ['luecke', 'deroga', 'È stata concessa una ___ al regolamento.', 'Es wurde eine Ausnahme von der Regelung gewährt.'],
+  ['luecke', 'riscontro', 'Attendiamo un ___ entro venerdì.', 'Wir erwarten eine Rückmeldung bis Freitag.'],
+  ['luecke', 'stesura', 'La ___ del rapporto richiede tempo.', 'Die Abfassung des Berichts braucht Zeit.'],
+  ['luecke', 'presupposto', 'Il ___ è che tutti collaborino.', 'Die Voraussetzung ist, dass alle mitarbeiten.'],
+  ['luecke', 'assetto', 'È cambiato l’___ societario.', 'Die Gesellschaftsstruktur hat sich geändert.'],
+  ['luecke', 'controparte', 'La ___ non ha ancora risposto.', 'Die Gegenseite hat noch nicht geantwortet.'],
+  ['luecke', 'adempimento', 'Manca l’___ di due obblighi.', 'Zwei Pflichten sind noch nicht erfüllt.'],
+  ['luecke', 'iter', 'L’___ burocratico è molto lungo.', 'Der Behördenweg ist sehr lang.'],
+  ['produktion', 'provvedimento', 'Die Maßnahme tritt im Januar in Kraft.', 'Il provvedimento entra in vigore a gennaio.'],
+  ['produktion', 'normativa', 'Die Regelung gilt für alle Betriebe.', 'La normativa vale per tutte le aziende.'],
+  ['produktion', 'inchiesta', 'Die Untersuchung dauert noch an.', 'L’inchiesta è ancora in corso.'],
+  ['produktion', 'divario', 'Die Kluft wächst weiter.', 'Il divario continua a crescere.'],
+  ['produktion', 'ripresa', 'Der Aufschwung lässt auf sich warten.', 'La ripresa si fa attendere.'],
+  ['produktion', 'esito', 'Das Ergebnis war negativ.', 'L’esito è stato negativo.'],
+  ['produktion', 'tutela', 'Es geht um den Schutz der Daten.', 'Si tratta della tutela dei dati.'],
+  ['produktion', 'vincolo', 'Es gibt keine Auflagen.', 'Non ci sono vincoli.'],
+  ['produktion', 'lacuna', 'Der Bericht hat Lücken.', 'Il rapporto presenta delle lacune.'],
+  ['produktion', 'incremento', 'Wir verzeichnen eine Zunahme.', 'Registriamo un incremento.'],
+  ['produktion', 'deroga', 'Eine Ausnahme ist nicht vorgesehen.', 'Non è prevista alcuna deroga.'],
+  ['produktion', 'riscontro', 'Ich warte auf eine Rückmeldung.', 'Attendo un riscontro.'],
+  ['produktion', 'presupposto', 'Die Voraussetzung ist erfüllt.', 'Il presupposto è soddisfatto.'],
+  ['produktion', 'controparte', 'Die Gegenseite hat abgelehnt.', 'La controparte ha rifiutato.'],
+  ['produktion', 'ambito', 'In diesem Bereich fehlt Personal.', 'In questo ambito manca il personale.'],
+  ['produktion', 'stesura', 'Die Abfassung ist fast fertig.', 'La stesura è quasi conclusa.'],
+  ['kollokation', 'provvedimento', 'Was passt: ___ un provvedimento (eine Maßnahme ergreifen)?', 'adottare', 'fare', 'mettere'],
+  ['kollokation', 'esito', 'Was passt: in attesa dell’___ (in Erwartung des Ergebnisses)?', 'esito', 'risultante', 'uscita'],
+  ['kollokation', 'vigore', 'Was passt: entrare in ___ (in Kraft treten)?', 'vigore', 'forza', 'valore'],
+  ['kollokation', 'riscontro', 'Was passt: ___ riscontro (Rückmeldung geben)?', 'dare', 'fare', 'mettere'],
+];
+
 export const EXERCISES_B2: Exercise[] = [
   ...build('it-congiuntivo-imperfetto', cgiSatz, cgiKon, cgiVer),
   ...build('it-ipotetico-irreale', iirSatz, iirKon, iirVer),
@@ -2122,4 +2187,5 @@ export const EXERCISES_B2: Exercise[] = [
   ...build('it-marcatori-discorso', marcSatz, marcKon, marcVer),
   ...build('it-registro', regSatz, regKon, regVer),
   ...build('it-nominalizzazione', nomSatz, nomKon, nomVer),
+  ...buildVocab('it', 'B2', vokB2),
 ];

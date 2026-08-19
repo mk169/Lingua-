@@ -64,6 +64,22 @@ export function levelsFromTo(start: CefrLevel, target: CefrLevel): CefrLevel[] {
   return LEVEL_LADDER.slice(from, to + 1);
 }
 
+/**
+ * Alle Stufen, für die eine Sprache Material braucht.
+ *
+ * Vereinigung aus `levelsFromTo` und `levelsInSprint`, und beides ist nötig:
+ * Wer auf A2 einsteigt, sieht im ersten Sprint auch die A1-Muster – die
+ * Spanne allein ließe A1 weg. Wer auf B1 einsteigt und auf B2 zuläuft, hat die
+ * B1-Übungen nie gemacht – der Sprint allein ließe B1 weg.
+ *
+ * Der Übungskatalog lädt danach seine Module: Was hier nicht steht, wird gar
+ * nicht erst heruntergeladen.
+ */
+export function levelsCovered(start: CefrLevel, target: CefrLevel): CefrLevel[] {
+  const gebraucht = new Set([...levelsFromTo(start, target), ...levelsInSprint(target)]);
+  return LEVEL_LADDER.filter((level) => gebraucht.has(level));
+}
+
 export const LEVEL_LABEL: Record<CefrLevel, string> = {
   A1: 'A1 · Anfänger',
   A2: 'A2 · Grundlagen',
