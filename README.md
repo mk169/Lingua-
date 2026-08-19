@@ -174,9 +174,13 @@ API-Schlüssel ein.
 
 Für **Spanisch, Italienisch, Französisch, Polnisch und Portugiesisch** ist ein Startpaket hinterlegt – Review und
 Drills funktionieren damit sofort **ohne** Schlüssel. **Italienisch** enthält den
-vollständigen Kernwortschatz: **1000 Vokabeln nach Frequenz sortiert**
-(`src/data/italian1000.ts`), jede mit Übersetzung, Wortart und Alltagsbeispiel. Das deckt
-das Phase-1-Ziel von 600–1000 Wörtern komplett ab, ohne dass etwas generiert werden muss.
+vollständigen Kernwortschatz: **2200 Vokabeln nach Frequenz sortiert**
+(`src/data/italianCore.ts`), jede mit Übersetzung, Wortart und Alltagsbeispiel. Das deckt
+das Phase-1-Ziel von 600–1000 Wörtern komplett ab und trägt darüber hinaus bis B2: Die
+Bänder ab Rang 1000 bringen Arbeit und Verwaltung, Gesellschaft und Recht, Technik und
+Umwelt, Charakter und Denken sowie Kultur, Sprache und Redewendungen. Erst damit hat auch
+ein B2-Einstieg (`LEVEL_START_RANK` beginnt dort bei Rang 1200) Material in seinem
+Frequenzband.
 Spanisch (265), Französisch (268), Polnisch (270) und Portugiesisch (277) haben einen
 A1/A2-Kern nach Themenfeldern – Verben, Essen, Reisen, Wohnen, Menschen, Gesundheit,
 Arbeit, Zeit, Zahlen, Adjektive und Verknüpfungswörter. Das trägt die ersten Sprintwochen;

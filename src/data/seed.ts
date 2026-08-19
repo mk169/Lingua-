@@ -6,12 +6,12 @@
  */
 
 import type { CefrLevel } from '../types';
-import { ITALIAN_1000, expandPos } from './italian1000';
+import { ITALIAN_CORE, expandPos } from './italianCore';
 
 export type SeedWord = [string, string, string, string, string];
 
-/** Die 1000 Kernvokabeln mit ausgeschriebenen Wortarten. */
-const ITALIAN_WORDS: SeedWord[] = ITALIAN_1000.map(
+/** Die Kernvokabeln mit ausgeschriebenen Wortarten. */
+const ITALIAN_WORDS: SeedWord[] = ITALIAN_CORE.map(
   ([term, translation, pos, example, exampleTranslation]) =>
     [term, translation, expandPos(pos), example, exampleTranslation] as SeedWord,
 );
