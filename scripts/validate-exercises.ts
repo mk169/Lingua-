@@ -12,7 +12,8 @@ import { EXERCISES_A1 as IT_A1 } from '../src/data/exercises/it.a1';
 import { EXERCISES_A2 as IT_A2 } from '../src/data/exercises/it.a2';
 import { EXERCISES_B1 as IT_B1 } from '../src/data/exercises/it.b1';
 import { EXERCISES_B2 as IT_B2 } from '../src/data/exercises/it.b2';
-import { EXERCISES as ES } from '../src/data/exercises/es';
+import { EXERCISES as ES_SEMANA1 } from '../src/data/exercises/es';
+import { EXERCISES_A1 as ES_A1 } from '../src/data/exercises/es.a1';
 import { EXERCISES as FR } from '../src/data/exercises/fr';
 import { EXERCISES as PL } from '../src/data/exercises/pl';
 import { EXERCISES as PT } from '../src/data/exercises/pt';
@@ -20,14 +21,15 @@ import { SEED_LANGUAGES } from '../src/data/seed';
 import type { Exercise } from '../src/types';
 
 // Vollständig halten: Ein hier fehlender Katalog geht ungeprüft live.
-// Italienisch liegt in einem Modul pro Stufe, wird hier aber als ein Katalog
-// geprüft: Doppelte IDs und doppelte Aufgaben sollen auch dann auffallen,
-// wenn sie über zwei Dateien verteilt sind.
+// Italienisch und Spanisch liegen in einem Modul pro Stufe, werden hier aber
+// als ein Katalog geprüft: Doppelte IDs und doppelte Aufgaben sollen auch dann
+// auffallen, wenn sie über mehrere Dateien verteilt sind.
 const IT: Exercise[] = [...IT_A1_SETTIMANA1, ...IT_A1, ...IT_A2, ...IT_B1, ...IT_B2];
+const ES: Exercise[] = [...ES_SEMANA1, ...ES_A1];
 
 const CATALOGS: { file: string; exercises: Exercise[] }[] = [
   { file: 'src/data/exercises/it*.ts', exercises: IT },
-  { file: 'src/data/exercises/es.ts', exercises: ES },
+  { file: 'src/data/exercises/es*.ts', exercises: ES },
   { file: 'src/data/exercises/fr.ts', exercises: FR },
   { file: 'src/data/exercises/pl.ts', exercises: PL },
   { file: 'src/data/exercises/pt.ts', exercises: PT },
@@ -50,11 +52,15 @@ function norm(s: string): string {
  * Wörter einer Order-Aufgabe, vergleichbar sortiert. Satzzeichen fallen weg,
  * das Apostroph bleibt als eigenes Zeichen stehen: "l’autobus" wird sonst je
  * nach Zeile mal als ein, mal als zwei Teile gezählt.
+ *
+ * Die spanischen Eröffnungszeichen ¿ und ¡ zählen mit als Satzzeichen. Sie
+ * dürfen als eigene Karte in der Aufgabe stehen – sie zu setzen ist Teil der
+ * Übung –, ohne dass der Abgleich mit der Lösung daran scheitert.
  */
 function tokens(s: string): string[] {
   return s
     .toLowerCase()
-    .replace(/[.,!?;:«»"]/g, ' ')
+    .replace(/[.,!?;:«»"¿¡]/g, ' ')
     .replace(/’/g, '’ ')
     .split(/\s+/)
     .filter(Boolean)

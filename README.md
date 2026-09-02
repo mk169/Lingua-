@@ -296,34 +296,37 @@ danebenliegende `<lang>.generated.ts`, die das Skript überschreibt. Beide werde
 zusammengeführt und über einen dynamischen `import()` erst auf dem Drills-Screen geladen —
 der Katalog landet so in einem eigenen Chunk und nicht im Hauptbundle.
 
-Aktuell im Repo: **9540 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
+Aktuell im Repo: **11340 Übungen**, jeweils 50 Beispielsätze, 50 Konstruktions- und
 50 Verständnisübungen pro Muster, dazu 60 Wortschatzübungen pro Stufe.
 **Italienisch ist vollständig** – alle 56 Muster von A1 bis B2 haben Material, und der
-Wortschatz ist für A1, A2, B1 und B2 abgedeckt.
+Wortschatz ist für A1, A2, B1 und B2 abgedeckt. **Spanisch ist auf A1 vollständig**;
+A2 bis B2 fehlen noch, ebenso die spanischen Wortschatzübungen.
 
 | Sprache | Muster mit Übungen | Übungen | offen |
 | --- | --- | --- | --- |
 | Italienisch | 56 von 56 | 8640 | — |
-| Spanisch | 2 von 55 | 300 | 53 Muster ab der Entscheidungsfrage |
+| Spanisch | 14 von 55 | 2100 | A2, B1, B2 sowie der Wortschatz |
 | Französisch | 2 von 56 | 300 | 54 Muster ab „est-ce que“ |
 | Polnisch | 2 von 56 | 300 | 54 Muster ab der czy-Frage |
 | Portugiesisch | 0 von 53 | 0 | das komplette Skelett |
 
-Das **Skelett steht für alle fünf Sprachen bis B2**; bei den übrigen vier ist der Inhalt
-noch der Rückstand: 214 der 276 Muster haben kein Material. Die Slugs liegen bereits, es
+Das **Skelett steht für alle fünf Sprachen bis B2**; bei den übrigen ist der Inhalt
+noch der Rückstand: 202 der 276 Muster haben kein Material. Die Slugs liegen bereits, es
 fehlt nur der Inhalt, von Hand oder aus einem Lauf des Generators. Der Reihe nach kommen
 zuerst die A1/A2-Muster, weil dort der erste Sprint jeder Sprache läuft.
 
 Der italienische Katalog liegt in **einem Modul pro Stufe** — `it.ts` (erste Sprintwoche
-und Wortschatz A1), `it.a1.ts` (zweite Woche), `it.a2.ts`, `it.b1.ts`, `it.b2.ts`. Das hat
+und Wortschatz A1), `it.a1.ts` (zweite Woche), `it.a2.ts`, `it.b1.ts`, `it.b2.ts`. Spanisch
+folgt derselben Aufteilung (`es.ts`, `es.a1.ts`; A2–B2 noch offen). Das hat
 zwei Gründe: 8640 Übungen in einer einzigen Datei wären im Diff nicht mehr zu prüfen, und
 `loadExercises(sprache, stufen)` lädt so nur die Module, die der Sprint wirklich braucht.
 Ein Anfänger holt sich A1 und A2 (~120 kB gzip) statt des ganzen Katalogs bis B2 (~240 kB);
 ein B1-Sprint lädt B1 allein. Welche Stufen das sind, sagt `levelsCovered` in `phase.ts` —
 Spanne vom Einstieg bis zum Ziel, plus die Stufen, die der laufende Sprint mit abdeckt.
 
-Der Validator prüft die Module trotzdem als **einen** Katalog: Doppelte IDs und doppelte
-Aufgaben sollen auch dann auffallen, wenn sie über zwei Dateien verteilt sind.
+Der Validator prüft die Module einer Sprache trotzdem als **einen** Katalog: Doppelte IDs
+und doppelte Aufgaben sollen auch dann auffallen, wenn sie über mehrere Dateien verteilt
+sind.
 
 ---
 

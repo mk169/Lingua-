@@ -20,7 +20,7 @@ export async function loadExercises(
     case 'Italienisch':
       return loadItalian(levels);
     case 'Spanisch':
-      return (await import('./es')).EXERCISES;
+      return loadSpanish(levels);
     case 'Französisch':
       return (await import('./fr')).EXERCISES;
     case 'Polnisch':
@@ -50,7 +50,35 @@ const ITALIAN_LEVELS: Record<CefrLevel, () => Promise<Exercise[]>> = {
 };
 
 async function loadItalian(levels?: CefrLevel[]): Promise<Exercise[]> {
-  const wanted = levels?.length ? levels : (Object.keys(ITALIAN_LEVELS) as CefrLevel[]);
-  const geladen = await Promise.all(wanted.map((level) => ITALIAN_LEVELS[level]()));
+  return ladeStufen(ITALIAN_LEVELS, levels);
+}
+
+/**
+ * Spanisch folgt derselben Aufteilung.
+ *
+ * A1 zieht `es.ts` (erste Sprintwoche plus der generierte Anteil) und
+ * `es.a1.ts` (zweite Woche). A2 bis B2 sind noch nicht geschrieben und liefern
+ * bis dahin eine leere Liste – der Screen zeigt dann nur, was es gibt.
+ */
+const SPANISH_LEVELS: Record<CefrLevel, () => Promise<Exercise[]>> = {
+  A1: async () => {
+    const [woche1, woche2] = await Promise.all([import('./es'), import('./es.a1')]);
+    return [...woche1.EXERCISES, ...woche2.EXERCISES_A1];
+  },
+  A2: async () => [],
+  B1: async () => [],
+  B2: async () => [],
+};
+
+async function loadSpanish(levels?: CefrLevel[]): Promise<Exercise[]> {
+  return ladeStufen(SPANISH_LEVELS, levels);
+}
+
+async function ladeStufen(
+  module: Record<CefrLevel, () => Promise<Exercise[]>>,
+  levels?: CefrLevel[],
+): Promise<Exercise[]> {
+  const wanted = levels?.length ? levels : (Object.keys(module) as CefrLevel[]);
+  const geladen = await Promise.all(wanted.map((level) => module[level]()));
   return geladen.flat();
 }

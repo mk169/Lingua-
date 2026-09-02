@@ -67,3 +67,28 @@ describe('Übungskatalog nach Stufen', () => {
     expect(await loadExercises('Klingonisch')).toEqual([]);
   });
 });
+
+describe('Spanischer Katalog', () => {
+  it('deckt A1 vollständig ab und liefert nur A1-Material', async () => {
+    const a1 = await loadExercises('Spanisch', ['A1']);
+    expect(a1.length).toBeGreaterThan(0);
+    for (const ex of a1) {
+      expect(ex.patternSlug ? levelOf(ex.patternSlug) : ex.level).toBe('A1');
+    }
+    // Beide Sprintwochen: Woche 1 aus es.ts, Woche 2 aus es.a1.ts.
+    expect(a1.some((e) => e.patternSlug === 'es-svo')).toBe(true);
+    expect(a1.some((e) => e.patternSlug === 'es-gustar')).toBe(true);
+
+    const mitUebungen = new Set(a1.map((e) => e.patternSlug).filter(Boolean));
+    const a1ImPaket = SEED_LANGUAGES.find((l) => l.name === 'Spanisch')!
+      .patterns.filter((p) => (p.level ?? 'A1') === 'A1')
+      .map((p) => p.slug)
+      .filter((s): s is string => !!s);
+    expect(a1ImPaket.filter((slug) => !mitUebungen.has(slug))).toEqual([]);
+  });
+
+  it('vergibt über beide A1-Module hinweg eindeutige IDs', async () => {
+    const a1 = await loadExercises('Spanisch', ['A1']);
+    expect(new Set(a1.map((e) => e.id)).size).toBe(a1.length);
+  });
+});
