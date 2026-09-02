@@ -87,8 +87,23 @@ describe('Spanischer Katalog', () => {
     expect(a1ImPaket.filter((slug) => !mitUebungen.has(slug))).toEqual([]);
   });
 
-  it('vergibt über beide A1-Module hinweg eindeutige IDs', async () => {
-    const a1 = await loadExercises('Spanisch', ['A1']);
-    expect(new Set(a1.map((e) => e.id)).size).toBe(a1.length);
+  it('deckt A2 vollständig ab und liefert nur A2-Material', async () => {
+    const a2 = await loadExercises('Spanisch', ['A2']);
+    expect(a2.length).toBeGreaterThan(0);
+    for (const ex of a2) {
+      expect(ex.patternSlug ? levelOf(ex.patternSlug) : ex.level).toBe('A2');
+    }
+
+    const mitUebungen = new Set(a2.map((e) => e.patternSlug).filter(Boolean));
+    const a2ImPaket = SEED_LANGUAGES.find((l) => l.name === 'Spanisch')!
+      .patterns.filter((p) => p.level === 'A2')
+      .map((p) => p.slug)
+      .filter((s): s is string => !!s);
+    expect(a2ImPaket.filter((slug) => !mitUebungen.has(slug))).toEqual([]);
+  });
+
+  it('vergibt über alle Stufenmodule hinweg eindeutige IDs', async () => {
+    const alle = await loadExercises('Spanisch');
+    expect(new Set(alle.map((e) => e.id)).size).toBe(alle.length);
   });
 });

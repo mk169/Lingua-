@@ -14,6 +14,7 @@ import { EXERCISES_B1 as IT_B1 } from '../src/data/exercises/it.b1';
 import { EXERCISES_B2 as IT_B2 } from '../src/data/exercises/it.b2';
 import { EXERCISES as ES_SEMANA1 } from '../src/data/exercises/es';
 import { EXERCISES_A1 as ES_A1 } from '../src/data/exercises/es.a1';
+import { EXERCISES_A2 as ES_A2 } from '../src/data/exercises/es.a2';
 import { EXERCISES as FR } from '../src/data/exercises/fr';
 import { EXERCISES as PL } from '../src/data/exercises/pl';
 import { EXERCISES as PT } from '../src/data/exercises/pt';
@@ -25,7 +26,7 @@ import type { Exercise } from '../src/types';
 // als ein Katalog geprüft: Doppelte IDs und doppelte Aufgaben sollen auch dann
 // auffallen, wenn sie über mehrere Dateien verteilt sind.
 const IT: Exercise[] = [...IT_A1_SETTIMANA1, ...IT_A1, ...IT_A2, ...IT_B1, ...IT_B2];
-const ES: Exercise[] = [...ES_SEMANA1, ...ES_A1];
+const ES: Exercise[] = [...ES_SEMANA1, ...ES_A1, ...ES_A2];
 
 const CATALOGS: { file: string; exercises: Exercise[] }[] = [
   { file: 'src/data/exercises/it*.ts', exercises: IT },

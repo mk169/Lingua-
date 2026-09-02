@@ -57,7 +57,7 @@ async function loadItalian(levels?: CefrLevel[]): Promise<Exercise[]> {
  * Spanisch folgt derselben Aufteilung.
  *
  * A1 zieht `es.ts` (erste Sprintwoche plus der generierte Anteil) und
- * `es.a1.ts` (zweite Woche). A2 bis B2 sind noch nicht geschrieben und liefern
+ * `es.a1.ts` (zweite Woche). B1 und B2 sind noch nicht geschrieben und liefern
  * bis dahin eine leere Liste – der Screen zeigt dann nur, was es gibt.
  */
 const SPANISH_LEVELS: Record<CefrLevel, () => Promise<Exercise[]>> = {
@@ -65,7 +65,7 @@ const SPANISH_LEVELS: Record<CefrLevel, () => Promise<Exercise[]>> = {
     const [woche1, woche2] = await Promise.all([import('./es'), import('./es.a1')]);
     return [...woche1.EXERCISES, ...woche2.EXERCISES_A1];
   },
-  A2: async () => [],
+  A2: async () => (await import('./es.a2')).EXERCISES_A2,
   B1: async () => [],
   B2: async () => [],
 };
